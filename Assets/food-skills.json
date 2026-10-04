@@ -1,0 +1,344 @@
+[
+  {
+    "Id": 2,
+    "English": "Felyne Heroics",
+    "Japanese": "ネコの火事場力",
+    "Chinese": "猫的火场怪力"
+  },
+  {
+    "Id": -1,
+    "Japanese": "なし",
+    "English": "None",
+    "Chinese": "无"
+  },
+  {
+    "Id": 0,
+    "Japanese": "ネコの研磨術",
+    "English": "Felyne Polisher",
+    "Chinese": "猫的研磨术"
+  },
+  {
+    "Id": 1,
+    "Japanese": "ネコの乗り上手",
+    "English": "Felyne Rider",
+    "Chinese": "猫的骑乘好手"
+  },
+  {
+    "Id": 3,
+    "Japanese": "ネコの解体術【大】",
+    "English": "Felyne Carver (Hi)",
+    "Chinese": "猫的解体术【大】"
+  },
+  {
+    "Id": 4,
+    "Japanese": "ネコの解体術【小】",
+    "English": "Felyne Carver (Lo)",
+    "Chinese": "猫的解体术【小】"
+  },
+  {
+    "Id": 5,
+    "Japanese": "ネコの医療術",
+    "English": "Felyne Medic",
+    "Chinese": "猫的医疗术"
+  },
+  {
+    "Id": 6,
+    "Japanese": "ネコの体術",
+    "English": "Felyne Black Belt",
+    "Chinese": "猫的体术"
+  },
+  {
+    "Id": 7,
+    "Japanese": "ネコの火薬術",
+    "English": "Felyne Pyro",
+    "Chinese": "猫的火药术"
+  },
+  {
+    "Id": 8,
+    "Japanese": "ネコの特殊攻撃術",
+    "English": "Felyne Specialist",
+    "Chinese": "猫的特殊攻击术"
+  },
+  {
+    "Id": 9,
+    "Japanese": "ネコの防御術【大】",
+    "English": "Felyne Defender (Hi)",
+    "Chinese": "猫的防御术【大】"
+  },
+  {
+    "Id": 10,
+    "Japanese": "ネコの防御術【小】",
+    "English": "Felyne Defender (Lo)",
+    "Chinese": "猫的防御术【小】"
+  },
+  {
+    "Id": 11,
+    "Japanese": "ネコの収穫祭",
+    "English": "Felyne Harvester",
+    "Chinese": "猫的收获祭"
+  },
+  {
+    "Id": 12,
+    "Japanese": "ネコの射撃術",
+    "English": "Felyne Sharpshooter",
+    "Chinese": "猫的射击术"
+  },
+  {
+    "Id": 13,
+    "Japanese": "招きネコの幸運",
+    "English": "Lucky Cat",
+    "Chinese": "招财猫的幸运"
+  },
+  {
+    "Id": 14,
+    "Japanese": "ネコのはじかれ上手",
+    "English": "Felyne Deflector",
+    "Chinese": "猫的弹武好手"
+  },
+  {
+    "Id": 15,
+    "Japanese": "ネコの逃走術",
+    "English": "Felyne Escape Artist",
+    "Chinese": "猫的逃走术"
+  },
+  {
+    "Id": 16,
+    "Japanese": "ネコの宅配術",
+    "English": "Felyne Sprinter",
+    "Chinese": "猫的宅配术"
+  },
+  {
+    "Id": 17,
+    "Japanese": "ネコの運搬の鉄人",
+    "English": "Felynebacker",
+    "Chinese": "猫的搬运铁人"
+  },
+  {
+    "Id": 18,
+    "Japanese": "ネコの弱いの来い！",
+    "English": "Felyne Weakener",
+    "Chinese": "猫的弱小招来！"
+  },
+  {
+    "Id": 19,
+    "Japanese": "ネコの換算術",
+    "English": "Felyne Exchanger",
+    "Chinese": "猫的换算术"
+  },
+  {
+    "Id": 20,
+    "Japanese": "ネコの起上り術【大】",
+    "English": "Felyne Riser (Hi)",
+    "Chinese": "猫的起身术【大】"
+  },
+  {
+    "Id": 21,
+    "Japanese": "ネコの起上り術【小】",
+    "English": "Felyne Riser (Lo)",
+    "Chinese": "猫的起身术【小】"
+  },
+  {
+    "Id": 22,
+    "Japanese": "ネコの暴れ撃ち",
+    "English": "Felyne Temper",
+    "Chinese": "猫的粗暴射击"
+  },
+  {
+    "Id": 23,
+    "Japanese": "ネコのツタ登り達人",
+    "English": "Felyne Cliffhanger",
+    "Chinese": "猫的攀爬藤蔓达人"
+  },
+  {
+    "Id": 24,
+    "Japanese": "ネコのはりつき鉄人",
+    "English": "Felyne Gripper",
+    "Chinese": "猫的紧抓不放铁人"
+  },
+  {
+    "Id": 25,
+    "Japanese": "ネコの解体の鉄人",
+    "English": "Felyne Iron Carver",
+    "Chinese": "猫的解体铁人"
+  },
+  {
+    "Id": 26,
+    "Japanese": "ネコの着地術",
+    "English": "Felyne Lander",
+    "Chinese": "猫的着地术"
+  },
+  {
+    "Id": 27,
+    "Japanese": "ネコのゴリ押し術",
+    "English": "Felyne Bulldozer",
+    "Chinese": "猫的蛮干术"
+  },
+  {
+    "Id": 28,
+    "Japanese": "ネコのおまけ術",
+    "English": "Felyne Foodie",
+    "Chinese": "猫的赠品术"
+  },
+  {
+    "Id": 29,
+    "Japanese": "ネコのＫＯ術",
+    "English": "Felyne Slugger",
+    "Chinese": "猫的击晕术"
+  },
+  {
+    "Id": 30,
+    "Japanese": "招きネコの金運",
+    "English": "Felyne Fat Cat",
+    "Chinese": "招财猫的财运"
+  },
+  {
+    "Id": 31,
+    "Japanese": "ネコの砲撃術",
+    "English": "Felyne Bombardier",
+    "Chinese": "猫的炮击术"
+  },
+  {
+    "Id": 32,
+    "Japanese": "ネコのド根性",
+    "English": "Felyne Moxie",
+    "Chinese": "猫的大毅力"
+  },
+  {
+    "Id": 33,
+    "Japanese": "ネコのこやし玉達人",
+    "English": "Felyne Dungmaster",
+    "Chinese": "猫的异臭球达人"
+  },
+  {
+    "Id": 34,
+    "Japanese": "ネコの毛づくろい上手",
+    "English": "Felyne Groomer",
+    "Chinese": "猫的理毛好手"
+  },
+  {
+    "Id": 35,
+    "Japanese": "ネコの長靴術",
+    "English": "Felyne Fur Coating",
+    "Chinese": "猫的长靴术"
+  },
+  {
+    "Id": 36,
+    "Japanese": "ネコの受け身術",
+    "English": "Felyne Acrobat",
+    "Chinese": "猫的受身术"
+  },
+  {
+    "Id": 38,
+    "Japanese": "ネコのオトモ指導術",
+    "English": "Felyne Trainer",
+    "Chinese": "猫的随从指导术"
+  },
+  {
+    "Id": 39,
+    "Japanese": "ネコの短期催眠術",
+    "English": "Felyne Booster",
+    "Chinese": "猫的短期催眠术"
+  },
+  {
+    "Id": 40,
+    "Japanese": "ネコのふんばり術",
+    "English": "Felyne Feet",
+    "Chinese": "猫的坚定不移术"
+  },
+  {
+    "Id": 41,
+    "Japanese": "ネコの釣り上手",
+    "English": "Felyne Fisher",
+    "Chinese": "猫的钓鱼好手"
+  },
+  {
+    "Id": 42,
+    "Japanese": "ネコの休憩術",
+    "English": "Cool Cat",
+    "Chinese": "猫的休息术"
+  },
+  {
+    "Id": 43,
+    "Japanese": "ネコの報酬金保険",
+    "English": "Felyne Insurance",
+    "Chinese": "猫的报酬金保险"
+  },
+  {
+    "Id": 44,
+    "Japanese": "ネコの憎まれ上手",
+    "English": "Felyne Provoker",
+    "Chinese": "猫的吸引仇恨好手"
+  },
+  {
+    "Id": 45,
+    "Japanese": "ネコのあとは任せた！",
+    "English": "Felyne Parting Gift",
+    "Chinese": "猫的后面交给你们了！"
+  },
+  {
+    "Id": 46,
+    "Japanese": "ネコの探索日和",
+    "English": "Felyne Researcher",
+    "Chinese": "猫的探索好天气"
+  },
+  {
+    "Id": 47,
+    "Japanese": "ネコの天気予報",
+    "English": "Felyne Weathercat",
+    "Chinese": "猫的天气预报"
+  },
+  {
+    "Id": 48,
+    "Japanese": "ネコのスパイク靴",
+    "English": "Felyne Cleats",
+    "Chinese": "猫的防滑鞋"
+  },
+  {
+    "Id": 49,
+    "Japanese": "ネコの裁縫術",
+    "English": "Felyne Tailor",
+    "Chinese": "猫的裁缝术"
+  },
+  {
+    "Id": 50,
+    "Japanese": "ネコの生命保険",
+    "English": "Felyne Safeguard",
+    "Chinese": "猫的生命保险"
+  },
+  {
+    "Id": 51,
+    "Japanese": "ネコの園芸術",
+    "English": "Felyne Gardener",
+    "Chinese": "猫的园艺术"
+  },
+  {
+    "Id": 52,
+    "Japanese": "ネコのおこぼれ術",
+    "English": "Felyne Scavenger",
+    "Chinese": "猫的残余术"
+  },
+  {
+    "Id": 53,
+    "Japanese": "ネコの生物博士",
+    "English": "Felyne Zoomaster",
+    "Chinese": "猫的生物博士"
+  },
+  {
+    "Id": 54,
+    "Japanese": "ネコの生物学者",
+    "English": "Felyne Biologist",
+    "Chinese": "猫的生物学者"
+  },
+  {
+    "Id": 55,
+    "Japanese": "ネコの大きさ自慢",
+    "English": "Felyne Macrozoologist",
+    "Chinese": "猫的大型吸引"
+  },
+  {
+    "Id": 56,
+    "Japanese": "ネコの小ささ自慢",
+    "English": "Felyne Microzoologist",
+    "Chinese": "猫的小型吸引"
+  }
+]

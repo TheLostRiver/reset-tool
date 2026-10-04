@@ -1,0 +1,4098 @@
+[
+  {
+    "Id": 1606,
+    "Category": "任务",
+    "Chinese": "目中无人的家伙来了！",
+    "English": "Return of the Crazy One",
+    "Japanese": "傍若無人がやって来た！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1605,
+    "Category": "任务",
+    "Chinese": "与心爱的你行至世界尽头",
+    "English": "To the Very Ends with You",
+    "Japanese": "愛しの君とこの世のはたて",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1604,
+    "Category": "任务",
+    "Chinese": "贯彻武道家魂！！",
+    "English": "Big Burly Bash",
+    "Japanese": "つらぬけ、武道家魂！！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1603,
+    "Category": "任务",
+    "Chinese": "惰眠与火酒的日子",
+    "English": "Sleep Now in the Fire",
+    "Japanese": "惰眠と火酒の日々",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1602,
+    "Category": "任务",
+    "Chinese": "引导之歌",
+    "English": "Paean of Guidance",
+    "Japanese": "導きの歌",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1601,
+    "Category": "任务",
+    "Chinese": "引导者之歌",
+    "English": "To The Guided, A Paean",
+    "Japanese": "導かれた者の歌",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1504,
+    "Category": "任务",
+    "Chinese": "直至点亮溟海指标",
+    "English": "A Light From The Abyss",
+    "Japanese": "溟にしるべがともるまで",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1503,
+    "Category": "任务",
+    "Chinese": "雾瘴尸套龙",
+    "English": "Under the Veil of Death",
+    "Japanese": "死を纏うヴァルハザク",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1502,
+    "Category": "任务",
+    "Chinese": "大灾难，再次到来！",
+    "English": "The Second Coming",
+    "Japanese": "大災難、大再来",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1501,
+    "Category": "任务",
+    "Chinese": "冰之龙",
+    "English": "The Iceborne Wyvern",
+    "Japanese": "冰の龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1405,
+    "Category": "任务",
+    "Chinese": "暴徒大将的狩猎大作战！",
+    "English": "The Thunderous Troublemaker!",
+    "Japanese": "暴れん坊大将狩猟大作戦！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1404,
+    "Category": "任务",
+    "Chinese": "月辰防卫战",
+    "English": "The Defense of Seliana",
+    "Japanese": "セリエナ防衛戦",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1403,
+    "Category": "任务",
+    "Chinese": "凶终隙末·凶爪龙",
+    "English": "Bad Friends, Great Enemies",
+    "Japanese": "兇終隙末・オドガロン亜種",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1402,
+    "Category": "任务",
+    "Chinese": "腐蚀之刃·硫斩龙",
+    "English": "The Disintegrating Blade",
+    "Japanese": "腐食の刃・ディノバルド亜種",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1401,
+    "Category": "任务",
+    "Chinese": "剎那白雾",
+    "English": "When the Mist Taketh You",
+    "Japanese": "刹那の白霧",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1306,
+    "Category": "任务",
+    "Chinese": "来自冰炎一线间",
+    "English": "A Tale of Ice and Fire",
+    "Japanese": "氷と炎のはざまより",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1305,
+    "Category": "任务",
+    "Chinese": "粉碎的迎击拳",
+    "English": "A Smashing Cross Counter",
+    "Japanese": "粉砕のクロスカウンター",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1304,
+    "Category": "任务",
+    "Chinese": "绝对强者",
+    "English": "Absolute Power",
+    "Japanese": "絶対強者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1303,
+    "Category": "任务",
+    "Chinese": "灼热之刃，斩龙！",
+    "English": "The Scorching Blade",
+    "Japanese": "灼熱の刃、ディノバルド！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1302,
+    "Category": "任务",
+    "Chinese": "绝影",
+    "English": "Ever-present Shadow",
+    "Japanese": "絶影",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1301,
+    "Category": "任务",
+    "Chinese": "冰冻王国的白骑士",
+    "English": "Blizzard Blitz",
+    "Japanese": "凍てつく国の白い騎士",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1203,
+    "Category": "任务",
+    "Chinese": "占领饮水处吧！",
+    "English": "Play Both Ends",
+    "Japanese": "水飲ミ場ヲ占拠セヨ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1202,
+    "Category": "任务",
+    "Chinese": "眠之飞龙与四颗眼珠",
+    "English": "No Time for Naps",
+    "Japanese": "ねむりの飛竜とよっつの目玉",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1201,
+    "Category": "任务",
+    "Chinese": "冰土守门者·痹毒龙",
+    "English": "Ready to Strike",
+    "Japanese": "氷土の番人・トビカガチ亜種",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1102,
+    "Category": "任务",
+    "Chinese": "粗活就交给猛牛龙",
+    "English": "Banbaro Blockade",
+    "Japanese": "力仕事はバフバロにお任せ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1101,
+    "Category": "任务",
+    "Chinese": "初次洗礼！？",
+    "English": "Baptism by Ice",
+    "Japanese": "はじまりの洗礼！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 971,
+    "Category": "任务",
+    "Chinese": "此雷鸣是天罚？亦或是祝福？",
+    "English": "Thunderous Rumble in the Highlands",
+    "Japanese": "その雷鳴は天罰か、祝福か",
+    "Wingdrake": false
+  },
+  {
+    "Id": 961,
+    "Category": "任务",
+    "Chinese": "超越爆鳞之道",
+    "English": "Beyond the Blasting Scales",
+    "Japanese": "爆ぜる鱗を超えた道",
+    "Wingdrake": false
+  },
+  {
+    "Id": 806,
+    "Category": "任务",
+    "Chinese": "此雷鸣是天罚？亦或是祝福？",
+    "English": "Thunderous Rumble in the Highlands",
+    "Japanese": "その雷鳴は天罰か、祝福か",
+    "Wingdrake": false
+  },
+  {
+    "Id": 805,
+    "Category": "任务",
+    "Chinese": "超越爆鳞之道",
+    "English": "Beyond the Blasting Scales",
+    "Japanese": "爆ぜる鱗を超えた道",
+    "Wingdrake": false
+  },
+  {
+    "Id": 804,
+    "Category": "任务",
+    "Chinese": "收束之地",
+    "English": "Land of Convergence",
+    "Japanese": "収束の地",
+    "Wingdrake": false
+  },
+  {
+    "Id": 803,
+    "Category": "任务",
+    "Chinese": "冥底的尸套龙",
+    "English": "Hellish Fiend Vaal Hazak",
+    "Japanese": "冥底のヴァルハザク",
+    "Wingdrake": false
+  },
+  {
+    "Id": 802,
+    "Category": "任务",
+    "Chinese": "爆炎的炎王龙",
+    "English": "Teostra the Infernal",
+    "Japanese": "爆炎のテオ・テスカトル",
+    "Wingdrake": false
+  },
+  {
+    "Id": 801,
+    "Category": "任务",
+    "Chinese": "钢铁的钢龙",
+    "English": "Kushala Daora, Dragon of Steel",
+    "Japanese": "鋼鉄のクシャルダオラ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 701,
+    "Category": "任务",
+    "Chinese": "渴望的黑创",
+    "English": "A Wound and a Thirst",
+    "Japanese": "渇望の黒創",
+    "Wingdrake": false
+  },
+  {
+    "Id": 607,
+    "Category": "任务",
+    "Chinese": "神秘王国的女王",
+    "English": "Old World Monster in the New World",
+    "Japanese": "不思議の国の女王",
+    "Wingdrake": false
+  },
+  {
+    "Id": 605,
+    "Category": "任务",
+    "Chinese": "暴徒变得更粗暴了",
+    "English": "Tickled Pink",
+    "Japanese": "暴れん坊、さらに暴れる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 601,
+    "Category": "任务",
+    "Chinese": "惊愕的！毒妖鸟！调查！",
+    "English": "Invader in the Waste",
+    "Japanese": "驚愕の！　プケプケ！　調査！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 504,
+    "Category": "任务",
+    "Chinese": "熔山龙诱导作战",
+    "English": "A Colossal Task",
+    "Japanese": "ゾラ・マグダラオス誘導作戦",
+    "Wingdrake": false
+  },
+  {
+    "Id": 503,
+    "Category": "任务",
+    "Chinese": "角龙为沙地之底",
+    "English": "Horned Tyrant Below the Sands",
+    "Japanese": "角の竜は砂の底",
+    "Wingdrake": false
+  },
+  {
+    "Id": 502,
+    "Category": "任务",
+    "Chinese": "火龙为森林之顶",
+    "English": "A Fiery Throne Atop the Forest",
+    "Japanese": "火の竜は森の頂",
+    "Wingdrake": false
+  },
+  {
+    "Id": 501,
+    "Category": "任务",
+    "Chinese": "深入谷底",
+    "English": "Into the Bowels of the Vale",
+    "Japanese": "谷の底にて待ち受けたるは",
+    "Wingdrake": false
+  },
+  {
+    "Id": 408,
+    "Category": "任务",
+    "Chinese": "华丽猎人·风漂龙",
+    "English": "Legiana: Embodiment of Elegance",
+    "Japanese": "華麗なるハンター・レイギエナ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 407,
+    "Category": "任务",
+    "Chinese": "狩猎骨锤龙为粉身碎骨之战！",
+    "English": "Radobaan Roadblock",
+    "Japanese": "ラドバルキン狩猟は粉骨砕身！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 405,
+    "Category": "任务",
+    "Chinese": "飞吧，浮空龙！",
+    "English": "Ballooning Problems",
+    "Japanese": "飛べ、パオウルムー！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 401,
+    "Category": "任务",
+    "Chinese": "熔山龙捕获作战",
+    "English": "One for the History Books",
+    "Japanese": "ゾラ・マグダラオス捕獲作戦",
+    "Wingdrake": false
+  },
+  {
+    "Id": 306,
+    "Category": "任务",
+    "Chinese": "森林暴徒·蛮颚龙",
+    "English": "The Encroaching Anjanath",
+    "Japanese": "森の暴れん坊・アンジャナフ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 305,
+    "Category": "任务",
+    "Chinese": "雷电奔走的飞雷龙",
+    "English": "Flying Sparks: Tobi-Kadachi",
+    "Japanese": "電影走るはトビカガチ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 302,
+    "Category": "任务",
+    "Chinese": "险恶的沼泽",
+    "English": "Sinister Shadows in the Swamp",
+    "Japanese": "不穏の沼影",
+    "Wingdrake": false
+  },
+  {
+    "Id": 301,
+    "Category": "任务",
+    "Chinese": "横冲直撞的狂徒们！？",
+    "English": "The Best Kind of Quest",
+    "Japanese": "猪突猛進の輩達！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 205,
+    "Category": "任务",
+    "Chinese": "紧急任务·狩猎毒妖鸟",
+    "English": "Urgent: Pukei-Pukei Hunt",
+    "Japanese": "緊急任務・プケプケの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 201,
+    "Category": "任务",
+    "Chinese": "致力于设置营地",
+    "English": "Bird-Brained Bandit",
+    "Japanese": "キャンプ設営は命がけ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 103,
+    "Category": "任务",
+    "Chinese": "狩猎大贼龙吧",
+    "English": "The Great Jagras Hunt",
+    "Japanese": "ドスジャグラスを狩猟せよ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 102,
+    "Category": "任务",
+    "Chinese": "冠突龙骚动中",
+    "English": "A Kestodon Kerfuffle",
+    "Japanese": "ケストドンは不穏と共に",
+    "Wingdrake": false
+  },
+  {
+    "Id": 101,
+    "Category": "任务",
+    "Chinese": "贼龙与古代树森林",
+    "English": "Jagras of the Ancient Forest",
+    "Japanese": "ジャグラスと古代樹の森",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50991,
+    "Category": "下位上位自由",
+    "Chinese": "来自艾欧泽亚的访客",
+    "English": "A Visitor from Eorzea",
+    "Japanese": "エオルゼアからの来訪者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50892,
+    "Category": "下位上位自由",
+    "Chinese": "搅乱妃心之风",
+    "English": "Blue Prominence",
+    "Japanese": "青のプロミネンス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50891,
+    "Category": "下位上位自由",
+    "Chinese": "搅乱妃心之风",
+    "English": "Blue Prominence",
+    "Japanese": "青のプロミネンス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50861,
+    "Category": "下位上位自由",
+    "Chinese": "炎王龙与炎妃龙",
+    "English": "Infernal Monarchy",
+    "Japanese": "炎王龍と炎妃龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50751,
+    "Category": "下位上位自由",
+    "Chinese": "你我都是食物链",
+    "English": "Today's Special: Hunter Flambé",
+    "Japanese": "あなたも私も食物連鎖",
+    "Wingdrake": false
+  },
+  {
+    "Id": 5003,
+    "Category": "下位上位自由",
+    "Chinese": "击退眩鸟吧！",
+    "English": "Troubled Troupers",
+    "Japanese": "ツィツィヤックをやっつけろ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1281,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎骨锤龙",
+    "English": "No Laughing Matter",
+    "Japanese": "ラドバルキンの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 998,
+    "Category": "下位上位自由",
+    "Chinese": "在深渊之底呼唤你",
+    "English": "A Summons from Below",
+    "Japanese": "奈落にて君を喚ぶ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 997,
+    "Category": "下位上位自由",
+    "Chinese": "新大陆的空与花",
+    "English": "New World Sky, New World Flower",
+    "Japanese": "新大陸の空と花",
+    "Wingdrake": false
+  },
+  {
+    "Id": 996,
+    "Category": "下位上位自由",
+    "Chinese": "泥土与骨锤的激烈大战",
+    "English": "Showdown: the Muck and the Maul",
+    "Japanese": "泥土と骨鎚の激突合戦！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 995,
+    "Category": "下位上位自由",
+    "Chinese": "指引明路的苍蓝星",
+    "English": "The Sapphire Star's Guidance",
+    "Japanese": "導きの青い星",
+    "Wingdrake": false
+  },
+  {
+    "Id": 992,
+    "Category": "下位上位自由",
+    "Chinese": "新大陆的白风",
+    "English": "The White Winds of the New World",
+    "Japanese": "新大陸の白き風",
+    "Wingdrake": false
+  },
+  {
+    "Id": 991,
+    "Category": "下位上位自由",
+    "Chinese": "在冥河中揭起灯火",
+    "English": "A Light Upon the River's Gloom",
+    "Japanese": "冥き河にて灯火掲げん",
+    "Wingdrake": false
+  },
+  {
+    "Id": 896,
+    "Category": "下位上位自由",
+    "Chinese": "业火之瑕因缘不浅",
+    "English": "The Fires of Hell Bite Deep",
+    "Japanese": "業火の疵は浅からぬ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 895,
+    "Category": "下位上位自由",
+    "Chinese": "飓风之瑕因缘不浅",
+    "English": "The Winds of Wrath Bite Deep",
+    "Japanese": "颶風の疵は浅からぬ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 894,
+    "Category": "下位上位自由",
+    "Chinese": "噬焰者",
+    "English": "The Eater of Elders",
+    "Japanese": "古を喰らうもの",
+    "Wingdrake": false
+  },
+  {
+    "Id": 893,
+    "Category": "下位上位自由",
+    "Chinese": "狱炎的牙城",
+    "English": "Hellfire's Stronghold",
+    "Japanese": "獄炎の牙城",
+    "Wingdrake": false
+  },
+  {
+    "Id": 892,
+    "Category": "下位上位自由",
+    "Chinese": "暴风之主",
+    "English": "Master of the Gale",
+    "Japanese": "暴風の主",
+    "Wingdrake": false
+  },
+  {
+    "Id": 891,
+    "Category": "下位上位自由",
+    "Chinese": "噬焰者",
+    "English": "The Eater of Elders",
+    "Japanese": "古を喰らうもの",
+    "Wingdrake": false
+  },
+  {
+    "Id": 881,
+    "Category": "下位上位自由",
+    "Chinese": "觉醒于墓标之底",
+    "English": "Stirrings from the Grave",
+    "Japanese": "墓標の底にて目覚むる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 871,
+    "Category": "下位上位自由",
+    "Chinese": "幻兽如是美丽",
+    "English": "Lightning Strikes Twice",
+    "Japanese": "幻獣は斯く麗しき",
+    "Wingdrake": false
+  },
+  {
+    "Id": 861,
+    "Category": "下位上位自由",
+    "Chinese": "热沙阳炎",
+    "English": "A Blaze on the Sand",
+    "Japanese": "熱砂の陽炎",
+    "Wingdrake": false
+  },
+  {
+    "Id": 851,
+    "Category": "下位上位自由",
+    "Chinese": "剎现的荒天预感",
+    "English": "A Portent of Disaster",
+    "Japanese": "胸をよぎる荒天の予感",
+    "Wingdrake": false
+  },
+  {
+    "Id": 795,
+    "Category": "下位上位自由",
+    "Chinese": "火与火交会者们",
+    "English": "A Fiery Convergence",
+    "Japanese": "火と火に交わる者達",
+    "Wingdrake": false
+  },
+  {
+    "Id": 794,
+    "Category": "下位上位自由",
+    "Chinese": "奇袭燎原爆鳞龙",
+    "English": "Bazelgeuse in the Field of Fire",
+    "Japanese": "奇襲燎原バゼルギウス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 793,
+    "Category": "下位上位自由",
+    "Chinese": "其为苍空王者",
+    "English": "Ruler of the Azure Skies",
+    "Japanese": "それは蒼き空の王者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 792,
+    "Category": "下位上位自由",
+    "Chinese": "爆锤龙翻倒了！",
+    "English": "Ore-eating Occupier",
+    "Japanese": "ウラガンキンが転がります！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 791,
+    "Category": "下位上位自由",
+    "Chinese": "熔岩龙",
+    "English": "Lavasioth, Monster of Magma",
+    "Japanese": "溶岩竜ヴォルガノス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 781,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎惨爪龙",
+    "English": "Odogaron Unleashed",
+    "Japanese": "オドガロンの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 774,
+    "Category": "下位上位自由",
+    "Chinese": "凉爪与惨爪的交会之处",
+    "English": "Talons of Ire and Ice",
+    "Japanese": "涼爪と惨爪が交わる場所",
+    "Wingdrake": false
+  },
+  {
+    "Id": 773,
+    "Category": "下位上位自由",
+    "Chinese": "好戏在惨爪龙之后",
+    "English": "A Sore Site",
+    "Japanese": "お楽しみはオドガロンの後で",
+    "Wingdrake": false
+  },
+  {
+    "Id": 772,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎风漂龙",
+    "English": "Legiana: Highlands Royalty",
+    "Japanese": "レイギエナの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 771,
+    "Category": "下位上位自由",
+    "Chinese": "台地的暴风雪是樱色",
+    "English": "A Cherry Wind upon the Reefs",
+    "Japanese": "台地の吹雪は桜色",
+    "Wingdrake": false
+  },
+  {
+    "Id": 764,
+    "Category": "下位上位自由",
+    "Chinese": "荒野的大大大暴动！",
+    "English": "RRRRRumble in the Waste!",
+    "Japanese": "荒野の大大大暴動！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 763,
+    "Category": "下位上位自由",
+    "Chinese": "黑角龙钟爱沙地",
+    "English": "Two-horned Hostility",
+    "Japanese": "黒角竜は砂地がお好き",
+    "Wingdrake": false
+  },
+  {
+    "Id": 762,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎角龙",
+    "English": "Well, That Diablos!",
+    "Japanese": "ディアブロスの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 761,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎樱火龙",
+    "English": "Pretty In Pink",
+    "Japanese": "リオレイア亜種の狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 753,
+    "Category": "下位上位自由",
+    "Chinese": "苍红乱麻",
+    "English": "The Red and Blue Crew",
+    "Japanese": "蒼紅乱麻",
+    "Wingdrake": false
+  },
+  {
+    "Id": 752,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎苍火龙",
+    "English": "Rathalos in Blue",
+    "Japanese": "リオレウス亜種の狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 751,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎火龙",
+    "English": "Rathalos Rematch",
+    "Japanese": "リオレウスの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 738,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：黑角龙上位篇",
+    "English": "Special Arena: HR Black Diablos",
+    "Japanese": "特殊闘技場：黒角竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 737,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：角龙上位篇",
+    "English": "Special Arena: HR Diablos",
+    "Japanese": "特殊闘技場：角竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 736,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：苍火龙上位篇",
+    "English": "Special Arena: HR Azure Rathalos",
+    "Japanese": "特殊闘技場：蒼火竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 735,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：火龙上位篇",
+    "English": "Special Arena: HR Rathalos",
+    "Japanese": "特殊闘技場：火竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 734,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：爆锤龙上位篇",
+    "English": "Special Arena: HR Uragaan",
+    "Japanese": "特殊闘技場：爆鎚竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 733,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：惨爪龙上位篇",
+    "English": "Special Arena: HR Odogaron",
+    "Japanese": "特殊闘技場：惨爪竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 732,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：风漂龙上位篇",
+    "English": "Special Arena: HR Legiana",
+    "Japanese": "特殊闘技場：風漂竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 731,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：樱火龙上位篇",
+    "English": "Special Arena: HR Pink Rathian",
+    "Japanese": "特殊闘技場：桜火竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 694,
+    "Category": "下位上位自由",
+    "Chinese": "料理长的！紧张刺激击退委托",
+    "English": "Chef Quest! Gajalaka Lockdown",
+    "Japanese": "料理長の！ハラハラ撃退依頼",
+    "Wingdrake": false
+  },
+  {
+    "Id": 693,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎岩贼龙",
+    "English": "Dodogama Drama",
+    "Japanese": "奴の名はドドガマル",
+    "Wingdrake": false
+  },
+  {
+    "Id": 692,
+    "Category": "下位上位自由",
+    "Chinese": "讨伐酸翼龙",
+    "English": "A Scalding Scoop",
+    "Japanese": "バルノスの討伐",
+    "Wingdrake": false
+  },
+  {
+    "Id": 691,
+    "Category": "下位上位自由",
+    "Chinese": "无法阻止急速冲刺的突击龙",
+    "English": "A Meow for Help",
+    "Japanese": "ガストドンは急に止まれない",
+    "Wingdrake": false
+  },
+  {
+    "Id": 684,
+    "Category": "下位上位自由",
+    "Chinese": "料理长的！心跳加速讨伐委托",
+    "English": "Chef Quest! A Rotten Request",
+    "Japanese": "料理長の！ドキドキ討伐依頼",
+    "Wingdrake": false
+  },
+  {
+    "Id": 683,
+    "Category": "下位上位自由",
+    "Chinese": "料理长的！兴奋期待交货委托",
+    "English": "Chef Quest! Pumped to Deliver",
+    "Japanese": "料理長の！ワクワク納品依頼",
+    "Wingdrake": false
+  },
+  {
+    "Id": 682,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎骨锤龙",
+    "English": "Stuck in a Rut",
+    "Japanese": "ラドバルキンの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 681,
+    "Category": "下位上位自由",
+    "Chinese": "用来提味的是麻痹的那家伙",
+    "English": "A Tingling Taste",
+    "Japanese": "痺れるアイツは隠し味",
+    "Wingdrake": false
+  },
+  {
+    "Id": 672,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎浮空龙",
+    "English": "Loop the Paolumu",
+    "Japanese": "パオウルムーの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 671,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎眩鸟",
+    "English": "Say Cheese!",
+    "Japanese": "ツィツィヤックの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 667,
+    "Category": "下位上位自由",
+    "Chinese": "暴徒到访荒地",
+    "English": "Trespassing Troublemaker",
+    "Japanese": "暴れん坊、荒地を訪れる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 666,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎雌火龙",
+    "English": "Brown Desert, Green Queen",
+    "Japanese": "リオレイアの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 665,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎泥鱼龙",
+    "English": "Up to Your Waist in the Waste",
+    "Japanese": "ジュラトドスの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 663,
+    "Category": "下位上位自由",
+    "Chinese": "毒妖鸟潜伏荒地",
+    "English": "Pukei-Pukei Ambush",
+    "Japanese": "毒妖鳥、荒地に潜む",
+    "Wingdrake": false
+  },
+  {
+    "Id": 662,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎土砂龙",
+    "English": "A Crown of Mud and Anger",
+    "Japanese": "ボルボロスの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 661,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎搔鸟",
+    "English": "Keep Your Hands to Yourself!",
+    "Japanese": "クルルヤックの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 656,
+    "Category": "下位上位自由",
+    "Chinese": "捕获：有如飞雷般的那个",
+    "English": "Stuck in Their Ways",
+    "Japanese": "捕獲：飛雷の如く効くアレ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 655,
+    "Category": "下位上位自由",
+    "Chinese": "沉睡之森的女王",
+    "English": "The Sleeping Sylvan Queen",
+    "Japanese": "眠りの森の女王",
+    "Wingdrake": false
+  },
+  {
+    "Id": 654,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎蛮颚龙",
+    "English": "It Can't See You if You Don't Move",
+    "Japanese": "アンジャナフの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 653,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎飞雷龙",
+    "English": "A Hair-Raising Experience",
+    "Japanese": "トビカガチの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 652,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎毒妖鸟",
+    "English": "Googly-eyed Green Monster",
+    "Japanese": "プケプケの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 651,
+    "Category": "下位上位自由",
+    "Chinese": "狩猎大贼龙",
+    "English": "Hard to Swallow",
+    "Japanese": "ドスジャグラスの狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 641,
+    "Category": "下位上位自由",
+    "Chinese": "令人怀念的落日余晖",
+    "English": "Left Quite the Impression",
+    "Japanese": "懐かしきアーベントロート",
+    "Wingdrake": false
+  },
+  {
+    "Id": 637,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：骨锤龙上位篇",
+    "English": "Special Arena: HR Radobaan",
+    "Japanese": "特殊闘技場：骨鎚竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 636,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：浮空龙上位篇",
+    "English": "Special Arena: HR Paolumu",
+    "Japanese": "特殊闘技場：浮空竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 635,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：雌火龙上位篇",
+    "English": "Special Arena: HR Rathian",
+    "Japanese": "特殊闘技場：雌火竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 634,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：蛮颚龙上位篇",
+    "English": "Special Arena: HR Anjanath",
+    "Japanese": "特殊闘技場：蛮顎竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 633,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：飞雷龙上位篇",
+    "English": "Special Arena: HR Tobi-Kadachi",
+    "Japanese": "特殊闘技場：飛雷竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 632,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：土砂龙上位篇",
+    "English": "Special Arena: HR Barroth",
+    "Japanese": "特殊闘技場：土砂竜上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 631,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：毒妖鸟上位篇",
+    "English": "Special Arena: HR Pukei-Pukei",
+    "Japanese": "特殊闘技場：毒妖鳥上位編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 583,
+    "Category": "下位上位自由",
+    "Chinese": "不入虎穴焉得虎肉",
+    "English": "The Meat of the Matter",
+    "Japanese": "虎穴に入らずんば肉を得ず",
+    "Wingdrake": false
+  },
+  {
+    "Id": 582,
+    "Category": "下位上位自由",
+    "Chinese": "捕获：惨爪龙的生态调查",
+    "English": "Man's Best Fiend",
+    "Japanese": "捕獲：惨爪竜の生態調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 581,
+    "Category": "下位上位自由",
+    "Chinese": "残忍凶爪",
+    "English": "Scratching the Itch",
+    "Japanese": "無惨凶爪",
+    "Wingdrake": false
+  },
+  {
+    "Id": 572,
+    "Category": "下位上位自由",
+    "Chinese": "苍白之蹄的旋律",
+    "English": "Gone in a Flash",
+    "Japanese": "蒼白き蹄の調べ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 571,
+    "Category": "下位上位自由",
+    "Chinese": "冰结奏鸣曲",
+    "English": "A Humid Headache",
+    "Japanese": "氷結の奏鳴曲",
+    "Wingdrake": false
+  },
+  {
+    "Id": 561,
+    "Category": "下位上位自由",
+    "Chinese": "沙上的双角",
+    "English": "Twin Spires Upon the Sands",
+    "Japanese": "砂上の双角",
+    "Wingdrake": false
+  },
+  {
+    "Id": 552,
+    "Category": "下位上位自由",
+    "Chinese": "最强、最恐、最棒夫妻！",
+    "English": "Redefining the \"Power Couple\"",
+    "Japanese": "最強・最恐・最高夫妻！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 551,
+    "Category": "下位上位自由",
+    "Chinese": "王在顶点沉睡",
+    "English": "When Desire Becomes an Obsession",
+    "Japanese": "王は頂にて眠る",
+    "Wingdrake": false
+  },
+  {
+    "Id": 534,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：角龙篇",
+    "English": "Special Arena: Diablos",
+    "Japanese": "特殊闘技場：角竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 533,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：火龙篇",
+    "English": "Special Arena: Rathalos",
+    "Japanese": "特殊闘技場：火竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 532,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：惨爪龙篇",
+    "English": "Special Arena: Odogaron",
+    "Japanese": "特殊闘技場：惨爪竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 531,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：风漂龙篇",
+    "English": "Special Arena: Legiana",
+    "Japanese": "特殊闘技場：風漂竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 484,
+    "Category": "下位上位自由",
+    "Chinese": "展翅的恶梦",
+    "English": "On Nightmare's Wings",
+    "Japanese": "羽ばたく悪夢",
+    "Wingdrake": false
+  },
+  {
+    "Id": 483,
+    "Category": "下位上位自由",
+    "Chinese": "骨战车前往山谷",
+    "English": "A Bone to Pick",
+    "Japanese": "骨戦車、谷をゆく",
+    "Wingdrake": false
+  },
+  {
+    "Id": 482,
+    "Category": "下位上位自由",
+    "Chinese": "大痹贼龙是麻痹的香气",
+    "English": "A Rotten Thing To Do",
+    "Japanese": "ドスギルオスは麻痺の香り",
+    "Wingdrake": false
+  },
+  {
+    "Id": 481,
+    "Category": "下位上位自由",
+    "Chinese": "怒涛的巨甲虫祭",
+    "English": "Persistent Pests",
+    "Japanese": "怒涛のカンタロス祭り",
+    "Wingdrake": false
+  },
+  {
+    "Id": 475,
+    "Category": "下位上位自由",
+    "Chinese": "捕获：浮空龙的生态调查",
+    "English": "White Monster for a White Coat",
+    "Japanese": "捕獲：浮空竜の生態調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 474,
+    "Category": "下位上位自由",
+    "Chinese": "陆之贝是否梦想深海之梦？",
+    "English": "What a Bunch of Abalone",
+    "Japanese": "陸の貝は深海の夢を見るか？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 473,
+    "Category": "下位上位自由",
+    "Chinese": "轻盈飘浮的浮空龙",
+    "English": "Sorry You're Not Invited",
+    "Japanese": "ふわぷかパオウルムー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 472,
+    "Category": "下位上位自由",
+    "Chinese": "来自薄暗的眩鸟",
+    "English": "A Tzitzi for Science",
+    "Japanese": "薄暗闇からツィツィヤック",
+    "Wingdrake": false
+  },
+  {
+    "Id": 471,
+    "Category": "下位上位自由",
+    "Chinese": "缠绕黑暗的红光",
+    "English": "It's a Crying Shamos",
+    "Japanese": "闇をまとう赤光",
+    "Wingdrake": false
+  },
+  {
+    "Id": 461,
+    "Category": "下位上位自由",
+    "Chinese": "女王在荒地中燃烧",
+    "English": "Royal Relocation",
+    "Japanese": "女王は荒地にて燃ゆる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 452,
+    "Category": "下位上位自由",
+    "Chinese": "我是森林的搬运工",
+    "English": "Gettin' Yolked in the Forest",
+    "Japanese": "俺は森の運搬屋",
+    "Wingdrake": false
+  },
+  {
+    "Id": 451,
+    "Category": "下位上位自由",
+    "Chinese": "与蛮勇之牙对峙",
+    "English": "One Helluva Sinus Infection",
+    "Japanese": "蛮勇なる牙との対峙",
+    "Wingdrake": false
+  },
+  {
+    "Id": 434,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：骨锤龙篇",
+    "English": "Special Arena: Radobaan",
+    "Japanese": "特殊闘技場：骨鎚竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 433,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：浮空龙篇",
+    "English": "Special Arena: Paolumu",
+    "Japanese": "特殊闘技場：浮空竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 432,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：雌火龙篇",
+    "English": "Special Arena: Rathian",
+    "Japanese": "特殊闘技場：雌火竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 431,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：蛮颚龙篇",
+    "English": "Special Arena: Anjanath",
+    "Japanese": "特殊闘技場：蛮顎竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 365,
+    "Category": "下位上位自由",
+    "Chinese": "捕获：土砂龙的生态调查",
+    "English": "Landing the Landslide Wyvern",
+    "Japanese": "捕獲：土砂竜の生態調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 364,
+    "Category": "下位上位自由",
+    "Chinese": "我是荒地的搬运工",
+    "English": "Gettin' Yolked in the Waste",
+    "Japanese": "俺は荒地の運搬屋",
+    "Wingdrake": false
+  },
+  {
+    "Id": 363,
+    "Category": "下位上位自由",
+    "Chinese": "仙人掌的季节即将来临",
+    "English": "Prickly Predicament",
+    "Japanese": "そろそろ仙人掌の季節です",
+    "Wingdrake": false
+  },
+  {
+    "Id": 362,
+    "Category": "下位上位自由",
+    "Chinese": "潜行泥边的泥鱼龙",
+    "English": "The Piscine Problem",
+    "Japanese": "泥辺に忍び寄るジュラトドス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 361,
+    "Category": "下位上位自由",
+    "Chinese": "满身泥巴大突击！",
+    "English": "Mired in the Spire",
+    "Japanese": "泥まみれの大激突！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 352,
+    "Category": "下位上位自由",
+    "Chinese": "飞雷龙飞舞之森",
+    "English": "The Current Situation",
+    "Japanese": "飛雷竜が舞う森",
+    "Wingdrake": false
+  },
+  {
+    "Id": 351,
+    "Category": "下位上位自由",
+    "Chinese": "调查毒妖鸟",
+    "English": "Scatternut Shortage",
+    "Japanese": "毒妖鳥プケプケの調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 333,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：飞雷龙篇",
+    "English": "Special Arena: Tobi-Kadachi",
+    "Japanese": "特殊闘技場：飛雷竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 332,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：土砂龙篇",
+    "English": "Special Arena: Barroth",
+    "Japanese": "特殊闘技場：土砂竜編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 331,
+    "Category": "下位上位自由",
+    "Chinese": "特殊斗技场：毒妖鸟篇",
+    "English": "Special Arena: Pukei-Pukei",
+    "Japanese": "特殊闘技場：毒妖鳥編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 263,
+    "Category": "下位上位自由",
+    "Chinese": "驱除荒野之虫",
+    "English": "Exterminator of the Waste",
+    "Japanese": "荒野の虫退治",
+    "Wingdrake": false
+  },
+  {
+    "Id": 262,
+    "Category": "下位上位自由",
+    "Chinese": "美味的鱼有獠牙",
+    "English": "The Pain from Gains",
+    "Japanese": "美味い魚にゃ牙がある",
+    "Wingdrake": false
+  },
+  {
+    "Id": 261,
+    "Category": "下位上位自由",
+    "Chinese": "捕获：搔鸟的生态调查",
+    "English": "Snatch the Snatcher",
+    "Japanese": "捕獲：掻鳥の生態調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 252,
+    "Category": "下位上位自由",
+    "Chinese": "搔鸟是收藏家？",
+    "English": "Camp Crasher",
+    "Japanese": "クルルヤックは収集家？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 251,
+    "Category": "下位上位自由",
+    "Chinese": "来自深绿的猎食战士",
+    "English": "The Great Glutton",
+    "Japanese": "深緑より出るフードファイター",
+    "Wingdrake": false
+  },
+  {
+    "Id": 241,
+    "Category": "下位上位自由",
+    "Chinese": "精通飞翔爪吧！",
+    "English": "Learning the Clutch",
+    "Japanese": "クラッチクローを使いこなせ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 153,
+    "Category": "下位上位自由",
+    "Chinese": "在古代树森林中采集菇类",
+    "English": "Fungal Flexin' in the Ancient Forest",
+    "Japanese": "古代樹の森でキノコ狩り",
+    "Wingdrake": false
+  },
+  {
+    "Id": 152,
+    "Category": "下位上位自由",
+    "Chinese": "森林恶棍",
+    "English": "A Thicket of Thugs",
+    "Japanese": "森のならず者たち",
+    "Wingdrake": false
+  },
+  {
+    "Id": 151,
+    "Category": "下位上位自由",
+    "Chinese": "突击冠突龙！",
+    "English": "Butting Heads with Nature",
+    "Japanese": "突撃ケストドン！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67610,
+    "Category": "下位上位活动",
+    "Chinese": "委托：林妖",
+    "English": "Contract: Woodland Spirit",
+    "Japanese": "依頼：森の精霊",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67608,
+    "Category": "下位上位活动",
+    "Chinese": "惨静，恐暴，艳热",
+    "English": "SDF: Silent, Deadly, and Fierce",
+    "Japanese": "軽やかで恐ろしく、そして熱く",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67606,
+    "Category": "下位上位活动",
+    "Chinese": "贝希摩斯歼灭战",
+    "English": "A Visitor from Eorzea (Extreme)",
+    "Japanese": "極ベヒーモス討滅戦",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67605,
+    "Category": "下位上位活动",
+    "Chinese": "代码:红",
+    "English": "Code: Red",
+    "Japanese": "Code: Red",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67604,
+    "Category": "下位上位活动",
+    "Chinese": "日本环球影城·燃燒喲，蒼星們！",
+    "English": "USJ Blazing Azure Stars!",
+    "Japanese": "ＵＳＪ・燃えよ、蒼き星達！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67106,
+    "Category": "下位上位活动",
+    "Chinese": "日本环球影城·跃动吧，金星们！",
+    "English": "USJ: Gold Star Treatment",
+    "Japanese": "ＵＳＪ・躍動せよ、金の星達！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67103,
+    "Category": "下位上位活动",
+    "Chinese": "斩击大骚动！！？",
+    "English": "A Rush of Blood",
+    "Japanese": "ラッシュ大騒動！！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66610,
+    "Category": "下位上位活动",
+    "Chinese": "谁对王座露出獠牙？",
+    "English": "The Thronetaker",
+    "Japanese": "誰が玉座に牙を剥く？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66609,
+    "Category": "下位上位活动",
+    "Chinese": "不守秩序者，前途黯淡",
+    "English": "No Tomorrow for Usurpers",
+    "Japanese": "秩序なき者に明日は無い",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66608,
+    "Category": "下位上位活动",
+    "Chinese": "调查(蛮颚龙，苍火龙)",
+    "English": "A Nose for an Eye",
+    "Japanese": "調査（蛮顎竜、蒼火竜）",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66607,
+    "Category": "下位上位活动",
+    "Chinese": "山丘上的雪见樱",
+    "English": "Snow & Cherry Blossoms",
+    "Japanese": "丘の上の雪見桜",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66606,
+    "Category": "下位上位活动",
+    "Chinese": "暴动亦如是",
+    "English": "This is How Revolts Start",
+    "Japanese": "暴動とは斯くの如し",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66605,
+    "Category": "下位上位活动",
+    "Chinese": "结晶体的摇滚乐",
+    "English": "Rock N' Roll Recess",
+    "Japanese": "結晶達のロックンロール",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66604,
+    "Category": "下位上位活动",
+    "Chinese": "荒废之谷的歌剧",
+    "English": "Effluvial Opera",
+    "Japanese": "頽廃の谷のオペラ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66603,
+    "Category": "下位上位活动",
+    "Chinese": "海台的华尔兹",
+    "English": "Coral Waltz",
+    "Japanese": "海台のワルツ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66602,
+    "Category": "下位上位活动",
+    "Chinese": "荒野的波丽露",
+    "English": "Wildspire Bolero",
+    "Japanese": "荒れ野のボレロ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66601,
+    "Category": "下位上位活动",
+    "Chinese": "深绿的蓝调",
+    "English": "Deep Green Blues",
+    "Japanese": "深緑のブルース",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66106,
+    "Category": "下位上位活动",
+    "Chinese": "打开食欲之门!",
+    "English": "Greeting the Gluttons",
+    "Japanese": "食という欲の扉を開け！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66105,
+    "Category": "下位上位活动",
+    "Chinese": "长有翅膀者有毒",
+    "English": "The Poison Posse",
+    "Japanese": "翼ある者には毒がある",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66104,
+    "Category": "下位上位活动",
+    "Chinese": "双幻影",
+    "English": "Kirin The Myth",
+    "Japanese": "双幻影",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66103,
+    "Category": "下位上位活动",
+    "Chinese": "狩猎骨肉",
+    "English": "Flesh Cleaved to Bone",
+    "Japanese": "骨肉の狩り",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66102,
+    "Category": "下位上位活动",
+    "Chinese": "共斗鸟×鸟",
+    "English": "Ya-Ku With That?",
+    "Japanese": "共闘ヤック×ヤック",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66101,
+    "Category": "下位上位活动",
+    "Chinese": "大胃王们来了！",
+    "English": "Chew The Fat",
+    "Japanese": "大喰らい共が参る！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65607,
+    "Category": "下位上位活动",
+    "Chinese": "交货，不管怎样就是要痕迹",
+    "English": "Tracking the Delivery",
+    "Japanese": "納品、何はともあれ痕跡",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65606,
+    "Category": "下位上位活动",
+    "Chinese": "交货顺便调查痕迹",
+    "English": "A Simple Task",
+    "Japanese": "納品、ついでに痕跡",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65605,
+    "Category": "下位上位活动",
+    "Chinese": "咚咚咚三兄弟",
+    "English": "Triple Threat Throwdown",
+    "Japanese": "ドドド三兄弟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65604,
+    "Category": "下位上位活动",
+    "Chinese": "身心都是摇曳鳗",
+    "English": "Wiggle Me This",
+    "Japanese": "身も心もユラユラ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65603,
+    "Category": "下位上位活动",
+    "Chinese": "爱上蛋吧！",
+    "English": "Egg Lovers United",
+    "Japanese": "卵好きになろう！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65602,
+    "Category": "下位上位活动",
+    "Chinese": "抵抗强光的人们",
+    "English": "A Flash in the Pan",
+    "Japanese": "眩しさに抗う者達",
+    "Wingdrake": false
+  },
+  {
+    "Id": 65601,
+    "Category": "下位上位活动",
+    "Chinese": "我们是不良",
+    "English": "Scrapping with the Shamos",
+    "Japanese": "オレ達、ならず者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 64601,
+    "Category": "下位上位活动",
+    "Chinese": "爆锤龙们翻倒了！",
+    "English": "Rollin' With The Uragaan",
+    "Japanese": "ウラガンキン達が転がります！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 64101,
+    "Category": "下位上位活动",
+    "Chinese": "地盘争夺决定战",
+    "English": "Wicked Wildspire Warfare",
+    "Japanese": "縄張り争い決定戦",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62609,
+    "Category": "下位上位活动",
+    "Chinese": "冥河的卡戎",
+    "English": "Keeper of the Otherworld",
+    "Japanese": "冥き河のカロン",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62608,
+    "Category": "下位上位活动",
+    "Chinese": "看见曙光",
+    "English": "Gaze Upon the Dawn",
+    "Japanese": "モルゲンロートに見ゆ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62607,
+    "Category": "下位上位活动",
+    "Chinese": "此乃古龙之王",
+    "English": "Like a Moth to the Flame",
+    "Japanese": "それは古龍の王たらん",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62606,
+    "Category": "下位上位活动",
+    "Chinese": "不灭之黎明破晓",
+    "English": "Undying Alpenglow",
+    "Japanese": "不滅のアルペングリューエン",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62515,
+    "Category": "下位上位活动",
+    "Chinese": "脉动，本能",
+    "English": "Relish the Moment",
+    "Japanese": "脈打て、本能",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62511,
+    "Category": "下位上位活动",
+    "Chinese": "青出于爱而更胜其爱",
+    "English": "When Blue Dust Surpasses Red Lust",
+    "Japanese": "青は愛より出でて愛より熱し",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62506,
+    "Category": "下位上位活动",
+    "Chinese": "毁灭来临，喇叭作响",
+    "English": "The Heralds of Destruction Cry",
+    "Japanese": "破滅が来たりて喇叭を鳴らす",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62505,
+    "Category": "下位上位活动",
+    "Chinese": "在暴风雨中",
+    "English": "The Eye of the Storm",
+    "Japanese": "嵐のさなかにて",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62504,
+    "Category": "下位上位活动",
+    "Chinese": "太阳熊熊燃烧之时",
+    "English": "The Scorn of the Sun",
+    "Japanese": "太陽が燃え盛る時",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62503,
+    "Category": "下位上位活动",
+    "Chinese": "隐藏的白色鬃毛也",
+    "English": "A Whisper of White Mane",
+    "Japanese": "まだ見ぬ白き鬣も",
+    "Wingdrake": false
+  },
+  {
+    "Id": 62502,
+    "Category": "下位上位活动",
+    "Chinese": "寂静之幕",
+    "English": "The Deathly Quiet Curtain",
+    "Japanese": "静寂の帳",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61607,
+    "Category": "下位上位活动",
+    "Chinese": "本尊的名字是熔岩龙",
+    "English": "The Name's Lavasioth!",
+    "Japanese": "我が名はヴォルガノス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61606,
+    "Category": "下位上位活动",
+    "Chinese": "穷贼啮猎人！",
+    "English": "The Greatest Jagras",
+    "Japanese": "窮賊、ハンターを噛む！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61605,
+    "Category": "下位上位活动",
+    "Chinese": "猪菌是菌但也是香菇的菌",
+    "English": "Mosswinin' and Dinin'",
+    "Japanese": "モスはモスでもモスのモス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61604,
+    "Category": "下位上位活动",
+    "Chinese": "无惧于空中飞人",
+    "English": "Kings Know No Fear",
+    "Japanese": "空飛ぶ者に恐れはいらぬ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61603,
+    "Category": "下位上位活动",
+    "Chinese": "两位女王",
+    "English": "A Royal Pain",
+    "Japanese": "ふたりの女王",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61601,
+    "Category": "下位上位活动",
+    "Chinese": "深夜大骚动",
+    "English": "Midnight Mayhem",
+    "Japanese": "真夜中の大騒ぎ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61105,
+    "Category": "下位上位活动",
+    "Chinese": "猎人们永远的梦想",
+    "English": "Every Hunter's Dream",
+    "Japanese": "ハンター達の永い夢",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61104,
+    "Category": "下位上位活动",
+    "Chinese": "暴徒早起散步",
+    "English": "Timberland Troublemakers",
+    "Japanese": "暴れん坊、早起きして散歩する",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61101,
+    "Category": "下位上位活动",
+    "Chinese": "清晨大骚动",
+    "English": "Up at the Crack of Dawn",
+    "Japanese": "暁の大騒ぎ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51623,
+    "Category": "大师自由",
+    "Chinese": "迎接终焉之金光",
+    "English": "All That Glitters is Furious",
+    "Japanese": "終焉と云ふ名の金色",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51622,
+    "Category": "大师自由",
+    "Chinese": "爆华绽放",
+    "English": "Achy Brachy Heart",
+    "Japanese": "乱れ咲く連爆の華",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51621,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：狱狼龙大师篇",
+    "English": "Special Arena: MR Stygian Zinogre",
+    "Japanese": "特殊闘技場：獄狼竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1692,
+    "Category": "大师自由",
+    "Chinese": "新大陆的猎人们啊",
+    "English": "Master Hunter of the New World",
+    "Japanese": "新大陸の狩人達よ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1691,
+    "Category": "大师自由",
+    "Chinese": "皇妃镇座的炎之宫殿",
+    "English": "Into the Palace of Flame",
+    "Japanese": "皇妃座すは炎の宮殿",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1671,
+    "Category": "大师自由",
+    "Chinese": "神赐的台地",
+    "English": "Divine Surge",
+    "Japanese": "神時の台地",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1661,
+    "Category": "大师自由",
+    "Chinese": "与你的相遇是炎妃苍火",
+    "English": "One Hot Night in the Spire",
+    "Japanese": "君との出会いは藍炎妃艶",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1651,
+    "Category": "大师自由",
+    "Chinese": "突从天降的别离与风暴",
+    "English": "The Storm Brings the Unexpected",
+    "Japanese": "別れと嵐は時を選ばず",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1642,
+    "Category": "大师自由",
+    "Chinese": "阴阳赞歌",
+    "English": "Hymn of Moon and Sun",
+    "Japanese": "陰陽讃歌",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1641,
+    "Category": "大师自由",
+    "Chinese": "远方的萝蕾莱",
+    "English": "Faraway Lorelei",
+    "Japanese": "遥かなるローレライ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1636,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：银火龙大师篇",
+    "English": "Special Arena: MR Silver Rathalos",
+    "Japanese": "特殊闘技場：銀火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1635,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：金火龙大师篇",
+    "English": "Special Arena: MR Gold Rathian",
+    "Japanese": "特殊闘技場：金火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1634,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：黑轰龙大师篇",
+    "English": "Special Arena: MR Brute Tigrex",
+    "Japanese": "特殊闘技場：黒轟竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1633,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：黑狼鸟大师篇",
+    "English": "Special Arena: MR Yian Garuga",
+    "Japanese": "特殊闘技場：黒狼鳥マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1632,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：雷狼龙大师篇",
+    "English": "Special Arena: MR Zinogre",
+    "Japanese": "特殊闘技場：雷狼竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1631,
+    "Category": "大师自由",
+    "Chinese": "荣冠的猎人们",
+    "English": "We Run This Town",
+    "Japanese": "冠するものたち",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1594,
+    "Category": "大师自由",
+    "Chinese": "捕获：理想房间喵！银篇",
+    "English": "The Purr-fect Room: Silver",
+    "Japanese": "捕獲：ニャイスルーム！銀編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1593,
+    "Category": "大师自由",
+    "Chinese": "爆裂滚滚爆鳞龙",
+    "English": "Seething with Anger",
+    "Japanese": "愚連滾るバゼルギウス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1592,
+    "Category": "大师自由",
+    "Chinese": "太阳的证明",
+    "English": "Mark of the Sun",
+    "Japanese": "太陽の証",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1591,
+    "Category": "大师自由",
+    "Chinese": "翔风之龙",
+    "English": "Wings of the Wind",
+    "Japanese": "風翔龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1581,
+    "Category": "大师自由",
+    "Chinese": "吞食生命无返黄泉",
+    "English": "It's the Afterlife for Me",
+    "Japanese": "生を食みて黄泉に還らず",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1572,
+    "Category": "大师自由",
+    "Chinese": "海神迷惘的记忆",
+    "English": "Memories of the Sea God",
+    "Japanese": "さまよえる綿津見の記憶",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1571,
+    "Category": "大师自由",
+    "Chinese": "雷电闪光",
+    "English": "Lightning Crashes",
+    "Japanese": "稲光",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1562,
+    "Category": "大师自由",
+    "Chinese": "恐暴的盛宴",
+    "English": "The Tyrant's Banquet",
+    "Japanese": "恐暴の宴",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1561,
+    "Category": "大师自由",
+    "Chinese": "沙漠中的晋见",
+    "English": "Royal Audience on the Sand",
+    "Japanese": "砂上にて謁見す",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1552,
+    "Category": "大师自由",
+    "Chinese": "死亡之神降临",
+    "English": "Here Comes the Deathmaker",
+    "Japanese": "誰そ彼は平坂の主",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1551,
+    "Category": "大师自由",
+    "Chinese": "召唤晴天的魔龙",
+    "English": "The Harbinger of Clear Skies",
+    "Japanese": "晴天を呼ぶ龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1521,
+    "Category": "大师自由",
+    "Chinese": "冰冠的交战",
+    "English": "Clashing Swords Upon The Rime",
+    "Japanese": "冰冠のフラーズダルム",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1492,
+    "Category": "大师自由",
+    "Chinese": "捕获：捉拿雷之颚吧！",
+    "English": "Trap the Thunder Jaw",
+    "Japanese": "捕獲：雷の顎を捕まえろ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1491,
+    "Category": "大师自由",
+    "Chinese": "再调查·苍火龙",
+    "English": "Blue Rathalos Blues",
+    "Japanese": "再調査・リオレウス亜種",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1483,
+    "Category": "大师自由",
+    "Chinese": "理想房间喵！铁暗篇",
+    "English": "The Purr-fect Room: Dark Iron",
+    "Japanese": "ニャイスルーム！鉄暗編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1482,
+    "Category": "大师自由",
+    "Chinese": "捕获：理想房间喵！铁明篇",
+    "English": "The Purr-fect Room: Light Iron",
+    "Japanese": "捕獲：ニャイスルーム！鉄明編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1481,
+    "Category": "大师自由",
+    "Chinese": "腐蚀之剑",
+    "English": "This Corroded Blade",
+    "Japanese": "腐蝕のグラディウス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1471,
+    "Category": "大师自由",
+    "Chinese": "黑色的罪人",
+    "English": "A Shadowy Offender",
+    "Japanese": "黒き咎人",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1462,
+    "Category": "大师自由",
+    "Chinese": "黑光炯炯",
+    "English": "Piercing Black",
+    "Japanese": "黒炯々",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1461,
+    "Category": "大师自由",
+    "Chinese": "从沙地冲出奔驰吧少女！",
+    "English": "In the Heat of the Moment",
+    "Japanese": "砂地飛び出し走れよ乙女",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1452,
+    "Category": "大师自由",
+    "Chinese": "林中凶爪",
+    "English": "Misfortune in the Forest",
+    "Japanese": "森に兇爪あり",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1451,
+    "Category": "大师自由",
+    "Chinese": "天苍恢恢！",
+    "English": "These Azure Eyes See All",
+    "Japanese": "天蒼恢恢！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1435,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：雷颚龙大师篇",
+    "English": "Special Arena: MR Fulgur Anjanath",
+    "Japanese": "特殊闘技場：雷顎竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1434,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：凶爪龙大师篇",
+    "English": "Special Arena: MR Ebony Odogaron",
+    "Japanese": "特殊闘技場：兇爪竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1433,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：硫斩龙大师篇",
+    "English": "Special Arena: MR Acidic Glavenus",
+    "Japanese": "特殊闘技場：硫斬竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1432,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：黑角龙大师篇",
+    "English": "Special Arena: MR Black Diablos",
+    "Japanese": "特殊闘技場：黒角竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1431,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：苍火龙大师篇",
+    "English": "Special Arena: MR Azure Rathalos",
+    "Japanese": "特殊闘技場：蒼火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1424,
+    "Category": "大师自由",
+    "Chinese": "重点就在水气中",
+    "English": "Treasure in the Steam",
+    "Japanese": "とっておきは湯けむりの中に",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1423,
+    "Category": "大师自由",
+    "Chinese": "舞蹈家的双人舞",
+    "English": "Duet of Rime",
+    "Japanese": "舞踏家たちのドゥエート",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1422,
+    "Category": "大师自由",
+    "Chinese": "不畏严寒的暴徒",
+    "English": "Tundra Troublemaker",
+    "Japanese": "暴れん坊、寒さもへっちゃら",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1421,
+    "Category": "大师自由",
+    "Chinese": "风霜高洁的猎人",
+    "English": "Noblefrost Hunter",
+    "Japanese": "風霜高潔のハンター",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1395,
+    "Category": "大师自由",
+    "Chinese": "爆炸粉碎的庆典！",
+    "English": "Festival of Explosions!",
+    "Japanese": "爆発粉砕フェスティバル！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1394,
+    "Category": "大师自由",
+    "Chinese": "捕获：秘诀就在于黏菌！？",
+    "English": "Secret of the Ooze",
+    "Japanese": "捕獲：粘菌に秘訣あり！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1393,
+    "Category": "大师自由",
+    "Chinese": "回旋的爆锤龙",
+    "English": "Begone Uragaan",
+    "Japanese": "回転と言えば爆槌",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1392,
+    "Category": "大师自由",
+    "Chinese": "打倒熔岩龙要趁热",
+    "English": "Everyone's a Critic",
+    "Japanese": "溶岩竜は熱いうちに打て",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1391,
+    "Category": "大师自由",
+    "Chinese": "爆破警报发布中",
+    "English": "Blast Warning In Effect!",
+    "Japanese": "爆砕警報、発令中",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1383,
+    "Category": "大师自由",
+    "Chinese": "暴走、狂转、大竞争！",
+    "English": "Runnin', Rollin', and Weepin'",
+    "Japanese": "暴走、爆転、大競争！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1382,
+    "Category": "大师自由",
+    "Chinese": "轰响山谷的咆哮",
+    "English": "A Roar that Shook the Vale",
+    "Japanese": "谷に轟く咆哮",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1381,
+    "Category": "大师自由",
+    "Chinese": "龙爪的惨剧",
+    "English": "Don't be a Jerk with the Jerky",
+    "Japanese": "オニュクス、それは惨劇",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1373,
+    "Category": "大师自由",
+    "Chinese": "惨剧就在眼前",
+    "English": "A Nasty Flesh Wound",
+    "Japanese": "凄惨の刻、来たる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1372,
+    "Category": "大师自由",
+    "Chinese": "暗阎之风",
+    "English": "The Black Wind",
+    "Japanese": "闇風",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1371,
+    "Category": "大师自由",
+    "Chinese": "欢迎来到天空舞会！",
+    "English": "Legiana Left Behind",
+    "Japanese": "天空舞踏会へようこそ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1363,
+    "Category": "大师自由",
+    "Chinese": "刀具与火侯决定了料理的一切",
+    "English": "Simmer and Slice!",
+    "Japanese": "料理の決め手は刃物と火加減",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1362,
+    "Category": "大师自由",
+    "Chinese": "眩目的一闪",
+    "English": "A Flash of the Blade",
+    "Japanese": "赫灼の一閃",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1361,
+    "Category": "大师自由",
+    "Chinese": "死斗，角龙现身！",
+    "English": "A Line in the Sand",
+    "Japanese": "死闘！　角竜ディアブロス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1354,
+    "Category": "大师自由",
+    "Chinese": "最强的红与黑",
+    "English": "Red and Black Aces",
+    "Japanese": "切り札は赤と黒",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1353,
+    "Category": "大师自由",
+    "Chinese": "一刀两断的奥义",
+    "English": "The Secret to a Good Slice",
+    "Japanese": "一刀両断の極意",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1352,
+    "Category": "大师自由",
+    "Chinese": "疾风的迅龙",
+    "English": "Nargacoulda, Shoulda, Woulda",
+    "Japanese": "疾風の迅竜",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1351,
+    "Category": "大师自由",
+    "Chinese": "空中之王君临的挑战",
+    "English": "Swoop to a New Low",
+    "Japanese": "空の王は君臨すれども…",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1340,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：轰龙大师篇",
+    "English": "Special Arena: MR Tigrex",
+    "Japanese": "特殊闘技場：轟竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1339,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：碎龙大师篇",
+    "English": "Special Arena: MR Brachydios",
+    "Japanese": "特殊闘技場：砕竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1338,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：斩龙大师篇",
+    "English": "Special Arena: MR Glavenus",
+    "Japanese": "特殊闘技場：斬竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1337,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：迅龙大师篇",
+    "English": "Special Arena: MR Nargacuga",
+    "Japanese": "特殊闘技場：迅竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1336,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：冰牙龙大师篇",
+    "English": "Special Arena: MR Barioth",
+    "Japanese": "特殊闘技場：氷牙竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1335,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：角龙大师篇",
+    "English": "Special Arena: MR Diablos",
+    "Japanese": "特殊闘技場：角竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1334,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：火龙大师篇",
+    "English": "Special Arena: MR Rathalos",
+    "Japanese": "特殊闘技場：火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1333,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：爆锤龙大师篇",
+    "English": "Special Arena: MR Uragaan",
+    "Japanese": "特殊闘技場：爆鎚竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1332,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：惨爪龙大师篇",
+    "English": "Special Arena: MR Odogaron",
+    "Japanese": "特殊闘技場：惨爪竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1331,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：风漂龙大师篇",
+    "English": "Special Arena: MR Legiana",
+    "Japanese": "特殊闘技場：風漂竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1323,
+    "Category": "大师自由",
+    "Chinese": "孤高的白骑士",
+    "English": "Proud White Knight",
+    "Japanese": "孤高の白騎士",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1322,
+    "Category": "大师自由",
+    "Chinese": "捕获：理想房间喵！石篇",
+    "English": "The Purr-fect Room: Stone",
+    "Japanese": "捕獲：ニャイスルーム！石編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1321,
+    "Category": "大师自由",
+    "Chinese": "冰牙龙现身！",
+    "English": "Remember That One Time?",
+    "Japanese": "氷牙竜・ベリオロス！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1291,
+    "Category": "大师自由",
+    "Chinese": "寻找远古的光辉",
+    "English": "Looking For That Glimmer",
+    "Japanese": "太古の輝きを求めて",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1282,
+    "Category": "大师自由",
+    "Chinese": "虫？昆虫！？都是虫！！！",
+    "English": "Bugger Off Bugs!",
+    "Japanese": "虫？　虫！？　虫！！！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1274,
+    "Category": "大师自由",
+    "Chinese": "过度畅饮警报！",
+    "English": "Put That Red Cup Away",
+    "Japanese": "飲みすぎ注意報！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1273,
+    "Category": "大师自由",
+    "Chinese": "补充水分最重要！",
+    "English": "Protip: Stay Hydrated",
+    "Japanese": "水分補給は大事です！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1272,
+    "Category": "大师自由",
+    "Chinese": "春神降临珊瑚大地",
+    "English": "Pink Power Grab",
+    "Japanese": "珊瑚の陸に春来たる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1271,
+    "Category": "大师自由",
+    "Chinese": "高飞吧！浮空龙！",
+    "English": "The Plight of Paolumu",
+    "Japanese": "はばたけ、パオウルムー！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1264,
+    "Category": "大师自由",
+    "Chinese": "华丽的皇后们",
+    "English": "Feisty Girl Talk",
+    "Japanese": "華やかなりしクイーンズ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1263,
+    "Category": "大师自由",
+    "Chinese": "肆虐荒地的暴徒",
+    "English": "Stick Your Nose Somewhere Else",
+    "Japanese": "暴れん坊、荒地ですごく暴れる",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1262,
+    "Category": "大师自由",
+    "Chinese": "狩猎浮眠龙",
+    "English": "A Face Nightmares Are Made Of",
+    "Japanese": "パオウルムー亜種の狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1261,
+    "Category": "大师自由",
+    "Chinese": "女王陛下优雅的一天",
+    "English": "A Queen At Heart",
+    "Japanese": "女王様の優雅な一日",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1253,
+    "Category": "大师自由",
+    "Chinese": "捕获：晚安了浮眠龙",
+    "English": "Nighty Night Nightshade",
+    "Japanese": "捕獲：おやすみパオウルムー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1252,
+    "Category": "大师自由",
+    "Chinese": "陆地女王·雌火龙的叹息",
+    "English": "Fool's Mate",
+    "Japanese": "陸の女王・リオレイアの溜息",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1251,
+    "Category": "大师自由",
+    "Chinese": "森林的暴徒、再临",
+    "English": "Anjanath Antics",
+    "Japanese": "森の暴れん坊、再来",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1238,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：浮眠龙大师篇",
+    "English": "Special Arena: MR Nightshade Paolumu",
+    "Japanese": "特殊闘技場：浮眠竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1237,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：浮空龙大师篇",
+    "English": "Special Arena: MR Paolumu",
+    "Japanese": "特殊闘技場：浮空竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1236,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：樱火龙大师篇",
+    "English": "Special Arena: MR Pink Rathian",
+    "Japanese": "特殊闘技場：桜火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1235,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：雌火龙大师篇",
+    "English": "Special Arena: MR Rathian",
+    "Japanese": "特殊闘技場：雌火竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1234,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：痹毒龙大师篇",
+    "English": "Special Arena: MR Viper Tobi-Kadachi",
+    "Japanese": "特殊闘技場：飛毒竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1233,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：水妖鸟大师篇",
+    "English": "Special Arena: MR Coral Pukei-Pukei",
+    "Japanese": "特殊闘技場：水妖鳥マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1232,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：骨锤龙大师篇",
+    "English": "Special Arena: MR Radobaan",
+    "Japanese": "特殊闘技場：骨鎚竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1231,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：蛮颚龙大师篇",
+    "English": "Special Arena: MR Anjanath",
+    "Japanese": "特殊闘技場：蛮顎竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1225,
+    "Category": "大师自由",
+    "Chinese": "鱼心冰意",
+    "English": "You Scratch Our Backs...",
+    "Japanese": "魚心あれば氷心",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1224,
+    "Category": "大师自由",
+    "Chinese": "双方团队的共同战线",
+    "English": "By Our Powers Combined",
+    "Japanese": "ワレラとキミラの共同戦線",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1223,
+    "Category": "大师自由",
+    "Chinese": "兽缠族！兽兽兽缠族！",
+    "English": "Boaboa Constrictor",
+    "Japanese": "ボワ！　ボワボワボワ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1222,
+    "Category": "大师自由",
+    "Chinese": "捕获：用毒与麻痹的高手",
+    "English": "Poison and Paralysis Pinch",
+    "Japanese": "捕獲：毒と麻痺の番",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1221,
+    "Category": "大师自由",
+    "Chinese": "狩猎痹毒龙",
+    "English": "Analysis Creates Paralysis",
+    "Japanese": "トビカガチ亜種の狩猟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1192,
+    "Category": "大师自由",
+    "Chinese": "巨角破坏王",
+    "English": "This Here's Big Horn Country!",
+    "Japanese": "ビッグホーン・クラッシャー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1191,
+    "Category": "大师自由",
+    "Chinese": "龙结晶晚餐",
+    "English": "Can't Bring Yourself To It",
+    "Japanese": "今日のディナーは龍結晶",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1181,
+    "Category": "大师自由",
+    "Chinese": "我们的教父",
+    "English": "Grinding my Girros",
+    "Japanese": "俺たちのゴッドファーザー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1171,
+    "Category": "大师自由",
+    "Chinese": "眩鸟☆闪光！",
+    "English": "All the Wrong Signals",
+    "Japanese": "ツィツィヤック☆フラッシュ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1164,
+    "Category": "大师自由",
+    "Chinese": "毒妖鸟的美食之旅？",
+    "English": "Taster's Tour",
+    "Japanese": "毒妖鳥の食べ歩きツアー？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1163,
+    "Category": "大师自由",
+    "Chinese": "你我之间的泥泞之战",
+    "English": "Jyura In My Way",
+    "Japanese": "君と僕とのぬかるみマーチ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1162,
+    "Category": "大师自由",
+    "Chinese": "横冲直撞就是风格",
+    "English": "Dragged Through the Mud",
+    "Japanese": "座右の銘は猪突猛進です",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1161,
+    "Category": "大师自由",
+    "Chinese": "荒地的宝物猎人",
+    "English": "Wildspire Treasure Hunt",
+    "Japanese": "荒地のトレジャーハンター",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1155,
+    "Category": "大师自由",
+    "Chinese": "捕获：猛角扫千军",
+    "English": "Trapping The Tree Trasher",
+    "Japanese": "捕獲：猛角は木々を払う玉箒",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1154,
+    "Category": "大师自由",
+    "Chinese": "漂泊的收藏家，在此现身！",
+    "English": "Literary Thief",
+    "Japanese": "さすらいのコレクター、参上",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1153,
+    "Category": "大师自由",
+    "Chinese": "飞电迅如箭",
+    "English": "Beating Around the Bush",
+    "Japanese": "飛電、矢の如し",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1152,
+    "Category": "大师自由",
+    "Chinese": "长舌的捣蛋鬼",
+    "English": "New World Problems",
+    "Japanese": "長い舌のファニーフェイス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1151,
+    "Category": "大师自由",
+    "Chinese": "大贼龙的回归",
+    "English": "The Great Jagras Returns!",
+    "Japanese": "帰ってきたドスジャグラス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1134,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：猛牛龙大师篇",
+    "English": "Special Arena: MR Banbaro",
+    "Japanese": "特殊闘技場：猛牛竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1133,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：飞雷龙大师篇",
+    "English": "Special Arena: MR Tobi-Kadachi",
+    "Japanese": "特殊闘技場：飛雷竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1132,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：土砂龙大师篇",
+    "English": "Special Arena: MR Barroth",
+    "Japanese": "特殊闘技場：土砂竜マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1131,
+    "Category": "大师自由",
+    "Chinese": "特殊斗技场：毒妖鸟大师篇",
+    "English": "Special Arena: MR Pukei-Pukei",
+    "Japanese": "特殊闘技場：毒妖鳥マスター編",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1125,
+    "Category": "大师自由",
+    "Chinese": "来自寒冷之地的招呼",
+    "English": "Greetings from the Tundra",
+    "Japanese": "冷たい場所からこんにちは",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1124,
+    "Category": "大师自由",
+    "Chinese": "冰树下的闪耀眼神",
+    "English": "Call of the Wild",
+    "Japanese": "氷樹の陰から輝く目",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1123,
+    "Category": "大师自由",
+    "Chinese": "捕获：有志者雪竟融",
+    "English": "Ice Catch!",
+    "Japanese": "捕獲：雪の下にも三年",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1122,
+    "Category": "大师自由",
+    "Chinese": "连猛牛也要敬畏猎人三分！？",
+    "English": "Taking Charge",
+    "Japanese": "猛り牛もハンター次第！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 1121,
+    "Category": "大师自由",
+    "Chinese": "深雪的潜水员",
+    "English": "Deep Snow Diver",
+    "Japanese": "深雪のダイバー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67809,
+    "Category": "大师活动",
+    "Chinese": "日本环球影城·舞动霜刃！",
+    "English": "USJ: Ballet of Frost",
+    "Japanese": "ＵＳＪ・氷刃を薙ぎ、舞え！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67807,
+    "Category": "大师活动",
+    "Chinese": "暗杀者",
+    "English": "The Assassin",
+    "Japanese": "暗殺者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67806,
+    "Category": "大师活动",
+    "Chinese": "日本环球影城·无限的闪耀",
+    "English": "USJ: Shine On Forever",
+    "Japanese": "ＵＳＪ・無限のきらめきを",
+    "Wingdrake": false
+  },
+  {
+    "Id": 67801,
+    "Category": "大师活动",
+    "Chinese": "RE: 生物危害重归大地",
+    "English": "RE: Return of the Bioweapon",
+    "Japanese": "RE: 戻り来た生物災害",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66867,
+    "Category": "大师活动",
+    "Chinese": "老士的脱俗",
+    "English": "Old Dog, New Trick",
+    "Japanese": "老士の高踏",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66866,
+    "Category": "大师活动",
+    "Chinese": "黑轰龙不会受伤",
+    "English": "Brand New Brute",
+    "Japanese": "黒轟竜は傷つかない",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66865,
+    "Category": "大师活动",
+    "Chinese": "再会了，雷狼龙",
+    "English": "A Farewell to Zinogre",
+    "Japanese": "ジンオウガよさらば",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66864,
+    "Category": "大师活动",
+    "Chinese": "噢噢，健美身体",
+    "English": "Mighty Muscle Monkey Madness",
+    "Japanese": "嗚呼嗚呼、マッスルボディ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66863,
+    "Category": "大师活动",
+    "Chinese": "彼岸泪",
+    "English": "Tears from Nirvana",
+    "Japanese": "彼岸涙",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66862,
+    "Category": "大师活动",
+    "Chinese": "雷龙小雷龙大雷龙",
+    "English": "Kadachi Twins",
+    "Japanese": "カガチコカガチデカカガチ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66861,
+    "Category": "大师活动",
+    "Chinese": "你是黄金奖杯",
+    "English": "Mew are Number One!",
+    "Japanese": "君はゴールデントロフィー",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66860,
+    "Category": "大师活动",
+    "Chinese": "雷霆鸣神，降临",
+    "English": "The Wrath of Thunder Descends",
+    "Japanese": "鳴神上狼、荒事を成す",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66859,
+    "Category": "大师活动",
+    "Chinese": "熏火山堆",
+    "English": "Talk About a Party Foul...",
+    "Japanese": "燻火堆然",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66858,
+    "Category": "大师活动",
+    "Chinese": "身裸万象",
+    "English": "The Naked Truth",
+    "Japanese": "神裸袢消",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66857,
+    "Category": "大师活动",
+    "Chinese": "金狮金猴",
+    "English": "Monkey Business",
+    "Japanese": "さるは金色、かわいいな",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66856,
+    "Category": "大师活动",
+    "Chinese": "塞耳露耳",
+    "English": "Don't Forget The Earplugs!",
+    "Japanese": "耳塞ぎてミミ隠さず",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66855,
+    "Category": "大师活动",
+    "Chinese": "稀幻的轰龙？？？",
+    "English": "Seeing is Believing",
+    "Japanese": "幻の轟竜？？？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66854,
+    "Category": "大师活动",
+    "Chinese": "女王的食桌",
+    "English": "Camoflawed",
+    "Japanese": "女王の食卓",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66853,
+    "Category": "大师活动",
+    "Chinese": "光明珍珠是圆圆的眼神",
+    "English": "Fetching Light Pearls",
+    "Japanese": "ライトパールはつぶらな瞳",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66852,
+    "Category": "大师活动",
+    "Chinese": "我们的世界",
+    "English": "To Our World",
+    "Japanese": "Our World　私達の世界へ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66851,
+    "Category": "大师活动",
+    "Chinese": "新世界",
+    "English": "The New World",
+    "Japanese": "The New World　新世界にて",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66850,
+    "Category": "大师活动",
+    "Chinese": "雪花沉睡",
+    "English": "The Place Where Winter Sleeps",
+    "Japanese": "六花が静かに眠るなら",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66847,
+    "Category": "大师活动",
+    "Chinese": "溟呼远响",
+    "English": "The Distant Dark Tide",
+    "Japanese": "溟鳴り遥か遠く",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66846,
+    "Category": "大师活动",
+    "Chinese": "最后的白骑士",
+    "English": "The Last White Knight",
+    "Japanese": "終の白騎士",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66845,
+    "Category": "大师活动",
+    "Chinese": "传说中的黑龙",
+    "English": "Fade to Black",
+    "Japanese": "伝説の黒龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66844,
+    "Category": "大师活动",
+    "Chinese": "黎明死星",
+    "English": "Dawn of the Death Star",
+    "Japanese": "明けの死星",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66843,
+    "Category": "大师活动",
+    "Chinese": "暗夜恒星",
+    "English": "The Evening Star",
+    "Japanese": "宵の恒星",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66842,
+    "Category": "大师活动",
+    "Chinese": "我的高贵灵魂",
+    "English": "The Cold Never Bothered Me",
+    "Japanese": "されど気高き我が魂よ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66841,
+    "Category": "大师活动",
+    "Chinese": "灭日",
+    "English": "Day of Ruin",
+    "Japanese": "滅日",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66840,
+    "Category": "大师活动",
+    "Chinese": "风暴的棺材",
+    "English": "In the Tempest's Wake",
+    "Japanese": "嵐の棺",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66836,
+    "Category": "大师活动",
+    "Chinese": "歼灭之钟，再次作响",
+    "English": "Ode to the Destruction",
+    "Japanese": "殲滅の主はまた鐘を鳴らす",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66834,
+    "Category": "大师活动",
+    "Chinese": "轰与迅的热切邂逅",
+    "English": "When the Swift Meets the Roar",
+    "Japanese": "轟と迅の熱き邂逅",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66833,
+    "Category": "大师活动",
+    "Chinese": "无终止的淘金记",
+    "English": "The Eternal Gold Rush",
+    "Japanese": "終わりなき黄金時代",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66832,
+    "Category": "大师活动",
+    "Chinese": "八万地狱之狼",
+    "English": "Wolf Out of Hell",
+    "Japanese": "八万地獄の狼",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66831,
+    "Category": "大师活动",
+    "Chinese": "冰封的谣曲",
+    "English": "Ballad of the Hoarfrost",
+    "Japanese": "眠りの地のバラード",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66830,
+    "Category": "大师活动",
+    "Chinese": "粗暴的另类摇滚",
+    "English": "Alt Rock Recess",
+    "Japanese": "じゃじゃ馬共のオルタナティブ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66829,
+    "Category": "大师活动",
+    "Chinese": "生命的颂歌",
+    "English": "Rotten Canzone",
+    "Japanese": "命ある者のカンツォーネ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66828,
+    "Category": "大师活动",
+    "Chinese": "海底的古典乐",
+    "English": "Symphony of the Coral",
+    "Japanese": "海の底のクラシック",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66827,
+    "Category": "大师活动",
+    "Chinese": "温泥的重金属",
+    "English": "Heavy Metal in the Waste",
+    "Japanese": "泥など温しヘヴィメタル",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66826,
+    "Category": "大师活动",
+    "Chinese": "大树的约德尔",
+    "English": "Yodeling in the Forest",
+    "Japanese": "大樹のヨーデル",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66825,
+    "Category": "大师活动",
+    "Chinese": "暴虐与不合理乃伤痕之母",
+    "English": "Scars Tell the Whole Story",
+    "Japanese": "傷跡は理不尽と暴虐の子",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66824,
+    "Category": "大师活动",
+    "Chinese": "力量是金",
+    "English": "Razzled, Frazzled, and Dazzled",
+    "Japanese": "力こそラージャン！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66822,
+    "Category": "大师活动",
+    "Chinese": "月亮是无慈悲的金女王",
+    "English": "The Moon is a Harsh Queen",
+    "Japanese": "月は無慈悲な金の女王",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66821,
+    "Category": "大师活动",
+    "Chinese": "银色逆光",
+    "English": "A Glance of Silver",
+    "Japanese": "銀の逆光",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66820,
+    "Category": "大师活动",
+    "Chinese": "破天大轰",
+    "English": "A Roar that Splinters the Sky",
+    "Japanese": "破天大轟",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66819,
+    "Category": "大师活动",
+    "Chinese": "我既优雅又充满良心",
+    "English": "I Am Tranquil, I Am Sound",
+    "Japanese": "ワタシは寡黙な良識者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66818,
+    "Category": "大师活动",
+    "Chinese": "踢地跨月",
+    "English": "Moonlit Howl",
+    "Japanese": "地を蹴り、月に跳ぶ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66817,
+    "Category": "大师活动",
+    "Chinese": "饥渴的理由",
+    "English": "A Reason Behind The Hunger",
+    "Japanese": "渇きの理由",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66816,
+    "Category": "大师活动",
+    "Chinese": "永冻冬季",
+    "English": "The Winter Blues",
+    "Japanese": "冬の澱み",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66815,
+    "Category": "大师活动",
+    "Chinese": "三界主",
+    "English": "We Three Kings",
+    "Japanese": "三界主",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66814,
+    "Category": "大师活动",
+    "Chinese": "适合地底",
+    "English": "Servants of the Vale",
+    "Japanese": "地の底に相応しく",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66813,
+    "Category": "大师活动",
+    "Chinese": "森林深处",
+    "English": "In the Depths of the Forest",
+    "Japanese": "深い森の奥に",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66812,
+    "Category": "大师活动",
+    "Chinese": "不候人的全力疾走",
+    "English": "The Desert Dash",
+    "Japanese": "全力疾走、待ったなし",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66811,
+    "Category": "大师活动",
+    "Chinese": "燃烧吧，兽龙种！！！！",
+    "English": "Fired-Up Bruisers",
+    "Japanese": "燃え上がれ獣竜種！！！！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66810,
+    "Category": "大师活动",
+    "Chinese": "水与冰气正在等候",
+    "English": "Soaked and Shivering",
+    "Japanese": "水と冷気がお待ちかね",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66809,
+    "Category": "大师活动",
+    "Chinese": "在乎荒地发生的事",
+    "English": "A Curious Experiment",
+    "Japanese": "荒地の気になる出来事",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66808,
+    "Category": "大师活动",
+    "Chinese": "焚天之王，游火之哲",
+    "English": "A Sky & Sea of Fire",
+    "Japanese": "空を焼く王、火を泳ぐ賢者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66807,
+    "Category": "大师活动",
+    "Chinese": "睡眠与麻痹的组合",
+    "English": "Hunter-Blunderer",
+    "Japanese": "眠りと麻痺のコンビネーション",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66806,
+    "Category": "大师活动",
+    "Chinese": "缤·纷·色·彩",
+    "English": "Colorful Carnival",
+    "Japanese": "カラ・カラ・カラ・カラフル",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66805,
+    "Category": "大师活动",
+    "Chinese": "真正的暴徒是哪个？！",
+    "English": "A New Troublemaker in Town",
+    "Japanese": "暴れん坊はどっち！？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66804,
+    "Category": "大师活动",
+    "Chinese": "干地的宝石果实",
+    "English": "Desert Desserts",
+    "Japanese": "乾地に実る宝石",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66803,
+    "Category": "大师活动",
+    "Chinese": "拘泥于沼泥的猛牛们",
+    "English": "A Bunch of Sticks in the Mud",
+    "Japanese": "泥濘に拘泥する猛牛達",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66802,
+    "Category": "大师活动",
+    "Chinese": "地底之主正在呼唤...",
+    "English": "The Lord of the Underworld Beckons",
+    "Japanese": "地下の主が呼んでいる…",
+    "Wingdrake": false
+  },
+  {
+    "Id": 66801,
+    "Category": "大师活动",
+    "Chinese": "这条鱼不适合进食",
+    "English": "Trophy Fishin'",
+    "Japanese": "この魚は、食用に向かない",
+    "Wingdrake": false
+  },
+  {
+    "Id": 64801,
+    "Category": "大师活动",
+    "Chinese": "巨大气球x巨大气球",
+    "English": "Balloon Fight",
+    "Japanese": "巨大風船×巨大風船",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61816,
+    "Category": "大师活动",
+    "Chinese": "那条鱼锋利的吗？",
+    "English": "A Fish to Whet Your Appetite",
+    "Japanese": "その魚のキレアジはいかが？",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61815,
+    "Category": "大师活动",
+    "Chinese": "朝天空狙击！",
+    "English": "Skyward Snipers",
+    "Japanese": "空に向かって狙い撃ち！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61814,
+    "Category": "大师活动",
+    "Chinese": "调查（雷狼龙，溟波龙）",
+    "English": "A Shocking Climax",
+    "Japanese": "調査（雷狼竜、溟龍）",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61813,
+    "Category": "大师活动",
+    "Chinese": "斗技场的白色情书",
+    "English": "50 Shades of White",
+    "Japanese": "闘技場からの白いラブレター",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61812,
+    "Category": "大师活动",
+    "Chinese": "饥饿不等人",
+    "English": "Beef is Never a Mi-steak",
+    "Japanese": "はらぺこ達は我慢ができない",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61811,
+    "Category": "大师活动",
+    "Chinese": "美丽的东西会冻伤",
+    "English": "Flora Frostbite",
+    "Japanese": "その艶姿、凍傷に注意",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61809,
+    "Category": "大师活动",
+    "Chinese": "好坏孩子统统入睡",
+    "English": "Paolumu Lullabies",
+    "Japanese": "ねむれよいこもわるいこも",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61808,
+    "Category": "大师活动",
+    "Chinese": "噢，健美身体",
+    "English": "Muscle Monkey Madness",
+    "Japanese": "嗚呼、マッスルボディ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61807,
+    "Category": "大师活动",
+    "Chinese": "古龙来临，冰冻三尺",
+    "English": "A Chilling Entrance",
+    "Japanese": "古龍きたりなば首許寒し",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61806,
+    "Category": "大师活动",
+    "Chinese": "粉碎矿山",
+    "English": "Scores of Ores",
+    "Japanese": "鉱山粉砕",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61805,
+    "Category": "大师活动",
+    "Chinese": "捉到胖衣企鹅！",
+    "English": "Duffel Duty",
+    "Japanese": "キブクレペンギンつかまえた！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61803,
+    "Category": "大师活动",
+    "Chinese": "猎人们永远的梦想2",
+    "English": "Every Hunter's Dream II",
+    "Japanese": "ハンター達の永い夢Ⅱ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61802,
+    "Category": "大师活动",
+    "Chinese": "猎人们永远的梦想3",
+    "English": "Every Hunter's Dream III",
+    "Japanese": "ハンター達の永い夢Ⅲ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61801,
+    "Category": "大师活动",
+    "Chinese": "抓住银猴！",
+    "English": "Pearl Snatchers",
+    "Japanese": "ギンセンザルつかまえた！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 61103,
+    "Category": "大师活动",
+    "Chinese": "天黑前的片刻",
+    "English": "Where Sun Meets Moon",
+    "Japanese": "日がくれるまでの短かい間",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51613,
+    "Category": "特别任务",
+    "Chinese": "破晓的凯旋",
+    "English": "Dawn's Triumph",
+    "Japanese": "暁の凱還",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51612,
+    "Category": "特别任务",
+    "Chinese": "黑龙",
+    "English": "The Black Dragon",
+    "Japanese": "黒龍ミラボレアス",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51611,
+    "Category": "特别任务",
+    "Chinese": "黄昏黑星",
+    "English": "Blazing Black Twilight",
+    "Japanese": "宵闇の煌黒星",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51607,
+    "Category": "特别任务",
+    "Chinese": "金色罗剎",
+    "English": "The Fury Remains",
+    "Japanese": "金色羅刹",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51606,
+    "Category": "特别任务",
+    "Chinese": "极限爆碎",
+    "English": "...And My Rage for All",
+    "Japanese": "砕破極臨",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51605,
+    "Category": "特别任务",
+    "Chinese": "赤色的龙",
+    "English": "The Red Dragon",
+    "Japanese": "赤き龍",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51604,
+    "Category": "特别任务",
+    "Chinese": "不归的地底",
+    "English": "Point of No Return",
+    "Japanese": "戻らずの底",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51603,
+    "Category": "特别任务",
+    "Chinese": "失去的幽世线",
+    "English": "Across the Lost Path",
+    "Japanese": "失われた幽世線",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51602,
+    "Category": "特别任务",
+    "Chinese": "银色的矜持",
+    "English": "Sterling Pride",
+    "Japanese": "銀色の矜持",
+    "Wingdrake": false
+  },
+  {
+    "Id": 51601,
+    "Category": "特别任务",
+    "Chinese": "出来吧，破坏的化身",
+    "English": "Reveal Thyself, Destroyer",
+    "Japanese": "出でよ破壊の権化",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50910,
+    "Category": "特别任务",
+    "Chinese": "委托：古代树森林的变异调查",
+    "English": "Contract: Trouble in the Ancient Forest",
+    "Japanese": "依頼：古代樹の森の異変調査",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50906,
+    "Category": "特别任务",
+    "Chinese": "受伤的魔兽贝希摩斯",
+    "English": "He Taketh It with His Eyes",
+    "Japanese": "手負いの魔獣「ベヒーモス」",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50905,
+    "Category": "特别任务",
+    "Chinese": "传说的魔兽贝希摩斯",
+    "English": "The Legendary Beast",
+    "Japanese": "伝説の魔獣",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50902,
+    "Category": "特别任务",
+    "Chinese": "狂乱的黄金乡",
+    "English": "The Fury of El Dorado",
+    "Japanese": "狂乱のエルドラド",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50901,
+    "Category": "特别任务",
+    "Chinese": "地母神的奢华享宴",
+    "English": "Banquet in the Earthen Hall",
+    "Japanese": "地母神の豪奢なる宴",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50803,
+    "Category": "特别任务",
+    "Chinese": "只有跪拜一途",
+    "English": "No Remorse, No Surrender",
+    "Japanese": "平伏するより他に無し",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50802,
+    "Category": "特别任务",
+    "Chinese": "潘多拉的斗技场",
+    "English": "Pandora's Arena",
+    "Japanese": "パンドラの闘技場",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50801,
+    "Category": "特别任务",
+    "Chinese": "烈日",
+    "English": "The Blazing Sun",
+    "Japanese": "烈日",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50701,
+    "Category": "特别任务",
+    "Chinese": "顺应食物链的趋势！",
+    "English": "The Food Chain Dominator",
+    "Japanese": "食物連鎖の波に乗れ！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 50601,
+    "Category": "特别任务",
+    "Chinese": "来自异世界的访客",
+    "English": "A Visitor from Another World",
+    "Japanese": "異世界からの来訪者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63150,
+    "Category": "其他",
+    "Chinese": "MHW活动：拒绝结冰的生命",
+    "English": "Farewell to the Frozen",
+    "Japanese": "MHWイベント：されど凍らぬ命",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63149,
+    "Category": "其他",
+    "Chinese": "MHW活动：力与技",
+    "English": "Power and Technique",
+    "Japanese": "MHWイベント：力と技と",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63147,
+    "Category": "其他",
+    "Chinese": "MHW活动：不怕受伤的时候",
+    "English": "Fear No Scars",
+    "Japanese": "MHWイベント：傷をも恐れぬ時",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63146,
+    "Category": "其他",
+    "Chinese": "MHW活动：朝光迈进的猎人",
+    "English": "Aiming for the Light",
+    "Japanese": "MHWイベント：光目指す狩り人",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63145,
+    "Category": "其他",
+    "Chinese": "MHW活动：无垢的星光",
+    "English": "A Star That Will Never Dim",
+    "Japanese": "MHWイベント：澱みなき星明り",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63144,
+    "Category": "其他",
+    "Chinese": "MHW活动：真正强者",
+    "English": "The True Tyrant",
+    "Japanese": "MHWイベント：真の強者",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63143,
+    "Category": "其他",
+    "Chinese": "MHW活动：冰冠之主",
+    "English": "Wearer of the Iceborne Crown",
+    "Japanese": "MHWイベント：冰冠の主",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63131,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：猎人与青蓝王妃",
+    "English": "The Hunter and The Blue Empress",
+    "Japanese": "MHWイベント：狩人と青い妃",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63130,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：紊乱与纪律的尽头",
+    "English": "When Law Meets War",
+    "Japanese": "MHWイベント：乱と律の果て",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63110,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：隐藏在森林中的人们",
+    "English": "What Lurks In The Forest",
+    "Japanese": "MHWイベント：森に潜む者達",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63109,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：立于顶点的人们",
+    "English": "The Best of the Best",
+    "Japanese": "MHWイベント：頂に立つ者達",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63108,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐恐暴龙",
+    "English": "Deviljho Slay Event",
+    "Japanese": "MHWイベント：恐暴竜討伐",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63107,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐灭尽龙04",
+    "English": "Nergigante Slay Event 4",
+    "Japanese": "MHWイベント：滅尽龍討伐04",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63106,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐风漂惨爪03",
+    "English": "Gale & Fangs Slay Event 3",
+    "Japanese": "MHWイベント：風漂惨爪討伐03",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63105,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐风漂惨爪02",
+    "English": "Gale & Fangs Slay Event 2",
+    "Japanese": "MHWイベント：風漂惨爪討伐02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63104,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐风漂惨爪01",
+    "English": "Gale & Fangs Slay Event 1",
+    "Japanese": "MHWイベント：風漂惨爪討伐01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63103,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐灭尽龙03",
+    "English": "Nergigante Slay Event 3",
+    "Japanese": "MHWイベント：滅尽龍討伐03",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63102,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐灭尽龙02",
+    "English": "Nergigante Slay Event 2",
+    "Japanese": "MHWイベント：滅尽龍討伐02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63101,
+    "Category": "其他",
+    "Chinese": "怪物猎人 世界活动：讨伐灭尽龙01",
+    "English": "Nergigante Slay Event 1",
+    "Japanese": "MHWイベント：滅尽龍討伐01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63074,
+    "Category": "其他",
+    "Chinese": "大师上级挑战任务02",
+    "English": "Challenge Quest 2: MR Expert",
+    "Japanese": "ＭＲ上級チャレンジクエスト02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63073,
+    "Category": "其他",
+    "Chinese": "大师上级挑战任务01",
+    "English": "Challenge Quest 1: MR Expert",
+    "Japanese": "ＭＲ上級チャレンジクエスト01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63072,
+    "Category": "其他",
+    "Chinese": "大师中级挑战任务02",
+    "English": "Challenge Quest 2: MR Intermediate",
+    "Japanese": "ＭＲ中級チャレンジクエスト02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63071,
+    "Category": "其他",
+    "Chinese": "大师中级挑战任务01",
+    "English": "Challenge Quest 1: MR Intermediate",
+    "Japanese": "ＭＲ中級チャレンジクエスト01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63052,
+    "Category": "其他",
+    "Chinese": "上级挑战任务02",
+    "English": "Challenge Quest 2: Expert",
+    "Japanese": "上級チャレンジクエスト02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63051,
+    "Category": "其他",
+    "Chinese": "上级挑战任务01",
+    "English": "Challenge Quest 1: Expert",
+    "Japanese": "上級チャレンジクエスト01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63039,
+    "Category": "其他",
+    "Chinese": "春华乱樱3",
+    "English": "Empress in Full Bloom III",
+    "Japanese": "乱れ桜は春爛漫・Ⅲ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63038,
+    "Category": "其他",
+    "Chinese": "春华乱樱2",
+    "English": "Empress in Full Bloom II",
+    "Japanese": "乱れ桜は春爛漫・Ⅱ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63037,
+    "Category": "其他",
+    "Chinese": "春华乱樱1",
+    "English": "Empress in Full Bloom I",
+    "Japanese": "乱れ桜は春爛漫・Ⅰ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63036,
+    "Category": "其他",
+    "Chinese": "杀意波动而觉醒之龙3",
+    "English": "The Awakened Satsui No Hado III",
+    "Japanese": "殺意の波動に目覚めた龍・Ⅲ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63035,
+    "Category": "其他",
+    "Chinese": "杀意波动而觉醒之龙2",
+    "English": "The Awakened Satsui No Hado II",
+    "Japanese": "殺意の波動に目覚めた龍・Ⅱ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63034,
+    "Category": "其他",
+    "Chinese": "杀意波动而觉醒之龙1",
+    "English": "The Awakened Satsui No Hado I",
+    "Japanese": "殺意の波動に目覚めた龍・Ⅰ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63033,
+    "Category": "其他",
+    "Chinese": "奇面族大脱逃！！",
+    "English": "Gajalaka Outbreak!",
+    "Japanese": "ガジャブー大脱走！！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63032,
+    "Category": "其他",
+    "Chinese": "中级挑战任务02",
+    "English": "Challenge Quest 2: Intermediate",
+    "Japanese": "中級チャレンジクエスト02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63031,
+    "Category": "其他",
+    "Chinese": "中级挑战任务01",
+    "English": "Challenge Quest 1: Intermediate",
+    "Japanese": "中級チャレンジクエスト01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63009,
+    "Category": "其他",
+    "Chinese": "不畏泥泞之人啊",
+    "English": "Down the Dark, Muddy Path",
+    "Japanese": "泥土の道をいとわぬ者よ",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63003,
+    "Category": "其他",
+    "Chinese": "巨蜂大爆动！！",
+    "English": "Vespoid Infestation!",
+    "Japanese": "ランゴスタ大発生！！",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63002,
+    "Category": "其他",
+    "Chinese": "初级挑战任务02",
+    "English": "Challenge Quest 2: Beginner",
+    "Japanese": "初級チャレンジクエスト02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 63001,
+    "Category": "其他",
+    "Chinese": "初级挑战任务01",
+    "English": "Challenge Quest 1: Beginner",
+    "Japanese": "初級チャレンジクエスト01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3171,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级01",
+    "English": "Arena Master Quest 01",
+    "Japanese": "闘技大会マスター級01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3101,
+    "Category": "其他",
+    "Chinese": "斗技大会01",
+    "English": "Arena Quest 01",
+    "Japanese": "闘技大会01",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3092,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级07",
+    "English": "Arena Master Quest 07",
+    "Japanese": "闘技大会マスター級07",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3091,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级06",
+    "English": "Arena Master Quest 06",
+    "Japanese": "闘技大会マスター級06",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3074,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级05",
+    "English": "Arena Master Quest 05",
+    "Japanese": "闘技大会マスター級05",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3073,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级04",
+    "English": "Arena Master Quest 04",
+    "Japanese": "闘技大会マスター級04",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3072,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级03",
+    "English": "Arena Master Quest 03",
+    "Japanese": "闘技大会マスター級03",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3071,
+    "Category": "其他",
+    "Chinese": "斗技大会大师级02",
+    "English": "Arena Master Quest 02",
+    "Japanese": "闘技大会マスター級02",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3052,
+    "Category": "其他",
+    "Chinese": "斗技大会09",
+    "English": "Arena Quest 09",
+    "Japanese": "闘技大会09",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3051,
+    "Category": "其他",
+    "Chinese": "斗技大会08",
+    "English": "Arena Quest 08",
+    "Japanese": "闘技大会08",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3034,
+    "Category": "其他",
+    "Chinese": "斗技大会07",
+    "English": "Arena Quest 07",
+    "Japanese": "闘技大会07",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3033,
+    "Category": "其他",
+    "Chinese": "斗技大会06",
+    "English": "Arena Quest 06",
+    "Japanese": "闘技大会06",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3032,
+    "Category": "其他",
+    "Chinese": "斗技大会05",
+    "English": "Arena Quest 05",
+    "Japanese": "闘技大会05",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3031,
+    "Category": "其他",
+    "Chinese": "斗技大会04",
+    "English": "Arena Quest 04",
+    "Japanese": "闘技大会04",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3002,
+    "Category": "其他",
+    "Chinese": "斗技大会03",
+    "English": "Arena Quest 03",
+    "Japanese": "闘技大会03",
+    "Wingdrake": false
+  },
+  {
+    "Id": 3001,
+    "Category": "其他",
+    "Chinese": "斗技大会02",
+    "English": "Arena Quest 02",
+    "Japanese": "闘技大会02",
+    "Wingdrake": false
+  }
+]

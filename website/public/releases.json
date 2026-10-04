@@ -1,6 +1,35 @@
 {
-  "latest": "v0.3.1",
+  "latest": "v0.3.2",
   "versions": [
+    {
+      "tag": "v0.3.2",
+      "name": "霜序 Frostbound v0.3.2",
+      "date": "2026-10-04T11:21:11Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.2",
+      "changes": [
+        "发出出发请求后，先确认新一轮加载已经开始，再等待任务载入结束且猎人可操作；避免把仍在运行的旧任务误判为重启完成。",
+        "套装猫饭在整个加载期间持续应用，覆盖游戏场景初始化时的配置刷新。",
+        "生命、耐力、其他猫饭能力和三个技能使用同一份配置快照，一次写入完整数据，减少读取到部分配置的机会。",
+        "加载开始单独记录到日志；出发请求未生效时显示明确的超时提示。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.2/Frostbound.exe",
+          "size": 74377072,
+          "digest": "sha256:9ef87f722fe8fc38195758a2d1d95e22fc0e803176d602fb56968fe6260bcbb8"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.2/Frostbound-v0.3.2-win-x64.zip",
+          "size": 69273886,
+          "digest": "sha256:292e28d4805920769e6e6fabf59d624313b7af15a12b794ef22e2e859930b319"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.2/Frostbound-v0.3.2-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:c9e0dc05571ffd38100a5e313ddb0b18598a5b7c60f7314b0cb2e4226ee0d86f"
+        }
+      }
+    },
     {
       "tag": "v0.3.1",
       "name": "霜序 Frostbound v0.3.1",

@@ -4,6 +4,7 @@ const downloadExe = document.querySelector('#download-exe');
 const downloadZip = document.querySelector('#download-zip');
 const checksum = document.querySelector('#checksum-link');
 let catalog;
+let userSelectedVersion = false;
 
 function icon(name) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -31,7 +32,7 @@ function render(data) {
   select.replaceChildren(...data.versions.map(release => {
     const option = element('option', '', release.tag + (release.tag === data.latest ? ' · 最新' : '')); option.value = release.tag; return option;
   }));
-  select.value = data.versions.some(release => release.tag === previous) && previous !== 'v0.3.1' ? previous : data.latest;
+  select.value = userSelectedVersion && data.versions.some(release => release.tag === previous) ? previous : data.latest;
   document.querySelector('#version-count').textContent = data.versions.length;
   const cards = data.versions.map(release => {
     const card = element('article', 'release-card'); const heading = element('div', 'release-heading');
@@ -39,7 +40,7 @@ function render(data) {
     if (release.tag === data.latest) number.append(element('span', 'latest-label', '最新'));
     const time = element('time', '', date(release.date)); time.dateTime = release.date;
     heading.append(number, time); card.append(heading);
-    const headings = { 'v0.3.1': '更清爽的界面，更稳定的切换。', 'v0.3.0': '深浅主题，自由切换。' };
+    const headings = { 'v0.3.2': '修正猫饭应用时机。', 'v0.3.1': '更清爽的界面，更稳定的切换。', 'v0.3.0': '深浅主题，自由切换。' };
     card.append(element('h3', '', headings[release.tag] ?? release.name.replace(/霜序\s*Frostbound\s*/i, '')));
     const changes = element('ul');
     for (const change of release.changes ?? []) changes.append(element('li', '', change));
@@ -52,7 +53,7 @@ function render(data) {
   releaseList.replaceChildren(...cards); updateSelection();
 }
 
-select.addEventListener('change', updateSelection);
+select.addEventListener('change', () => { userSelectedVersion = true; updateSelection(); });
 document.querySelectorAll('[data-preview]').forEach(button => button.addEventListener('click', () => {
   const compact = button.dataset.preview === 'compact';
   for (const choice of document.querySelectorAll('[data-preview]')) { const active = choice === button; choice.classList.toggle('is-active', active); choice.setAttribute('aria-pressed', String(active)); }

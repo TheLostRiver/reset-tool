@@ -102,21 +102,27 @@ public partial class MainWindow : Window
     private FrameworkElement Dashboard()
     {
         var retry = Button(T("重新检测", "Refresh", "再検出"), async () => await Runtime.Retry(), ghost: true);
-        var page = Page("READY FOR YOUR NEXT HUNT", T("狩猎控制台", "Hunt dashboard", "狩猟ダッシュボード"), T("少一点等待，多一点狩猎。", "Less waiting. More hunting.", "待ち時間を減らして、狩猟をもっと。"), retry);
-        var hero = new Grid { MinHeight = 104 }; var copy = new StackPanel { Margin = new Thickness(0, 0, 260, 0), VerticalAlignment = VerticalAlignment.Center };
-        var eyebrow = Text("MONSTER HUNTER WORLD  /  ICEBORNE", 8, "#82A6BC"); copy.Children.Add(eyebrow);
-        heroStatus = Text(T("等待猎人归来", "Waiting for your hunter", "ハンターを待っています"), 22, "#DFEEF6", FontWeights.SemiBold); heroStatus.Margin = new Thickness(0, 9, 0, 8); copy.Children.Add(heroStatus);
-        heroDetail = Text(T("启动游戏并载入存档，工具将自动连接。", "Launch the game and load a save to connect.", "ゲームを起動してセーブデータを読み込んでください。"), 10, "#83A6BC"); copy.Children.Add(heroDetail);
-        var art = Glacier(); art.HorizontalAlignment = HorizontalAlignment.Right; hero.Children.Add(art); hero.Children.Add(copy);
-        statusBadge = Pill(T("尚未连接", "OFFLINE", "未接続")); statusBadge.HorizontalAlignment = HorizontalAlignment.Right; statusBadge.VerticalAlignment = VerticalAlignment.Top; statusBadge.Margin = new Thickness(0, -5, 0, 0); hero.Children.Add(statusBadge);
-        var heroCard = Card(hero, 23); heroCard.Background = new LinearGradientBrush(Color.FromRgb(27, 48, 63), Color.FromRgb(22, 36, 49), 0); heroCard.BorderBrush = Brush("#365469"); heroCard.Margin = new Thickness(0, 0, 0, 18); page.Children.Add(heroCard);
+        retry.Content = IconLabel("refresh", T("重新检测", "Refresh", "再検出"), "#A5C7D8");
+        retry.Padding = new Thickness(12, 8, 12, 8); retry.VerticalAlignment = VerticalAlignment.Center;
+        var page = new StackPanel();
+        var hero = new Grid(); hero.ColumnDefinitions.Add(new ColumnDefinition()); hero.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20) }); hero.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        var copy = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
+        var heading = new StackPanel { Orientation = Orientation.Horizontal };
+        var title = Text(T("狩猎控制台", "Hunt dashboard", "狩猟ダッシュボード"), 23, "#E2EEF5", FontWeights.SemiBold);
+        title.TextWrapping = TextWrapping.NoWrap; title.VerticalAlignment = VerticalAlignment.Center; heading.Children.Add(title);
+        heroStatus = Text(T("等待猎人归来", "Waiting for your hunter", "ハンターを待っています"), 11, "#A8C9DB"); heroStatus.TextWrapping = TextWrapping.NoWrap;
+        statusBadge = Pill(""); statusBadge.Child = heroStatus; statusBadge.Margin = new Thickness(14, 0, 0, 0); heading.Children.Add(statusBadge); copy.Children.Add(heading);
+        heroDetail = Text(T("启动游戏并载入存档，工具将自动连接。", "Launch the game and load a save to connect.", "ゲームを起動してセーブデータを読み込んでください。"), 10, "#83A6BC");
+        heroDetail.Margin = new Thickness(0, 8, 0, 0); heroDetail.TextWrapping = TextWrapping.NoWrap; heroDetail.TextTrimming = TextTrimming.CharacterEllipsis; copy.Children.Add(heroDetail);
+        hero.Children.Add(copy); Grid.SetColumn(retry, 2); hero.Children.Add(retry);
+        var heroCard = Card(hero, 18); heroCard.Background = new LinearGradientBrush(Color.FromRgb(27, 48, 63), Color.FromRgb(22, 36, 49), 0); heroCard.BorderBrush = Brush("#365469"); heroCard.Margin = new Thickness(0, 0, 0, 16); page.Children.Add(heroCard);
 
         var questPanel = new StackPanel(); var questHeading = new Grid(); questHeading.Children.Add(IconLabel("restart", T("任务控制", "Quest control", "クエスト操作"), "#C6DDEB")); var number = Text("01 / QUEST", 8, "#57768D"); number.HorizontalAlignment = HorizontalAlignment.Right; number.VerticalAlignment = VerticalAlignment.Center; questHeading.Children.Add(number); questPanel.Children.Add(questHeading);
-        var label = Text(T("重启目标", "TARGET QUEST", "対象クエスト"), 9, "#7D98AC"); label.Margin = new Thickness(0, 21, 0, 8); questPanel.Children.Add(label);
-        taskTarget = Text(TargetName(), 13, "#D4E7F2"); taskTarget.TextTrimming = TextTrimming.CharacterEllipsis;
+        var label = Text(T("重启目标", "TARGET QUEST", "対象クエスト"), 9, "#7D98AC"); label.Margin = new Thickness(0, 16, 0, 8); questPanel.Children.Add(label);
+        taskTarget = Text(TargetName(), 13, "#D4E7F2"); taskTarget.TextWrapping = TextWrapping.NoWrap; taskTarget.TextTrimming = TextTrimming.CharacterEllipsis;
         var choose = new Button { Content = taskTarget, HorizontalContentAlignment = HorizontalAlignment.Left, Background = Brush("#111C27"), BorderBrush = Brush("#354E61"), Padding = new Thickness(13, 12, 13, 12) };
         choose.Click += (_, _) => PickQuest(); questPanel.Children.Add(choose);
-        var modeLabel = Text(T("重启方式", "RESTART MODE", "リスタート方式"), 9, "#7D98AC"); modeLabel.Margin = new Thickness(0, 18, 0, 9); questPanel.Children.Add(modeLabel);
+        var modeLabel = Text(T("重启方式", "RESTART MODE", "リスタート方式"), 9, "#7D98AC"); modeLabel.Margin = new Thickness(0, 14, 0, 9); questPanel.Children.Add(modeLabel);
         var modes = new Grid(); for (int i = 0; i < 5; i++) modes.ColumnDefinitions.Add(new ColumnDefinition { Width = i % 2 == 0 ? new GridLength(1, GridUnitType.Star) : new GridLength(8) });
         var buttons = new List<Button>();
         string[] titles = [T("稳定重启", "Stable", "安定"), T("快速重启", "Quick", "高速"), T("仅受理", "Accept only", "受注のみ")];
@@ -152,16 +158,6 @@ public partial class MainWindow : Window
     {
         var grid = new Grid(); grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.4, GridUnitType.Star) });
         grid.Children.Add(Text(label, 10, "#718EA3")); value = Text("—", 11, "#C3D8E7"); value.TextAlignment = TextAlignment.Right; Grid.SetColumn(value, 1); grid.Children.Add(value); return new Border { Child = grid, Margin = new Thickness(0, 12, 0, 0) };
-    }
-    private FrameworkElement Glacier()
-    {
-        var canvas = new Canvas { Width = 255, Height = 108, ClipToBounds = true, Opacity = .65 };
-        canvas.Children.Add(new System.Windows.Shapes.Ellipse { Width = 150, Height = 150, Stroke = Brush("#345E77"), StrokeThickness = 1, Margin = new Thickness(90, -18, 0, 0) });
-        canvas.Children.Add(new System.Windows.Shapes.Ellipse { Width = 120, Height = 120, Stroke = Brush("#345E77"), StrokeThickness = .7, Margin = new Thickness(105, -3, 0, 0) });
-        canvas.Children.Add(new System.Windows.Shapes.Path { Data = Geometry.Parse("M0 103 57 46 80 72 127 11 163 59 190 28 252 103Z"), Fill = Brush("#27475F") });
-        canvas.Children.Add(new System.Windows.Shapes.Path { Data = Geometry.Parse("M57 46 47 63 57 58 65 65 61 57Z M127 11 100 48 119 35 131 43 144 34Z M190 28 172 54 187 43 195 48 204 44Z"), Fill = Brush("#719BB5") });
-        canvas.Children.Add(new System.Windows.Shapes.Path { Data = Geometry.Parse("M127 11 118 77 134 65 163 103H252L190 28 195 83 218 103H0"), Stroke = Brush("#598098"), StrokeThickness = .75 });
-        canvas.Children.Add(new System.Windows.Shapes.Path { Data = Geometry.Parse("M27 103H237 M181 8V15 M177 12H185 M217 46V53 M213 50H221"), Stroke = Brush("#80BBCB"), StrokeThickness = 1 }); return canvas;
     }
     private string TargetName() => Runtime.Settings.SelectedQuestId == 0 ? T("沿用最后受理的任务  ›", "Use the last accepted quest  ›", "最後に受注したクエストを使用  ›") : (Runtime.Quests.FirstOrDefault(q => q.Id == Runtime.Settings.SelectedQuestId)?.Name(Runtime.Settings.Language) ?? Runtime.Settings.SelectedQuestId.ToString()) + "  ›";
     public QuestRow Row(Quest quest) => new(quest, quest.Name(Runtime.Settings.Language), CategoryName(quest.Category) + (Runtime.Settings.Favorites.Contains(quest.Id) ? "  ·  ★" : "") + (quest.Wingdrake ? T("  ·  翼龙", "  ·  Wingdrake", "  ·  翼竜") : ""), quest.Id.ToString("D5"));
@@ -349,9 +345,14 @@ public partial class MainWindow : Window
         SidebarDetail.Text = ready ? T($"猎人存档 {state.SaveSlot + 1:00}", $"Hunter save {state.SaveSlot + 1:00}", $"セーブ {state.SaveSlot + 1:00}") : T("连接后自动读取猎人存档", "A hunter save is needed to connect", "セーブ読み込み後に接続");
         FooterStatus.Text = busy ? T("正在执行操作，请稍候…", "An operation is in progress…", "操作を実行中…") : state.Detail.Length > 0 ? state.Detail : ready ? $"PID {state.ProcessId}   ·   {state.Build}" : "MonsterHunterWorld.exe  ·  " + status;
         foreach (var button in gameButtons) button.IsEnabled = state.CanAct && !busy;
-        if (heroStatus != null) heroStatus.Text = ready ? busy ? T("正在准备下一场狩猎", "Preparing your next hunt", "次の狩猟を準備中") : PhaseName(state.QuestState) : state.State == ConnectionState.Waiting ? T("等待猎人归来", "Waiting for your hunter", "ハンターを待っています") : status;
+        if (heroStatus != null) heroStatus.Text = ready ? busy ? T("正在准备下一场狩猎", "Preparing your next hunt", "次の狩猟を準備中") : state.Loading ? T("正在加载", "Loading", "読み込み中") : PhaseName(state.QuestState) : state.State == ConnectionState.Waiting ? T("等待猎人归来", "Waiting for your hunter", "ハンターを待っています") : status;
         if (heroDetail != null) heroDetail.Text = ready ? T($"猎人存档 {state.SaveSlot + 1:00}  ·  {state.Build}", $"Hunter save {state.SaveSlot + 1:00}  ·  {state.Build}", $"セーブ {state.SaveSlot + 1:00}  ·  {state.Build}") : state.Detail.Length > 0 ? state.Detail : T("启动游戏并载入存档，工具将自动连接。", "Launch the game and load a save to connect.", "ゲームを起動してセーブデータを読み込んでください。");
-        if (statusBadge != null) statusBadge.Child = Text(status, 9, ready ? "#A0DECE" : "#89B8CC");
+        if (heroDetail != null) heroDetail.ToolTip = heroDetail.Text;
+        if (heroStatus != null) heroStatus.Foreground = Brush(ready ? "#A0DECE" : state.State is ConnectionState.Unsupported or ConnectionState.AccessDenied or ConnectionState.Faulted ? "#E0BA85" : "#A8C9DB");
+        if (statusBadge != null) {
+            statusBadge.Background = Brush(ready ? "#24403F" : "#20323F");
+            statusBadge.BorderBrush = Brush(ready ? "#3F6661" : "#304B5D");
+        }
         if (phaseValue != null) phaseValue.Text = ready ? PhaseName(state.QuestState) : "—";
         if (pidValue != null) pidValue.Text = state.ProcessId > 0 ? state.ProcessId.ToString() : "—";
         if (questValue != null) questValue.Text = ready && state.QuestId > 0 ? state.QuestId.ToString("D5") : "—";

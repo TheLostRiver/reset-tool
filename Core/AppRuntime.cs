@@ -78,16 +78,22 @@ public sealed class AppRuntime : IDisposable
         var quest = Quests.FirstOrDefault(q => q.Id == id);
         var selected = s.Loadouts.FirstOrDefault(p => p.Id == s.SelectedLoadoutId);
         var mode = s.Mode; bool wingdrake = s.Wingdrake || quest?.Wingdrake == true; bool fade = s.FastFade;
-        if (selected != null) {
-            var configuration = JsonSerializer.Deserialize<Loadout>(JsonSerializer.Serialize(selected, SettingsStore.Json), SettingsStore.Json)!;
-            // The visible task choice controls this run; the saved configuration keeps its own task.
-            configuration.QuestId = id;
-            configuration.Wingdrake |= wingdrake;
-            await Run(() => Engine.ApplyLoadoutAsync(configuration, true, mode, wingdrake, fade));
-        } else await Run(() => Engine.RestartAsync(id, mode, wingdrake, fade));
+        if (selected != null) await ApplySelected();
+        else await Run(() => Engine.RestartAsync(id, mode, wingdrake, fade));
+    }
+    public Task ApplySelected()
+    {
+        var selected = Settings.Loadouts.FirstOrDefault(p => p.Id == Settings.SelectedLoadoutId);
+        if (selected != null) return Apply(selected, false);
+        Toast?.Invoke("请先创建并选择综合套装。 / Create and select a loadout first."); return Task.CompletedTask;
     }
     public Task Reset() => Run(() => Engine.ResetAsync(Settings.FastFade));
-    public Task Apply(Loadout loadout, bool restart) => Run(() => Engine.ApplyLoadoutAsync(loadout, restart, Settings.Mode, Settings.Wingdrake, Settings.FastFade));
+    public Task Apply(Loadout loadout, bool restart)
+    {
+        var copy = JsonSerializer.Deserialize<Loadout>(JsonSerializer.Serialize(loadout, SettingsStore.Json), SettingsStore.Json)!;
+        var mode = Settings.Mode; bool wingdrake = Settings.Wingdrake, fastFade = Settings.FastFade;
+        return Run(() => Engine.ApplyLoadoutAsync(copy, restart, mode, wingdrake, fastFade));
+    }
     public Task ApplyFood(FoodPreset food) => Run(() => Engine.ApplyFoodAsync(food));
     private async Task Run(Func<Task> action)
     {

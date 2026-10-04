@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Frostbound.Core;
 
 namespace Frostbound;
@@ -37,23 +39,20 @@ public partial class MainWindow
     {
         if (switchingInterface || Runtime.Settings.InterfaceStyle == style && displayedStyle == style) return;
         if (!CanAnimate) { Runtime.Settings.InterfaceStyle = style; Runtime.Save(); Rebuild(); return; }
-        switchingInterface = true; InterfaceSwitch.IsEnabled = false;
+        switchingInterface = true; InterfaceSwitch.IsEnabled = ThemeSwitch.IsEnabled = false;
         PageHost.IsHitTestVisible = CompactHost.IsHitTestVisible = false;
         try {
-            var oldHost = Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact ? CompactHost : PageHost;
-            oldHost.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(90)));
-            if (Runtime.Settings.InterfaceStyle == InterfaceStyle.Full) Sidebar.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(90)));
-            await Task.Delay(100);
-            if (shuttingDown) return;
-            oldHost.BeginAnimation(OpacityProperty, null);
-            Sidebar.BeginAnimation(OpacityProperty, null); Sidebar.Opacity = 0;
-            PageHost.Opacity = CompactHost.Opacity = 0;
+            var root = (FrameworkElement)Content; var dpi = VisualTreeHelper.GetDpi(root);
+            var snapshot = new RenderTargetBitmap(Math.Max(1, (int)Math.Ceiling(root.ActualWidth * dpi.DpiScaleX)), Math.Max(1, (int)Math.Ceiling(root.ActualHeight * dpi.DpiScaleY)), dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+            snapshot.Render(root); snapshot.Freeze(); InterfaceSnapshot.Source = snapshot; InterfaceSnapshot.Opacity = 1; InterfaceSnapshot.Visibility = Visibility.Visible;
+            PageHost.BeginAnimation(OpacityProperty, null); CompactHost.BeginAnimation(OpacityProperty, null);
+            PageHost.Opacity = CompactHost.Opacity = Sidebar.Opacity = 1;
             Runtime.Settings.InterfaceStyle = style; Runtime.Save(); animateWindowResize = true; Rebuild();
             await Task.Delay(220);
-            FinishWindowResize();
+            FinishWindowResize(); root.UpdateLayout();
+            await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.Render);
             if (!shuttingDown) {
-                AnimatePageIn(style == InterfaceStyle.Compact ? CompactHost : PageHost);
-                if (style == InterfaceStyle.Full) { Sidebar.Opacity = 1; Sidebar.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, PageDuration) { FillBehavior = FillBehavior.Stop }); }
+                InterfaceSnapshot.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, PageDuration));
                 await Task.Delay(180);
             }
         } catch (Exception e) { ShowToast(e.Message); }
@@ -61,6 +60,7 @@ public partial class MainWindow
             FinishWindowResize(); animateWindowResize = false; switchingInterface = false;
             PageHost.Opacity = CompactHost.Opacity = 1; PageHost.IsHitTestVisible = CompactHost.IsHitTestVisible = true; InterfaceSwitch.IsEnabled = true;
             Sidebar.Opacity = 1;
+            ThemeSwitch.IsEnabled = true; InterfaceSnapshot.BeginAnimation(OpacityProperty, null); InterfaceSnapshot.Visibility = Visibility.Collapsed; InterfaceSnapshot.Source = null; InterfaceSnapshot.Opacity = 1;
         }
     }
 

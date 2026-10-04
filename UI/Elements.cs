@@ -9,7 +9,7 @@ namespace Frostbound.UI;
 
 internal static class Elements
 {
-    public static SolidColorBrush Brush(string color) => new((Color)ColorConverter.ConvertFromString(color));
+    public static SolidColorBrush Brush(string color) => ThemeManager.Brush(color);
     public static TextBlock Text(string text, double size = 13, string color = "#DDE8F0", FontWeight? weight = null) => new() {
         Text = text, FontSize = size, Foreground = Brush(color), FontWeight = weight ?? FontWeights.Normal, TextWrapping = TextWrapping.Wrap,
         LineHeight = size * 1.5, LineStackingStrategy = LineStackingStrategy.BlockLineHeight
@@ -48,6 +48,9 @@ internal static class Elements
     }
     public static Viewbox Icon(string name, string color = "#819BAE", double size = 18) {
         string data = name switch {
+            "sun" => "M16 12A4 4 0 1 1 8 12A4 4 0 1 1 16 12 M12 1V4 M12 20V23 M1 12H4 M20 12H23 M4 4 6 6 M18 18 20 20 M4 20 6 18 M18 6 20 4",
+            "moon" => "M20 15A9 9 0 1 1 9 3A7 7 0 0 0 20 15Z",
+            "system" => "M2 4H22V18H2Z M8 22H16 M12 18V22",
             "dashboard" => "M3 3H10V10H3ZM14 3H21V10H14ZM3 14H10V21H3ZM14 14H21V21H14Z",
             "quests" => "M5 3H16L20 7V21H5Z M15 3V8H20 M8 12H16 M8 16H14",
             "loadouts" => "M12 2 21 7V17L12 22 3 17V7Z M3 7 12 12 21 7 M12 12V22",

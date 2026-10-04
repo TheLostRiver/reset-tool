@@ -33,6 +33,7 @@ public partial class MainWindow : Window
     private bool rebuilding, shuttingDown, initialized;
     private TextBlock? heroStatus, heroDetail, phaseValue, pidValue, questValue, saveValue, taskTarget, operationValue;
     private Border? statusBadge;
+    private Button? taskPicker;
     private SearchChoicePicker<Loadout?>? homeLoadout;
     private ListBox? questList, loadoutList;
     private TextBox? questSearch;
@@ -42,9 +43,10 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        Runtime = new(Dispatcher); ThemeManager.Initialize(Runtime.Settings.Theme);
         InitializeComponent();
         CompactViewport.SizeChanged += (_, e) => { if (e.NewSize.Width > 0) CompactHost.Width = Math.Max(200, e.NewSize.Width); };
-        Runtime = new(Dispatcher);
+        ThemeManager.Changed += UpdateThemeControls;
         Runtime.StateChanged += UpdateState;
         Runtime.Toast += ShowToast;
         Runtime.Engine.BusyChanged += _ => Dispatcher.BeginInvoke(() => UpdateState(Runtime.Engine.Snapshot));
@@ -59,7 +61,7 @@ public partial class MainWindow : Window
         initialized = true; ConfigureNavigation(); ApplyInterfaceLayout(); DashboardNav.IsChecked = true;
         if ((Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact ? CompactHost.Content : PageHost.Content) == null) Navigate(0);
         UpdateState(Runtime.Engine.Snapshot);
-        Loaded += (_, _) => { if (!App.IsRendering) Runtime.Start(); };
+        Loaded += (_, _) => { if (!App.IsRendering) { Runtime.Start(); ThemeManager.StartMonitoring(Dispatcher); } };
         Closing += OnClosing;
     }
 
@@ -74,6 +76,7 @@ public partial class MainWindow : Window
             var row = new StackPanel { Orientation = Orientation.Horizontal }; var mark = Icon(icons[i]); mark.Margin = new Thickness(0, 0, 13, 0); row.Children.Add(mark);
             var text = Text(labels[i], 12); text.SetBinding(TextBlock.ForegroundProperty, new System.Windows.Data.Binding("Foreground") { Source = controls[i] }); row.Children.Add(text); controls[i].Content = row;
         }
+        UpdateThemeControls();
     }
     private void NavigationChecked(object sender, RoutedEventArgs e) { if (initialized && !rebuilding) Navigate(int.Parse(((RadioButton)sender).Tag.ToString()!)); }
     private void Navigate(int page)
@@ -116,18 +119,18 @@ public partial class MainWindow : Window
         heroDetail = Text(T("启动游戏并载入存档，工具将自动连接。", "Launch the game and load a save to connect.", "ゲームを起動してセーブデータを読み込んでください。"), 10, "#83A6BC");
         heroDetail.Margin = new Thickness(0, 8, 0, 0); heroDetail.TextWrapping = TextWrapping.NoWrap; heroDetail.TextTrimming = TextTrimming.CharacterEllipsis; copy.Children.Add(heroDetail);
         hero.Children.Add(copy); Grid.SetColumn(retry, 2); hero.Children.Add(retry);
-        var heroCard = Card(hero, 18); heroCard.Background = new LinearGradientBrush(Color.FromRgb(27, 48, 63), Color.FromRgb(22, 36, 49), 0); heroCard.BorderBrush = Brush("#365469"); heroCard.Margin = new Thickness(0, 0, 0, 16); page.Children.Add(heroCard);
+        var heroCard = Card(hero, 18); heroCard.Background = ThemeManager.Gradient("#1B303F", "#162431"); heroCard.BorderBrush = Brush("#365469"); heroCard.Margin = new Thickness(0, 0, 0, 16); page.Children.Add(heroCard);
 
         var questPanel = new StackPanel(); var questHeading = new Grid(); questHeading.Children.Add(IconLabel("restart", T("任务控制", "Quest control", "クエスト操作"), "#C6DDEB")); var number = Text("01 / QUEST", 8, "#57768D"); number.HorizontalAlignment = HorizontalAlignment.Right; number.VerticalAlignment = VerticalAlignment.Center; questHeading.Children.Add(number); questPanel.Children.Add(questHeading);
         var label = Text(T("重启目标", "TARGET QUEST", "対象クエスト"), 9, "#7D98AC"); label.Margin = new Thickness(0, 16, 0, 8); questPanel.Children.Add(label);
         taskTarget = Text(TargetName(), 13, "#D4E7F2"); taskTarget.TextWrapping = TextWrapping.NoWrap; taskTarget.TextTrimming = TextTrimming.CharacterEllipsis;
         var choose = new Button { Content = taskTarget, HorizontalContentAlignment = HorizontalAlignment.Left, Background = Brush("#111C27"), BorderBrush = Brush("#354E61"), Padding = new Thickness(13, 12, 13, 12) };
-        choose.Click += (_, _) => PickQuest(); questPanel.Children.Add(choose);
+        taskPicker = choose; choose.Click += (_, _) => PickQuest(); questPanel.Children.Add(choose);
         var modeLabel = Text(T("重启方式", "RESTART MODE", "リスタート方式"), 9, "#7D98AC"); modeLabel.Margin = new Thickness(0, 14, 0, 9); questPanel.Children.Add(modeLabel);
         var modes = new Grid(); for (int i = 0; i < 5; i++) modes.ColumnDefinitions.Add(new ColumnDefinition { Width = i % 2 == 0 ? new GridLength(1, GridUnitType.Star) : new GridLength(8) });
         var buttons = new List<Button>();
-        string[] titles = [T("稳定重启", "Stable", "安定"), T("快速重启", "Quick", "高速"), T("仅受理", "Accept only", "受注のみ")];
-        string[] hints = [T("返回后再出发", "Return & depart", "帰還して再出発"), T("在当前场景重启", "Restart in place", "その場で再開"), T("手动选择出发", "Depart manually", "手動で出発")];
+        string[] titles = [T("稳定重启", "Stable", "安定"), T("快速重启 · 推荐", "Quick · default", "高速・推奨"), T("仅受理", "Accept only", "受注のみ")];
+        string[] hints = [T("返回后再出发", "Return & depart", "帰還して再出発"), T("直接载入任务", "One scene load", "直接ロード"), T("手动选择出发", "Depart manually", "手動で出発")];
         void RefreshModes() { for (int i = 0; i < buttons.Count; i++) { bool selected = (int)Runtime.Settings.Mode == i; buttons[i].BorderBrush = Brush(selected ? "#7EBCCF" : "#314452"); buttons[i].Background = Brush(selected ? "#28424F" : "#172630"); } }
         for (int i = 0; i < 3; i++) {
             int index = i; var content = new StackPanel(); content.Children.Add(Text(titles[i], 11, "#C6E3ED", FontWeights.SemiBold)); var hint = Text(hints[i], 8, "#7D9BAE"); hint.Margin = new Thickness(0, 6, 0, 0); content.Children.Add(hint);
@@ -150,7 +153,7 @@ public partial class MainWindow : Window
 
         var quick = new StackPanel(); var quickHeader = Text(T("综合配置 · 每次重启自动应用", "LOADOUT · APPLIED ON EVERY RESTART", "総合設定 · 再開時に自動適用"), 10, "#9EBACC"); quick.Children.Add(quickHeader);
         homeLoadout = LoadoutSelector(); homeLoadout.Margin = new Thickness(0, 11, 0, 0);
-        var apply = Button(T("应用套装", "Apply", "適用"), async () => { if (homeLoadout.SelectedValue is Loadout loadout) await Runtime.Apply(loadout, false); else ShowToast(T("请先创建并选择综合套装。", "Create and select a loadout first.", "総合セットを作成・選択してください。")); }); apply.Margin = new Thickness(0, 11, 0, 0); gameButtons.Add(apply); quick.Children.Add(Columns(homeLoadout, apply, 2.5, 10));
+        var apply = Button(T("应用套装", "Apply", "適用"), async () => await Runtime.ApplySelected()); apply.Margin = new Thickness(0, 11, 0, 0); gameButtons.Add(apply); quick.Children.Add(Columns(homeLoadout, apply, 2.5, 10));
         page.Children.Add(Columns(Card(quick, 18), Card(new HotkeyQuickEditor(this), 12), 1.5)); return page;
     }
     private Border Metric(string label, out TextBlock value)
@@ -158,7 +161,13 @@ public partial class MainWindow : Window
         var grid = new Grid(); grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.4, GridUnitType.Star) });
         grid.Children.Add(Text(label, 10, "#718EA3")); value = Text("—", 11, "#C3D8E7"); value.TextAlignment = TextAlignment.Right; Grid.SetColumn(value, 1); grid.Children.Add(value); return new Border { Child = grid, Margin = new Thickness(0, 12, 0, 0) };
     }
-    private string TargetName() => Runtime.Settings.SelectedQuestId == 0 ? T("沿用最后受理的任务  ›", "Use the last accepted quest  ›", "最後に受注したクエストを使用  ›") : (Runtime.Quests.FirstOrDefault(q => q.Id == Runtime.Settings.SelectedQuestId)?.Name(Runtime.Settings.Language) ?? Runtime.Settings.SelectedQuestId.ToString()) + "  ›";
+    private string TargetName()
+    {
+        var selected = Runtime.Settings.Loadouts.FirstOrDefault(p => p.Id == Runtime.Settings.SelectedLoadoutId);
+        if (selected != null && selected.QuestId == 0) return T("仅应用套装配置", "Apply configuration only", "セット設定のみ適用");
+        int id = selected?.QuestId ?? Runtime.Settings.SelectedQuestId;
+        return id == 0 ? T("沿用最后受理的任务  ›", "Use the last accepted quest  ›", "最後に受注したクエストを使用  ›") : (Runtime.Quests.FirstOrDefault(q => q.Id == id)?.Name(Runtime.Settings.Language) ?? id.ToString()) + "  ›";
+    }
     public QuestRow Row(Quest quest) => new(quest, quest.Name(Runtime.Settings.Language), CategoryName(quest.Category) + (Runtime.Settings.Favorites.Contains(quest.Id) ? "  ·  ★" : "") + (quest.Wingdrake ? T("  ·  翼龙", "  ·  Wingdrake", "  ·  翼竜") : ""), quest.Id.ToString("D5"));
     private string CategoryName(string value) => value switch {
         "任务" => T(value, "Assigned", "任務"), "下位上位自由" => T(value, "LR / HR Optional", "下位・上位フリー"), "下位上位活动" => T(value, "LR / HR Event", "下位・上位イベント"), "大师自由" => T(value, "Master Optional", "マスターフリー"), "大师活动" => T(value, "Master Event", "マスターイベント"), "特别任务" => T(value, "Special assignments", "特別任務"), "其他" => T(value, "Other", "その他"), _ => value
@@ -280,6 +289,9 @@ public partial class MainWindow : Window
         var interfaceStyle = Choices(new[] { new Choice<InterfaceStyle>(InterfaceStyle.Full, T("完整界面", "Full interface", "通常表示")), new(InterfaceStyle.Compact, T("精简界面", "Compact interface", "コンパクト表示")) }, Runtime.Settings.InterfaceStyle);
         options.Children.Add(Field(T("界面风格", "Interface style", "表示スタイル"), interfaceStyle, T("也可以点击窗口顶部的切换按钮。", "You can also switch using the title bar button.", "タイトルバーのボタンでも切り替えできます。")));
         interfaceStyle.SelectionChanged += (_, _) => { if (interfaceStyle.SelectedValue is InterfaceStyle style) SetInterfaceStyle(style); };
+        themeChoice = Choices(ThemeChoices(), Runtime.Settings.Theme);
+        options.Children.Add(Field(T("颜色主题", "Color theme", "カラーテーマ"), themeChoice, T("窗口顶部也可切换；跟随系统会响应 Windows 的应用颜色变化。", "Also available in the title bar. System mode follows Windows app colors.", "タイトルバーでも切り替え可能。システム設定の変更に自動追従。")));
+        themeChoice.SelectionChanged += (_, _) => { if (themeChoice.SelectedValue is AppearanceTheme theme) SetTheme(theme); };
         var trayOption = new CheckBox { Content = T("关闭窗口时收起到通知区域", "Keep running in the notification area when closed", "閉じると通知領域に格納"), IsChecked = Runtime.Settings.MinimizeToTray, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(trayOption);
         var fade = new CheckBox { Content = T("缩短重置过程中的淡入淡出", "Shorten fade transitions during resets", "リセット時のフェードを短縮"), IsChecked = Runtime.Settings.FastFade, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(fade);
         var focus = new CheckBox { Content = T("执行操作时回到游戏窗口", "Focus the game when running an action", "操作時にゲームを前面へ"), IsChecked = Runtime.Settings.FocusGameOnAction, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(focus);
@@ -332,6 +344,13 @@ public partial class MainWindow : Window
         SidebarDetail.Text = ready ? T($"猎人存档 {state.SaveSlot + 1:00}", $"Hunter save {state.SaveSlot + 1:00}", $"セーブ {state.SaveSlot + 1:00}") : T("连接后自动读取猎人存档", "A hunter save is needed to connect", "セーブ読み込み後に接続");
         FooterStatus.Text = busy ? T("正在执行操作，请稍候…", "An operation is in progress…", "操作を実行中…") : state.Detail.Length > 0 ? state.Detail : ready ? $"PID {state.ProcessId}   ·   {state.Build}" : "MonsterHunterWorld.exe  ·  " + status;
         foreach (var button in gameButtons) button.IsEnabled = state.CanAct && !busy;
+        var selectedConfiguration = Runtime.Settings.Loadouts.FirstOrDefault(p => p.Id == Runtime.Settings.SelectedLoadoutId);
+        if (taskTarget != null) taskTarget.Text = TargetName();
+        if (taskPicker != null) {
+            taskPicker.IsEnabled = selectedConfiguration == null;
+            taskPicker.ToolTip = selectedConfiguration == null ? T("选择重启任务", "Choose a quest to restart", "再開するクエストを選択") : T("重启与应用使用套装保存的任务；可在编辑套装中修改。", "Restart and Apply use the saved loadout quest. Change it in the loadout editor.", "再開と適用はセット内のクエストを使用。セット編集で変更可能。");
+            ToolTipService.SetShowOnDisabled(taskPicker, true);
+        }
         if (heroStatus != null) heroStatus.Text = ready ? busy ? T("正在准备下一场狩猎", "Preparing your next hunt", "次の狩猟を準備中") : state.Loading ? T("正在加载", "Loading", "読み込み中") : PhaseName(state.QuestState) : state.State == ConnectionState.Waiting ? T("等待猎人归来", "Waiting for your hunter", "ハンターを待っています") : status;
         if (heroDetail != null) heroDetail.Text = ready ? T($"猎人存档 {state.SaveSlot + 1:00}  ·  {state.Build}", $"Hunter save {state.SaveSlot + 1:00}  ·  {state.Build}", $"セーブ {state.SaveSlot + 1:00}  ·  {state.Build}") : state.Detail.Length > 0 ? state.Detail : T("启动游戏并载入存档，工具将自动连接。", "Launch the game and load a save to connect.", "ゲームを起動してセーブデータを読み込んでください。");
         if (heroDetail != null) heroDetail.ToolTip = heroDetail.Text;

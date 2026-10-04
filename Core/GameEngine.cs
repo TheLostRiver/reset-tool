@@ -117,7 +117,8 @@ public sealed class GameEngine : IDisposable
             if (phase is not (1 or 2 or 4 or 5 or 13)) throw new InvalidOperationException("当前阶段无法重启任务。 / Cannot restart in the current state.");
             if (mode == RestartMode.AcceptOnly && phase is not (1 or 13)) throw new InvalidOperationException("仅受理模式需要先回到据点或探索。 / Accept-only requires a base or expedition.");
             using var fade = fastFade ? ChangeFade() : null;
-            if (mode == RestartMode.Stable || IsJudgment()) {
+            bool quick = mode == RestartMode.Quick && phase == 2 && CanQuickRestart();
+            if (mode == RestartMode.Stable || mode == RestartMode.Quick && phase == 2 && !quick) {
                 if (phase is 2 or 4 or 5) {
                     await ResetCoreAsync(token);
                     Log("等待返回据点…");
@@ -128,7 +129,7 @@ public sealed class GameEngine : IDisposable
                     await WaitAsync(() => M.Int32(M.Follow(G(LocalRoot), 0x108) + (Snapshot.QuestState == 13 ? 0x10F0 : 0x1138)) == 3,
                         token, 20, "据点尚未准备好，请关闭菜单后重试。 / Base is not ready.");
                 }
-            } else if (mode == RestartMode.Quick && phase == 2) {
+            } else if (quick) {
                 ResetPlayerForQuickRestart();
             } else if (phase is 4 or 5) {
                 await ResetCoreAsync(token);
@@ -211,6 +212,13 @@ public sealed class GameEngine : IDisposable
             return M.Int32(monster + 0x122C0) == 0x57 && M.Int32(monster + 0x62B8) == 0xB5;
         } catch (IOException) { return false; }
     }
+    private bool CanQuickRestart()
+    {
+        if (IsJudgment()) { Log("当前为特殊战斗阶段，使用稳定重启。 / Special battle phase; using stable restart."); return false; }
+        long player = M.Follow(G(PlayerRoot), 0x110);
+        if (M.Float(M.Pointer(player + 0x7670) + 0x64) <= 0) { Log("当前处于力尽状态，使用稳定重启。 / Hunter fainted; using stable restart."); return false; }
+        return true;
+    }
 
     private async Task AcceptCoreAsync(int questId, bool wingdrake, bool acceptOnly, CancellationToken token)
     {
@@ -265,7 +273,7 @@ public sealed class GameEngine : IDisposable
             throw new InvalidOperationException("请先选择任务，或在游戏中正常受理一次任务。 / Select or accept a quest first.");
         using var fade = departRequested && fastFade ? ChangeFade() : null;
         if (departRequested && Snapshot.QuestState is 2 or 4 or 5) {
-            if (mode == RestartMode.Quick && Snapshot.QuestState == 2 && !IsJudgment()) ResetPlayerForQuickRestart();
+            if (mode == RestartMode.Quick && Snapshot.QuestState == 2 && CanQuickRestart()) ResetPlayerForQuickRestart();
             else {
                 await ResetCoreAsync(token);
                 await WaitAsync(() => { ReadState(); return !Snapshot.Loading && Snapshot.QuestState is 1 or 13; }, token, 60, "返回据点超时。");
@@ -289,11 +297,12 @@ public sealed class GameEngine : IDisposable
             }
         }
         if (items > 0) {
-            long record = save + items * 0x768L + 0x740;
+            // The UI slot is one-based; its payload starts at slot * stride, after that slot's name.
+            long record = save + items * 0x768L;
             if (M.Int32(save + items * 0x768L + 0x278) == 0) throw new InvalidOperationException("所选道具套装为空。 / Item loadout is empty.");
-            batch.Add(save + 0x38088, M.Read(record + 0x28, 0x270));
+            batch.Add(save + 0x38088, M.Read(record, 0x270));
             if (loadout.LinkRadialMenu == true || loadout.LinkRadialMenu == null && M.Int32(save + 0x140415) == 1)
-                batch.Add(save + 0xEDF38, M.Read(record + 0x2A0, 0x140));
+                batch.Add(save + 0xEDF38, M.Read(record + 0x278, 0x140));
         }
         long food = M.Pointer(G(FoodRoot));
         int[] foodValues = loadout.Food.ToArray();

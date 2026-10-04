@@ -88,10 +88,11 @@ public partial class MainWindow
         return combo;
     }
 
-    internal void PreparePreview(InterfaceStyle style, string? language = null, bool foodPage = false, bool shortcutsPage = false)
+    internal void PreparePreview(InterfaceStyle style, string? language = null, bool foodPage = false, bool shortcutsPage = false, AppearanceTheme theme = AppearanceTheme.Dark)
     {
         if (!App.IsRendering) return;
         Runtime.Settings.InterfaceStyle = style;
+        Runtime.Settings.Theme = theme; ThemeManager.SetMode(theme);
         if (language is "zh" or "en" or "ja") Runtime.Settings.Language = language;
         Rebuild();
         if (foodPage) FoodNav.IsChecked = true;
@@ -124,11 +125,11 @@ public partial class MainWindow
         taskTarget = Text(TargetName(), 13, "#D5E8F1"); taskTarget.TextWrapping = TextWrapping.NoWrap; taskTarget.TextTrimming = TextTrimming.CharacterEllipsis;
         var target = new Button { Content = taskTarget, HorizontalContentAlignment = HorizontalAlignment.Left,
             Background = Brush("#15232F"), BorderBrush = Brush("#3B5364"), Height = 38, Padding = new Thickness(10, 6, 10, 6) };
-        target.Click += (_, _) => PickQuest(); panel.Children.Add(CompactField(T("重启任务", "Quest to restart", "再開するクエスト"), target));
+        taskPicker = target; target.Click += (_, _) => PickQuest(); panel.Children.Add(CompactField(T("重启任务", "Quest to restart", "再開するクエスト"), target));
 
         var mode = Choices(new[] {
             new Choice<RestartMode>(RestartMode.Stable, T("稳定重启", "Stable restart", "安定リスタート")),
-            new(RestartMode.Quick, T("快速重启", "Quick restart", "高速リスタート")),
+            new(RestartMode.Quick, T("快速重启（推荐）", "Quick restart · default", "高速リスタート・推奨")),
             new(RestartMode.AcceptOnly, T("仅受理", "Accept only", "受注のみ"))
         }, Runtime.Settings.Mode);
         mode.Height = 34; mode.FontSize = 12;
@@ -146,7 +147,7 @@ public partial class MainWindow
 
         compactLoadout = homeLoadout = LoadoutSelector();
         compactLoadout.Height = 36;
-        compactApply = Button(T("应用", "Apply", "適用"), async () => { if (compactLoadout.SelectedValue is Loadout preset) await Runtime.Apply(preset, false); });
+        compactApply = Button(T("应用", "Apply", "適用"), async () => await Runtime.ApplySelected());
         compactApply.FontSize = 11; compactApply.Height = 36; compactApply.Padding = new Thickness(10, 6, 10, 6); gameButtons.Add(compactApply);
         var configuration = new StackPanel { Margin = new Thickness(0, 0, 0, 12) }; var toolbar = new Grid { Margin = new Thickness(0, 0, 0, 6) }; toolbar.ColumnDefinitions.Add(new ColumnDefinition()); toolbar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         var caption = Text(T("综合配置", "Loadout", "総合設定"), 11, "#91A7B9"); caption.VerticalAlignment = VerticalAlignment.Center; toolbar.Children.Add(caption);

@@ -4,9 +4,11 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Frostbound.Core;
+using Frostbound.UI;
 
 namespace Frostbound;
 
@@ -35,7 +37,8 @@ public partial class App : Application
         if (IsRendering) {
             var window = (MainWindow)MainWindow;
             string view = e.Args.Length > 2 ? e.Args[2] : "full";
-            window.PreparePreview(view == "compact" ? InterfaceStyle.Compact : InterfaceStyle.Full, e.Args.Length > 3 ? e.Args[3] : null, view == "food", view == "shortcuts");
+            var theme = e.Args.Length > 5 && Enum.TryParse<AppearanceTheme>(e.Args[5], true, out var chosenTheme) ? chosenTheme : AppearanceTheme.Dark;
+            window.PreparePreview(view == "compact" ? InterfaceStyle.Compact : InterfaceStyle.Full, e.Args.Length > 3 ? e.Args[3] : null, view == "food", view == "shortcuts", theme);
             if (e.Args.Length > 4) {
                 var dimensions = e.Args[4].Split('x');
                 if (dimensions.Length == 2 && int.TryParse(dimensions[0], out int width) && int.TryParse(dimensions[1], out int height) && width <= 4096 && height <= 4096) {
@@ -58,11 +61,13 @@ public partial class App : Application
         var root = (FrameworkElement)window.Content;
         int width = (int)window.Width, height = (int)window.Height;
         root.Measure(new Size(width, height)); root.Arrange(new Rect(0, 0, width, height)); root.UpdateLayout();
+        await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
+        root.Measure(new Size(width, height)); root.Arrange(new Rect(0, 0, width, height)); root.UpdateLayout();
         var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32); bitmap.Render(root);
         var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
         string destination = Path.GetFullPath(path); Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
         using (var file = File.Create(destination)) encoder.Save(file);
         await window.CloseRender(); Shutdown();
     }
-    protected override void OnExit(ExitEventArgs e) { instance?.Dispose(); base.OnExit(e); }
+    protected override void OnExit(ExitEventArgs e) { ThemeManager.StopMonitoring(); instance?.Dispose(); base.OnExit(e); }
 }

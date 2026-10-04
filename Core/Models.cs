@@ -7,6 +7,7 @@ namespace Frostbound.Core;
 
 public enum RestartMode { Stable, Quick, AcceptOnly }
 public enum InterfaceStyle { Full, Compact }
+public enum AppearanceTheme { Dark, Light, System }
 public enum ConnectionState { Waiting, Reading, Ready, Unsupported, AccessDenied, Faulted }
 
 public sealed class Quest
@@ -98,9 +99,10 @@ public sealed class Settings
     public int SchemaVersion { get; set; } = 1;
     public string Language { get; set; } = "zh";
     public InterfaceStyle InterfaceStyle { get; set; } = InterfaceStyle.Full;
+    public AppearanceTheme Theme { get; set; } = AppearanceTheme.Dark;
     public FoodPreset Food { get; set; } = new();
     public string GamePath { get; set; } = @"D:\Software\Steam\steamapps\common\Monster Hunter World\MonsterHunterWorld.exe";
-    public RestartMode Mode { get; set; } = RestartMode.Stable;
+    public RestartMode Mode { get; set; } = RestartMode.Quick;
     public bool Wingdrake { get; set; }
     public bool FastFade { get; set; } = true;
     public bool ChatCommands { get; set; }

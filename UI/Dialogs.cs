@@ -118,30 +118,26 @@ internal sealed class LoadoutEditorDialog : StudioDialog
         var read = Button(T("从当前猎人读取预设套装", "Read this hunter's loadout slots", "現在のマイセットを読み込む"), () => {
             try {
                 var slots = owner.Runtime.Engine.ReadLoadoutSlots(); liveSlots.Children.Clear();
-                var equipments = new ComboBox { ItemsSource = slots.Equipment }; var items = new ComboBox { ItemsSource = slots.Items };
-                equipments.SelectionChanged += (_, _) => { if (equipments.SelectedItem is GameLoadoutSlot slot) { equipNumber.Text = slot.Number.ToString(); equipmentName.Text = slot.Name; } };
-                items.SelectionChanged += (_, _) => { if (items.SelectedItem is GameLoadoutSlot slot) { itemNumber.Text = slot.Number.ToString(); itemName.Text = slot.Name; } };
+                var equipments = new SearchChoicePicker<int>(owner, T("搜索装备预设", "Search equipment loadouts", "装備マイセット検索"), slots.Equipment.Select(p => new Choice<int>(p.Number, p.ToString())).ToArray(), preset.EquipmentSlot);
+                var items = new SearchChoicePicker<int>(owner, T("搜索道具预设", "Search item loadouts", "アイテムマイセット検索"), slots.Items.Select(p => new Choice<int>(p.Number, p.ToString())).ToArray(), preset.ItemSlot);
+                equipments.SelectionChanged += (_, _) => { var slot = slots.Equipment.FirstOrDefault(p => p.Number == equipments.SelectedValue); if (slot != null) { equipNumber.Text = slot.Number.ToString(); equipmentName.Text = slot.Name; } };
+                items.SelectionChanged += (_, _) => { var slot = slots.Items.FirstOrDefault(p => p.Number == items.SelectedValue); if (slot != null) { itemNumber.Text = slot.Number.ToString(); itemName.Text = slot.Name; } };
                 liveSlots.Children.Add(Columns(Field(T("游戏内装备套装", "In-game equipment", "装備マイセット"), equipments), Field(T("游戏内道具套装", "In-game items", "アイテムマイセット"), items)));
                 Error.Text = T("预设列表已读取。", "Slots loaded.", "読み込みました。");
             } catch (Exception e) { Error.Text = e.Message; }
         }, ghost: true); read.HorizontalAlignment = HorizontalAlignment.Left; read.FontSize = 11; read.Margin = new Thickness(0, 0, 0, 15); form.Children.Add(read); form.Children.Add(liveSlots);
         var quests = new List<Choice<int>> { new(0, T("不指定任务", "Do not select a quest", "クエスト指定なし")) };
         quests.AddRange(owner.Runtime.Quests.Select(q => new Choice<int>(q.Id, $"{q.Id:D5}  ·  {q.Name(owner.Runtime.Settings.Language)}")));
-        var quest = Choices(quests.ToArray(), preset.QuestId); form.Children.Add(Field(T("绑定任务", "Quest", "クエスト"), quest));
+        string SearchQuest(Choice<int> choice) {
+            var info = owner.Runtime.Quests.FirstOrDefault(q => q.Id == choice.Value);
+            return info == null ? choice.Label : $"{info.Id} {info.Chinese} {info.English} {info.Japanese}";
+        }
+        var quest = new SearchChoicePicker<int>(owner, T("搜索并绑定任务", "Search and bind a quest", "クエストを検索して指定"), quests.ToArray(), preset.QuestId, SearchQuest);
+        form.Children.Add(Field(T("绑定任务", "Quest", "クエスト"), quest));
         var wing = new CheckBox { Content = T("翼龙起始", "Wingdrake start", "翼竜で開始"), IsChecked = preset.Wingdrake, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; form.Children.Add(wing);
         var radial = Choices(new[] { new Choice<int>(0, T("遵循游戏设置", "Follow game preference", "ゲーム設定に従う")), new(1, T("同时应用道具转盘", "Apply the item's radial menu", "アイテムのパレットを適用")), new(2, T("保留当前道具转盘", "Keep the current radial menu", "現在のパレットを維持")) }, preset.LinkRadialMenu is null ? 0 : preset.LinkRadialMenu == true ? 1 : 2);
         form.Children.Add(Field(T("道具转盘联动", "Radial menu link", "パレット連動"), radial));
-        var foodEnabled = new CheckBox { Content = T("启用猫饭效果", "Enable food effects", "食事効果を有効化"), IsChecked = preset.Food.Enabled, FontSize = 12, Margin = new Thickness(0, 5, 0, 16) }; form.Children.Add(foodEnabled);
-        var health = Choices(Enumerable.Range(0, 6).Select(n => new Choice<int>(n, $"+{n * 10} HP")).ToArray(), preset.Food.Health);
-        var stamina = Choices(Enumerable.Range(0, 3).Select(n => new Choice<int>(n, $"+{n * 25} Stamina")).ToArray(), preset.Food.Stamina);
-        Choice<int>[] Buffs() => [new(0, T("无", "None", "なし")), new(1, T("小", "Small", "小")), new(2, T("中", "Medium", "中")), new(3, T("大", "Large", "大"))];
-        var attack = Choices(Buffs(), preset.Food.Attack); var defense = Choices(Buffs(), preset.Food.Defense); var resistance = Choices(Buffs(), preset.Food.Resistance);
-        var food = new StackPanel(); food.Children.Add(Three(Field(T("生命值", "Health", "体力"), health), Field(T("耐力", "Stamina", "スタミナ"), stamina), Field(T("攻击力", "Attack", "攻撃力"), attack)));
-        food.Children.Add(Columns(Field(T("防御力", "Defense", "防御力"), defense), Field(T("属性耐性", "Element resistance", "属性耐性"), resistance)));
-        Choice<int>[] Skills() => owner.Runtime.FoodSkills.Select(skill => new Choice<int>(skill.Id, skill.Name(owner.Runtime.Settings.Language))).ToArray();
-        var skill1 = Choices(Skills(), preset.Food.Skill1); var skill2 = Choices(Skills(), preset.Food.Skill2); var skill3 = Choices(Skills(), preset.Food.Skill3);
-        food.Children.Add(Three(Field(T("技能 1", "Skill 1", "スキル 1"), skill1), Field(T("技能 2", "Skill 2", "スキル 2"), skill2), Field(T("技能 3", "Skill 3", "スキル 3"), skill3))); form.Children.Add(food);
-        food.IsEnabled = foodEnabled.IsChecked == true; foodEnabled.Click += (_, _) => food.IsEnabled = foodEnabled.IsChecked == true;
+        var food = new FoodEditorControl(owner, preset.Food) { Margin = new Thickness(0, 8, 0, 0) }; form.Children.Add(food);
         var bind = new CheckBox { Content = T("仅用于当前猎人存档", "Bind to the current hunter save", "現在のセーブに指定"), IsChecked = preset.SaveSlot >= 0, FontSize = 11, Margin = new Thickness(0, 7, 0, 12) }; form.Children.Add(bind);
         form.Children.Add(Text(T("装备外观会随下一次场景载入刷新。编号和名称均为空时，保留对应配置。", "Equipment appearance refreshes on the next scene load. An empty name and slot 0 keep the current equipment/items.", "装備の外観は次のシーン読み込みで反映。名前が空で番号 0 の項目は維持。"), 10, "#6E8EA4"));
         Body(form, true); Cancel();
@@ -150,7 +146,7 @@ internal sealed class LoadoutEditorDialog : StudioDialog
                 if (!int.TryParse(equipNumber.Text, out int equip) || !int.TryParse(itemNumber.Text, out int item)) throw new FormatException(T("套装编号必须是整数。", "Slot numbers must be integers.", "番号は整数で入力してください。"));
                 preset.Name = name.Text.Trim(); preset.EquipmentSlot = equip; preset.ItemSlot = item; preset.EquipmentName = equipmentName.Text.Trim(); preset.ItemName = itemName.Text.Trim();
                 preset.QuestId = (int)quest.SelectedValue; preset.Wingdrake = wing.IsChecked == true; preset.LinkRadialMenu = (int)radial.SelectedValue switch { 1 => true, 2 => false, _ => null };
-                preset.Food = new() { Enabled = foodEnabled.IsChecked == true, Health = (int)health.SelectedValue, Stamina = (int)stamina.SelectedValue, Attack = (int)attack.SelectedValue, Defense = (int)defense.SelectedValue, Resistance = (int)resistance.SelectedValue, Skill1 = (int)skill1.SelectedValue, Skill2 = (int)skill2.SelectedValue, Skill3 = (int)skill3.SelectedValue };
+                preset.Food = food.Read();
                 if (bind.IsChecked == true) {
                     var state = owner.Runtime.Engine.Snapshot;
                     if (state.CanAct) { preset.SaveSlot = state.SaveSlot; preset.UserId = state.UserId; }

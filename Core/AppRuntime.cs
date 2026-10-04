@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -66,6 +67,7 @@ public sealed class AppRuntime : IDisposable
     }
     public void Save()
     {
+        if (Frostbound.App.IsRendering) return;
         try { Store.Save(Settings); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { AddLog("ERROR", e.Message); Toast?.Invoke(e.Message); }
     }
@@ -74,10 +76,19 @@ public sealed class AppRuntime : IDisposable
     {
         var s = Settings; int id = s.SelectedQuestId;
         var quest = Quests.FirstOrDefault(q => q.Id == id);
-        await Run(() => Engine.RestartAsync(id, s.Mode, s.Wingdrake || quest?.Wingdrake == true, s.FastFade));
+        var selected = s.Loadouts.FirstOrDefault(p => p.Id == s.SelectedLoadoutId);
+        var mode = s.Mode; bool wingdrake = s.Wingdrake || quest?.Wingdrake == true; bool fade = s.FastFade;
+        if (selected != null) {
+            var configuration = JsonSerializer.Deserialize<Loadout>(JsonSerializer.Serialize(selected, SettingsStore.Json), SettingsStore.Json)!;
+            // The visible task choice controls this run; the saved configuration keeps its own task.
+            configuration.QuestId = id;
+            configuration.Wingdrake |= wingdrake;
+            await Run(() => Engine.ApplyLoadoutAsync(configuration, true, mode, wingdrake, fade));
+        } else await Run(() => Engine.RestartAsync(id, mode, wingdrake, fade));
     }
     public Task Reset() => Run(() => Engine.ResetAsync(Settings.FastFade));
     public Task Apply(Loadout loadout, bool restart) => Run(() => Engine.ApplyLoadoutAsync(loadout, restart, Settings.Mode, Settings.Wingdrake, Settings.FastFade));
+    public Task ApplyFood(FoodPreset food) => Run(() => Engine.ApplyFoodAsync(food));
     private async Task Run(Func<Task> action)
     {
         try {

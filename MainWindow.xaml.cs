@@ -33,7 +33,7 @@ public partial class MainWindow : Window
     private bool rebuilding, shuttingDown, initialized;
     private TextBlock? heroStatus, heroDetail, phaseValue, pidValue, questValue, saveValue, taskTarget, operationValue;
     private Border? statusBadge;
-    private ComboBox? homeLoadout;
+    private SearchChoicePicker<Loadout?>? homeLoadout;
     private ListBox? questList, loadoutList;
     private TextBox? questSearch;
     private ComboBox? questCategory;
@@ -44,11 +44,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Runtime = new(Dispatcher);
-        if (!App.IsRendering) {
-            Width = Math.Min(Width, Math.Max(800, SystemParameters.WorkArea.Width - 32));
-            Height = Math.Min(Height, Math.Max(600, SystemParameters.WorkArea.Height - 32));
-            MinWidth = Math.Min(MinWidth, Width); MinHeight = Math.Min(MinHeight, Height);
-        }
         Runtime.StateChanged += UpdateState;
         Runtime.Toast += ShowToast;
         Runtime.Engine.BusyChanged += _ => Dispatcher.BeginInvoke(() => UpdateState(Runtime.Engine.Snapshot));
@@ -60,7 +55,7 @@ public partial class MainWindow : Window
         var menu = new Forms.ContextMenuStrip();
         menu.Items.Add("打开 / Open", null, (_, _) => Dispatcher.BeginInvoke(RestoreWindow));
         menu.Items.Add("退出 / Exit", null, (_, _) => Dispatcher.BeginInvoke(async () => await ExitAsync())); tray.ContextMenuStrip = menu;
-        initialized = true; ConfigureNavigation(); DashboardNav.IsChecked = true;
+        initialized = true; ConfigureNavigation(); ApplyInterfaceLayout(); DashboardNav.IsChecked = true;
         if (PageHost.Content == null) Navigate(0);
         UpdateState(Runtime.Engine.Snapshot);
         Loaded += (_, _) => { if (!App.IsRendering) Runtime.Start(); };
@@ -71,9 +66,9 @@ public partial class MainWindow : Window
     {
         BrandTitle.Text = T("霜序", "Frostbound", "霜序"); BrandTitle.FontSize = Runtime.Settings.Language == "en" ? 16 : 23;
         NavHeading.Text = T("工作台", "WORKSPACE", "ワークスペース");
-        var controls = new[] { DashboardNav, QuestsNav, LoadoutsNav, HotkeysNav, SettingsNav, LogsNav };
-        string[] labels = [T("狩猎控制台", "Hunt dashboard", "狩猟ダッシュボード"), T("任务目录", "Quest library", "クエスト一覧"), T("综合套装", "Loadout studio", "総合セット"), T("快捷键", "Shortcuts", "ショートカット"), T("偏好设置", "Preferences", "設定"), T("运行日志", "Activity log", "実行ログ")];
-        string[] icons = ["dashboard", "quests", "loadouts", "hotkeys", "settings", "logs"];
+        var controls = new[] { DashboardNav, QuestsNav, LoadoutsNav, FoodNav, HotkeysNav, SettingsNav, LogsNav };
+        string[] labels = [T("狩猎控制台", "Hunt dashboard", "狩猟ダッシュボード"), T("任务目录", "Quest library", "クエスト一覧"), T("综合套装", "Loadout studio", "総合セット"), T("猫饭编辑", "Food editor", "食事エディター"), T("快捷键", "Shortcuts", "ショートカット"), T("偏好设置", "Preferences", "設定"), T("运行日志", "Activity log", "実行ログ")];
+        string[] icons = ["dashboard", "quests", "loadouts", "food", "hotkeys", "settings", "logs"];
         for (int i = 0; i < controls.Length; i++) {
             var row = new StackPanel { Orientation = Orientation.Horizontal }; var mark = Icon(icons[i]); mark.Margin = new Thickness(0, 0, 13, 0); row.Children.Add(mark);
             var text = Text(labels[i], 12); text.SetBinding(TextBlock.ForegroundProperty, new System.Windows.Data.Binding("Foreground") { Source = controls[i] }); row.Children.Add(text); controls[i].Content = row;
@@ -82,16 +77,20 @@ public partial class MainWindow : Window
     private void NavigationChecked(object sender, RoutedEventArgs e) { if (initialized && !rebuilding) Navigate(int.Parse(((RadioButton)sender).Tag.ToString()!)); }
     private void Navigate(int page)
     {
+        if (Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact) {
+            PageHost.Content = compactPage ??= CompactView();
+            PageScroll.ScrollToTop(); UpdateState(Runtime.Engine.Snapshot); return;
+        }
         currentPage = page;
         if (!pages.TryGetValue(page, out var content)) {
-            content = page switch { 0 => Dashboard(), 1 => QuestLibrary(), 2 => LoadoutStudio(), 3 => Shortcuts(), 4 => Preferences(), _ => ActivityLog() }; pages[page] = content;
+            content = page switch { 0 => Dashboard(), 1 => QuestLibrary(), 2 => LoadoutStudio(), 3 => Shortcuts(), 4 => Preferences(), 6 => FoodEditorPage(), _ => ActivityLog() }; pages[page] = content;
         }
         PageHost.Content = content; PageScroll.ScrollToTop(); UpdateState(Runtime.Engine.Snapshot);
     }
     private void Rebuild()
     {
-        rebuilding = true; pages.Clear(); gameButtons.Clear(); ConfigureNavigation(); rebuilding = false;
-        Runtime.ReloadQuests(); Navigate(currentPage);
+        rebuilding = true; pages.Clear(); compactPage = null; gameButtons.Clear(); ConfigureNavigation(); rebuilding = false;
+        Runtime.ReloadQuests(); ApplyInterfaceLayout(); Navigate(currentPage);
     }
     private StackPanel Page(string eyebrow, string title, string description, UIElement? action = null)
     {
@@ -143,11 +142,9 @@ public partial class MainWindow : Window
         var compatibility = new StackPanel(); compatibility.Children.Add(IconLabel("shield", T("版本指纹校验", "Build fingerprint", "バージョン検証"), "#91BCC8")); var compatibleNote = Text(T("匹配当前适配版本后才允许操作。", "Actions unlock after the build matches.", "対応するバージョンでのみ操作できます。"), 9, "#6C91A4"); compatibleNote.Margin = new Thickness(0, 9, 0, 0); compatibility.Children.Add(compatibleNote); compatible.Child = compatibility; details.Children.Add(compatible);
         var row = Columns(Card(questPanel), Card(details), 1.85); row.Margin = new Thickness(0, 0, 0, 17); page.Children.Add(row);
 
-        var quick = new StackPanel(); var quickHeader = Text(T("综合套装 · 一次准备好", "LOADOUTS · READY IN ONE STEP", "総合セット · 一括準備"), 10, "#9EBACC"); quick.Children.Add(quickHeader);
-        homeLoadout = new ComboBox { ItemsSource = Runtime.Settings.Loadouts, DisplayMemberPath = "Name", Margin = new Thickness(0, 11, 0, 0) }; homeLoadout.SelectedItem = Runtime.Settings.Loadouts.FirstOrDefault(x => x.Id == Runtime.Settings.SelectedLoadoutId);
-        if (homeLoadout.SelectedIndex < 0 && Runtime.Settings.Loadouts.Count > 0) homeLoadout.SelectedIndex = 0;
-        homeLoadout.SelectionChanged += (_, _) => { Runtime.Settings.SelectedLoadoutId = (homeLoadout.SelectedItem as Loadout)?.Id; Runtime.Save(); };
-        var apply = Button(T("应用套装", "Apply", "適用"), async () => { if (homeLoadout.SelectedItem is Loadout loadout) await Runtime.Apply(loadout, false); else ShowToast(T("请先创建并选择综合套装。", "Create and select a loadout first.", "総合セットを作成・選択してください。")); }); apply.Margin = new Thickness(0, 11, 0, 0); gameButtons.Add(apply); quick.Children.Add(Columns(homeLoadout, apply, 2.5, 10));
+        var quick = new StackPanel(); var quickHeader = Text(T("综合配置 · 每次重启自动应用", "LOADOUT · APPLIED ON EVERY RESTART", "総合設定 · 再開時に自動適用"), 10, "#9EBACC"); quick.Children.Add(quickHeader);
+        homeLoadout = LoadoutSelector(); homeLoadout.Margin = new Thickness(0, 11, 0, 0);
+        var apply = Button(T("应用套装", "Apply", "適用"), async () => { if (homeLoadout.SelectedValue is Loadout loadout) await Runtime.Apply(loadout, false); else ShowToast(T("请先创建并选择综合套装。", "Create and select a loadout first.", "総合セットを作成・選択してください。")); }); apply.Margin = new Thickness(0, 11, 0, 0); gameButtons.Add(apply); quick.Children.Add(Columns(homeLoadout, apply, 2.5, 10));
         var tip = new StackPanel(); tip.Children.Add(Text(T("让下一场，保持专注。", "Keep your next hunt in focus.", "次の狩猟に、集中を。"), 15, "#CBB990")); var tipText = Text(T("装备、道具、猫饭与任务可以组合保存。\n快捷键支持键盘与 XInput 手柄。", "Save equipment, items, food and quests together.\nKeyboard and XInput controller shortcuts.", "装備・アイテム・食事・クエストを一括保存。\nキーボードと XInput コントローラーに対応。"), 10, "#7F96A7"); tipText.Margin = new Thickness(0, 11, 0, 0); tip.Children.Add(tipText);
         page.Children.Add(Columns(Card(quick, 18), Card(tip, 18), 1.5)); return page;
     }
@@ -232,7 +229,7 @@ public partial class MainWindow : Window
     private FrameworkElement LoadoutStudio()
     {
         var add = Button(T("＋ 新建套装", "+ New loadout", "＋ 新規セット"), () => EditLoadout(null), primary: true);
-        var page = Page("ONE SET. EVERYTHING READY.", T("综合套装", "Loadout studio", "総合セット"), T("将装备、道具、猫饭与任务，整理成自己的狩猎习惯。", "Keep equipment, items, food and quests together.", "装備・アイテム・食事・クエストをまとめて管理。"), add);
+        var page = Page("ONE SET. EVERYTHING READY.", T("综合套装", "Loadout studio", "総合セット"), T("自由组合任务、配装、道具与猫饭；选中配置后，每次重启自动应用。", "Combine quests, gear, items and food. Your selection applies on every restart.", "クエスト・装備・アイテム・食事を自由に組み合わせ、再開時に自動適用。"), add);
         loadoutList = new ListBox { Height = 375, ItemTemplate = (DataTemplate)FindResource("LoadoutTemplate") };
         loadoutList.MouseDoubleClick += (_, _) => { if (loadoutList.SelectedItem is LoadoutRow row) EditLoadout(row.Loadout); };
         var list = Runtime.Settings.Loadouts.Select(p => new LoadoutRow(p, p.Name,
@@ -297,6 +294,9 @@ public partial class MainWindow : Window
         var launchGame = Button(T("启动游戏", "Launch game", "ゲームを起動"), LaunchGame, primary: true); launchGame.Margin = new Thickness(0, 13, 0, 0); var launchActions = new StackPanel { Orientation = Orientation.Horizontal }; launchActions.Children.Add(savePath); launchActions.Children.Add(launchGame); launch.Children.Add(launchActions); var launchCard = Card(launch); launchCard.Margin = new Thickness(0, 0, 0, 17); page.Children.Add(launchCard);
         var options = new StackPanel(); options.Children.Add(Text(T("界面与操作", "Interface & behavior", "表示と操作"), 14, "#C4DCEA"));
         var language = Choices(new[] { new Choice<string>("zh", "简体中文"), new("en", "English"), new("ja", "日本語") }, Runtime.Settings.Language); var languageField = Field(T("界面语言", "Interface language", "表示言語"), language); languageField.Margin = new Thickness(0, 17, 0, 17); options.Children.Add(languageField);
+        var interfaceStyle = Choices(new[] { new Choice<InterfaceStyle>(InterfaceStyle.Full, T("完整界面", "Full interface", "通常表示")), new(InterfaceStyle.Compact, T("精简界面", "Compact interface", "コンパクト表示")) }, Runtime.Settings.InterfaceStyle);
+        options.Children.Add(Field(T("界面风格", "Interface style", "表示スタイル"), interfaceStyle, T("也可以点击窗口顶部的切换按钮。", "You can also switch using the title bar button.", "タイトルバーのボタンでも切り替えできます。")));
+        interfaceStyle.SelectionChanged += (_, _) => { if (interfaceStyle.SelectedValue is InterfaceStyle style) SetInterfaceStyle(style); };
         var trayOption = new CheckBox { Content = T("关闭窗口时收起到通知区域", "Keep running in the notification area when closed", "閉じると通知領域に格納"), IsChecked = Runtime.Settings.MinimizeToTray, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(trayOption);
         var fade = new CheckBox { Content = T("缩短重置过程中的淡入淡出", "Shorten fade transitions during resets", "リセット時のフェードを短縮"), IsChecked = Runtime.Settings.FastFade, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(fade);
         var focus = new CheckBox { Content = T("执行操作时回到游戏窗口", "Focus the game when running an action", "操作時にゲームを前面へ"), IsChecked = Runtime.Settings.FocusGameOnAction, FontSize = 11, Margin = new Thickness(0, 0, 0, 17) }; options.Children.Add(focus);
@@ -357,6 +357,7 @@ public partial class MainWindow : Window
         if (questValue != null) questValue.Text = ready && state.QuestId > 0 ? state.QuestId.ToString("D5") : "—";
         if (saveValue != null) saveValue.Text = ready && state.SaveSlot >= 0 ? $"{state.SaveSlot + 1:00}" : "—";
         if (operationValue != null) operationValue.Text = busy ? T("执行中", "In progress", "実行中") : ready ? T("就绪", "Ready", "準備完了") : T("未连接", "Offline", "未接続");
+        UpdateCompactState(state, status, busy);
     }
     private string PhaseName(int phase) => phase switch { 1 => T("据点待命", "At base", "拠点で待機"), 2 => T("任务进行中", "Quest in progress", "クエスト進行中"), 4 or 5 => T("任务结算中", "Quest results", "クエスト結果"), 7 => T("正在返回", "Returning", "帰還中"), 13 => T("探索中", "Expedition", "探索中"), _ => T("游戏菜单", "Game menu", "ゲームメニュー") };
     public void ShowToast(string text) { ToastText.Text = text; ToastBar.Visibility = Visibility.Visible; toastTimer.Stop(); toastTimer.Start(); }

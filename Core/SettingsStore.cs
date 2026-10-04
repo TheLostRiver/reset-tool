@@ -42,6 +42,8 @@ public sealed class SettingsStore
         value.Hotkeys ??= new(); value.Loadouts ??= []; value.CustomQuests ??= []; value.Favorites ??= [];
         if (value.Language is not ("zh" or "en" or "ja")) value.Language = "zh";
         if (!Enum.IsDefined(value.Mode)) value.Mode = RestartMode.Stable;
+        if (!Enum.IsDefined(value.InterfaceStyle)) value.InterfaceStyle = InterfaceStyle.Full;
+        value.Food ??= new(); value.Food.Validate();
         try {
             HotkeyBinding.Parse(value.Hotkeys.RestartKeyboard, false);
             HotkeyBinding.Parse(value.Hotkeys.RestartController, true);

@@ -32,7 +32,12 @@ public partial class App : Application
         };
         if (connectionReport) { Dispatcher.BeginInvoke(async () => await SaveConnectionReport(e.Args[1])); return; }
         MainWindow = new MainWindow();
-        if (IsRendering) Dispatcher.BeginInvoke(async () => await RenderPreview((MainWindow)MainWindow, e.Args[1]));
+        if (IsRendering) {
+            var window = (MainWindow)MainWindow;
+            string view = e.Args.Length > 2 ? e.Args[2] : "full";
+            window.PreparePreview(view == "compact" ? InterfaceStyle.Compact : InterfaceStyle.Full, e.Args.Length > 3 ? e.Args[3] : null, view == "food");
+            Dispatcher.BeginInvoke(async () => await RenderPreview(window, e.Args[1]));
+        }
         else MainWindow.Show();
     }
     private async Task SaveConnectionReport(string path)
@@ -45,8 +50,9 @@ public partial class App : Application
     private async Task RenderPreview(MainWindow window, string path)
     {
         var root = (FrameworkElement)window.Content;
-        root.Measure(new Size(1210, 850)); root.Arrange(new Rect(0, 0, 1210, 850)); root.UpdateLayout();
-        var bitmap = new RenderTargetBitmap(1210, 850, 96, 96, PixelFormats.Pbgra32); bitmap.Render(root);
+        int width = (int)window.Width, height = (int)window.Height;
+        root.Measure(new Size(width, height)); root.Arrange(new Rect(0, 0, width, height)); root.UpdateLayout();
+        var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32); bitmap.Render(root);
         var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
         string destination = Path.GetFullPath(path); Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
         using (var file = File.Create(destination)) encoder.Save(file);

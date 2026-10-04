@@ -259,6 +259,20 @@ public sealed class GameEngine : IDisposable
         long save = SaveAddress();
         int equipment = ResolveSlot(loadout.EquipmentSlot, loadout.EquipmentName, EquipmentSlots());
         int items = ResolveSlot(loadout.ItemSlot, loadout.ItemName, ItemSlots());
+        bool departRequested = restartQuest || loadout.QuestId > 0;
+        int targetQuest = departRequested ? (loadout.QuestId > 0 ? loadout.QuestId : M.Int32(M.Follow(G(UiRoot), 0x278, 0x3C8) + 0x2938)) : 0;
+        if (departRequested && targetQuest is < 101 or > 67809)
+            throw new InvalidOperationException("请先选择任务，或在游戏中正常受理一次任务。 / Select or accept a quest first.");
+        using var fade = departRequested && fastFade ? ChangeFade() : null;
+        if (departRequested && Snapshot.QuestState is 2 or 4 or 5) {
+            if (mode == RestartMode.Quick && Snapshot.QuestState == 2 && !IsJudgment()) ResetPlayerForQuickRestart();
+            else {
+                await ResetCoreAsync(token);
+                await WaitAsync(() => { ReadState(); return !Snapshot.Loading && Snapshot.QuestState is 1 or 13; }, token, 60, "返回据点超时。");
+            }
+            // A return can restore inventory. Prepare this configuration after the return finishes.
+            save = SaveAddress();
+        }
         var batch = new MemoryBatch(M);
         if (equipment > 0) {
             long record = save + 0x10CCF4 + (equipment - 1) * 0x2B0L;
@@ -287,19 +301,17 @@ public sealed class GameEngine : IDisposable
         batch.Commit();
         pendingFood = loadout.Food;
         Log($"综合套装「{loadout.Name}」已写入当前运行中的猎人配置。装备显示会在下一次场景载入时刷新。");
-        if (restartQuest || loadout.QuestId > 0) {
-            int id = loadout.QuestId > 0 ? loadout.QuestId : M.Int32(M.Follow(G(UiRoot), 0x278, 0x3C8) + 0x2938);
-            if (id is < 101 or > 67809) throw new InvalidOperationException("套装已应用，但没有可出发的任务。");
-            using var fade = fastFade ? ChangeFade() : null;
-            if (Snapshot.QuestState is 2 or 4 or 5) {
-                if (mode == RestartMode.Quick && Snapshot.QuestState == 2 && !IsJudgment()) ResetPlayerForQuickRestart();
-                else {
-                    await ResetCoreAsync(token);
-                    await WaitAsync(() => { ReadState(); return !Snapshot.Loading && Snapshot.QuestState is 1 or 13; }, token, 60, "返回据点超时。");
-                }
-            }
-            await AcceptCoreAsync(id, loadout.Wingdrake || wingdrake, mode == RestartMode.AcceptOnly, token);
-        }
+        if (departRequested) await AcceptCoreAsync(targetQuest, loadout.Wingdrake || wingdrake, mode == RestartMode.AcceptOnly, token);
+    });
+
+    public Task ApplyFoodAsync(FoodPreset food) => ExecuteAsync("应用猫饭", token => {
+        token.ThrowIfCancellationRequested(); food.Validate(); EnsureReady();
+        long target = M.Pointer(G(FoodRoot)); var batch = new MemoryBatch(M);
+        int[] values = food.ToArray();
+        for (int i = 0; i < values.Length; i++) batch.Int32(target + 0x19A8 + i * 4, values[i]);
+        batch.Commit();
+        Log("猫饭配置已写入游戏；生命与耐力上限会随场景载入刷新。");
+        return Task.CompletedTask;
     });
 
     private static int ResolveSlot(int number, string name, IReadOnlyList<GameLoadoutSlot> slots)

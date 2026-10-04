@@ -3,7 +3,11 @@ import { GITHUB_API, releaseCatalog } from './releases.js';
 const jsonHeaders = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'X-Content-Type-Options': 'nosniff' };
 
 async function catalog(request, env, ctx) {
-  const key = new Request(new URL('/api/releases?schema=2', request.url), { method: 'GET' });
+  const bundledResponse = await env.ASSETS.fetch(new Request(new URL('/releases.json', request.url)));
+  const bundled = bundledResponse.ok ? await bundledResponse.json() : null;
+  const cacheUrl = new URL('/api/releases?schema=2', request.url);
+  cacheUrl.searchParams.set('snapshot', bundled?.latest ?? 'live');
+  const key = new Request(cacheUrl, { method: 'GET' });
   const cache = caches.default;
   const cached = await cache.match(key);
   if (cached) return cached;
@@ -16,12 +20,15 @@ async function catalog(request, env, ctx) {
     if (!responses[0].ok) throw new Error('Release catalog unavailable');
     const releases = await responses[0].json();
     const latest = responses[1].ok ? await responses[1].json() : null;
-    const response = Response.json(releaseCatalog(releases, latest?.tag_name), { headers: jsonHeaders });
+    let data = releaseCatalog(releases, latest?.tag_name);
+    const latestDate = Date.parse(data.versions.find(release => release.tag === data.latest)?.date ?? '');
+    const bundledDate = Date.parse(bundled?.versions.find(release => release.tag === bundled.latest)?.date ?? '');
+    if (bundledDate > latestDate) data = bundled;
+    const response = Response.json(data, { headers: jsonHeaders });
     ctx.waitUntil(cache.put(key, response.clone())); return response;
   } catch {
-    const fallback = await env.ASSETS.fetch(new Request(new URL('/releases.json', request.url)));
-    if (!fallback.ok) return Response.json({ error: '暂时无法获取版本，请稍后重试。' }, { status: 503, headers: { ...jsonHeaders, 'Cache-Control': 'no-store' } });
-    return new Response(fallback.body, { headers: { ...jsonHeaders, 'Cache-Control': 'public, max-age=60' } });
+    if (!bundled) return Response.json({ error: '暂时无法获取版本，请稍后重试。' }, { status: 503, headers: { ...jsonHeaders, 'Cache-Control': 'no-store' } });
+    return Response.json(bundled, { headers: { ...jsonHeaders, 'Cache-Control': 'public, max-age=60' } });
   }
 }
 

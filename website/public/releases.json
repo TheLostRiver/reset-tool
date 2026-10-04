@@ -1,6 +1,38 @@
 {
-  "latest": "v0.3.3",
+  "latest": "v0.3.4",
   "versions": [
+    {
+      "tag": "v0.3.4",
+      "name": "霜序 Frostbound v0.3.4",
+      "summary": "修正道具预设显示编号与内部记录顺序不同、可能应用另一套道具的问题。",
+      "date": "2026-10-04T13:38:09Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.4",
+      "changes": [
+        "读取游戏当前道具预设排序表，列表编号和手动填写的编号与游戏保持一致。",
+        "道具背包与转盘从同一条对应记录读取，沿用加载期间重应用与载入后核对。",
+        "旧配置保留原有道具绑定；游戏就绪时打开编辑器或重新读取列表，会转换为当前游戏编号。",
+        "保存的名称参与确认，游戏内排序变化后按唯一名称找到原预设；无法确认时停止应用并提示重新选择。",
+        "手动更改道具编号时清除旧名称，避免编号与名称指向不同预设。",
+        "配置格式升级为 2，兼容旧配置加载与导入。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.4/Frostbound.exe",
+          "size": 74381481,
+          "digest": "sha256:b31e6b6f9c8526d67b642f4674a7d9b61b596e607c56d856264a739142599da9"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.4/Frostbound-v0.3.4-win-x64.zip",
+          "size": 69279380,
+          "digest": "sha256:32d4621c98a4e37b91ca8bbc97da9d3bfa6cff0c6c1222151d212e448713e1cb"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.4/Frostbound-v0.3.4-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:c6a0f5c61a20f93a23c2026a60415d6e42aefdd8388b9748ac2872bed400d509"
+        }
+      }
+    },
     {
       "tag": "v0.3.3",
       "name": "霜序 Frostbound v0.3.3",

@@ -1,7 +1,5 @@
 # 霜序 · Frostbound
 
-**我们自行研究、独立设计与编写的 Windows 原生《怪物猎人：世界 / 冰原》任务工具。**
-
 使用 C#、WPF 和 Windows 进程 API 实现。界面、游戏连接检测、操作调度、任务控制、配置与日志均由本项目维护，专门面向 Windows x64。
 
 ![霜序控制台](Assets/preview.png)

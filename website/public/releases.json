@@ -1,6 +1,37 @@
 {
-  "latest": "v0.3.2",
+  "latest": "v0.3.3",
   "versions": [
+    {
+      "tag": "v0.3.3",
+      "name": "霜序 Frostbound v0.3.3",
+      "summary": "修正任务重启时道具套装可能被载入流程覆盖的问题。",
+      "date": "2026-10-04T13:07:23Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.3",
+      "changes": [
+        "重启开始时保存所选道具的完整背包与转盘配置，在整个加载期间按需重新应用，避免带入旧任务的道具配置。",
+        "猎人就绪后再次核对背包和转盘；若仍被游戏覆盖，会重新应用并确认，无法确认时明确提示失败。",
+        "稳定重启先等待据点与猎人就绪，再应用配置，避免返回流程覆盖背包。",
+        "“同步道具转盘”和“保留当前转盘”都在加载后核对；保留模式恢复重启前的转盘。",
+        "日志记录实际道具预设编号、名称、转盘策略及载入后的核对结果。操作完成后停止补写，道具正常消耗。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.3/Frostbound.exe",
+          "size": 74379665,
+          "digest": "sha256:69b80ece3e9e903b636cd5569e7c60379053c03e0180500d0ab5549d493d3d28"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.3/Frostbound-v0.3.3-win-x64.zip",
+          "size": 69277245,
+          "digest": "sha256:5ecb3a6870a784205acef0442b664e9325c536c8b3bab7d5b496d23329be1e33"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.3/Frostbound-v0.3.3-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:fe4cd41588b486e1fe8c3d4d64540583b1c7594f5017e7d76ce84f37a06b6bee"
+        }
+      }
+    },
     {
       "tag": "v0.3.2",
       "name": "霜序 Frostbound v0.3.2",

@@ -28,7 +28,7 @@
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="/" aria-label="霜序官网首页"><span class="brand-icon"><svg><use href="#snow"/></svg></span><span class="brand-word">霜序<span>FROSTBOUND</span></span></a>
-      <nav aria-label="主导航"><a href="#versions">版本记录 <span class="nav-count" id="version-count">3</span></a><a class="source-link" href="https://github.com/TheLostRiver/reset-tool" target="_blank" rel="noopener">GitHub <svg><use href="#external"/></svg></a></nav>
+      <nav aria-label="主导航"><a href="#versions">版本记录 <span class="nav-count" id="version-count">4</span></a><a class="source-link" href="https://github.com/TheLostRiver/reset-tool" target="_blank" rel="noopener">GitHub <svg><use href="#external"/></svg></a></nav>
     </header>
 
     <main>
@@ -40,7 +40,7 @@
           <div class="platform-tags"><span>Windows x64</span><span>无需安装</span><span class="free-tag">完全免费</span></div>
 
           <div class="download-box">
-            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.2" selected>v0.3.2 · 最新</option><option value="v0.3.1">v0.3.1</option><option value="v0.3.0">v0.3.0</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
+            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.3" selected>v0.3.3 · 最新</option><option value="v0.3.2">v0.3.2</option><option value="v0.3.1">v0.3.1</option><option value="v0.3.0">v0.3.0</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
             <div class="download-buttons"><a class="download-primary" id="download-exe" href="/download/latest?format=exe"><svg><use href="#download"/></svg><span>下载 Windows 版<small id="download-size">EXE · 74.4 MB</small></span><svg class="button-arrow"><use href="#arrow"/></svg></a><a class="download-zip" id="download-zip" href="/download/latest?format=zip" aria-label="下载 ZIP 压缩包">ZIP<svg><use href="#download"/></svg></a></div>
             <div class="download-foot"><span id="release-date">2026.10.04 发布</span><a id="checksum-link" href="/download/latest?format=checksums">SHA-256 校验</a></div>
           </div>
@@ -61,7 +61,13 @@
         <!-- releases:start -->
         <div class="release-list" id="release-list" aria-live="polite">
           <article class="release-card">
-            <div class="release-heading"><div class="release-number">v0.3.2 <span class="latest-label">最新</span></div><time datetime="2026-10-04T11:21:11Z">2026.10.04</time></div>
+            <div class="release-heading"><div class="release-number">v0.3.3 <span class="latest-label">最新</span></div><time datetime="2026-10-04T13:07:23Z">2026.10.04</time></div>
+            <h3>修正任务重启时道具套装可能被载入流程覆盖的问题。</h3>
+            <ul><li>重启开始时保存所选道具的完整背包与转盘配置，在整个加载期间按需重新应用，避免带入旧任务的道具配置。</li><li>猎人就绪后再次核对背包和转盘；若仍被游戏覆盖，会重新应用并确认，无法确认时明确提示失败。</li><li>稳定重启先等待据点与猎人就绪，再应用配置，避免返回流程覆盖背包。</li><li>“同步道具转盘”和“保留当前转盘”都在加载后核对；保留模式恢复重启前的转盘。</li><li>日志记录实际道具预设编号、名称、转盘策略及载入后的核对结果。操作完成后停止补写，道具正常消耗。</li></ul>
+            <div class="release-actions"><a href="/download/v0.3.3?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.3" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>
+          </article>
+          <article class="release-card">
+            <div class="release-heading"><div class="release-number">v0.3.2</div><time datetime="2026-10-04T11:21:11Z">2026.10.04</time></div>
             <h3>修正快速重启时猫饭应用提前结束的问题。</h3>
             <ul><li>发出出发请求后，先确认新一轮加载已经开始，再等待任务载入结束且猎人可操作；避免把仍在运行的旧任务误判为重启完成。</li><li>套装猫饭在整个加载期间持续应用，覆盖游戏场景初始化时的配置刷新。</li><li>生命、耐力、其他猫饭能力和三个技能使用同一份配置快照，一次写入完整数据，减少读取到部分配置的机会。</li><li>加载开始单独记录到日志；出发请求未生效时显示明确的超时提示。</li></ul>
             <div class="release-actions"><a href="/download/v0.3.2?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.2" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>

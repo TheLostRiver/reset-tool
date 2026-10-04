@@ -84,6 +84,9 @@ public sealed class HotkeyBinding
         foreach (int modifier in new[] { 0x10, 0x11, 0x12 }) if (!keys.Contains(modifier) && (Native.GetAsyncKeyState(modifier) & 0x8000) != 0) return false;
         return true;
     }
+    public bool SameChord(HotkeyBinding other) => controller == other.controller && (controller
+        ? controllerMask != 0 && controllerMask == other.controllerMask
+        : keys.Length > 0 && keys.OrderBy(key => key).SequenceEqual(other.keys.OrderBy(key => key)));
     public static string FromKey(Key key, ModifierKeys modifiers)
     {
         var parts = new List<string>();

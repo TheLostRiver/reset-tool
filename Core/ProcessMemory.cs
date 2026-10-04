@@ -82,5 +82,20 @@ public sealed class ProcessMemory : IDisposable
             finally { if (!Native.VirtualProtectEx(handle, (nint)address, (nuint)data.Length, protection, out _)) throw new Win32Exception(Marshal.GetLastWin32Error()); }
         }
     }
+    public void WriteProtectedData(long address, byte[] data)
+    {
+        if (data.Length is < 1 or > 0x1000 || address < 0x10000 || address > 0x00007FFFFFFFFFFF - data.Length)
+            throw new IOException("无效参数写入地址。 / Invalid parameter address.");
+        lock (sync) {
+            // Only image constants use this path. Normal game-object writes retain their original checks.
+            if (!Native.VirtualProtectEx(handle, (nint)address, (nuint)data.Length, 0x04, out uint protection))
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            try { Write(address, data); }
+            finally {
+                if (!Native.VirtualProtectEx(handle, (nint)address, (nuint)data.Length, protection, out _))
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+        }
+    }
     public void Dispose() { lock (sync) { handle.Dispose(); Process.Dispose(); } }
 }

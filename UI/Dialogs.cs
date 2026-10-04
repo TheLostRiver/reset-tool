@@ -78,11 +78,12 @@ internal sealed class TextEntryDialog : StudioDialog
 internal sealed class KeyCaptureDialog : StudioDialog
 {
     public string Binding { get; private set; } = "";
-    public KeyCaptureDialog(MainWindow owner, bool controller) : base(owner, owner.T("录制快捷键", "Record shortcut", "ショートカットを記録"), 500, 305)
+    public KeyCaptureDialog(MainWindow owner, bool controller, string? title = null) : base(owner, title ?? owner.T("录入快捷键", "Record shortcut", "ショートカットを記録"), 500, 320)
     {
         var panel = new StackPanel(); var icon = Icon(controller ? "controller" : "hotkeys", "#91D8E7", 34); icon.Margin = new Thickness(0, 4, 0, 20); panel.Children.Add(icon);
         var text = Text(T(controller ? "按下组合键，再松开手柄按钮。" : "按下需要绑定的键盘组合键。", controller ? "Press a controller chord, then release it." : "Press the keyboard shortcut you want to use.", controller ? "組み合わせを押してから離してください。" : "登録したいキーの組み合わせを押してください。"), 13, "#BCD7E6"); text.TextAlignment = TextAlignment.Center; panel.Children.Add(text);
         var live = Text(T("等待输入…", "Waiting for input…", "入力待ち…"), 20, "#8FD9E7", FontWeights.SemiBold); live.TextAlignment = TextAlignment.Center; live.Margin = new Thickness(0, 18, 0, 0); panel.Children.Add(live); Body(panel); Cancel();
+        Actions.Children.Add(Button(T("清除绑定", "Clear binding", "割り当てを解除"), () => { Binding = ""; DialogResult = true; }, ghost: true));
         if (!controller) PreviewKeyDown += (_, e) => {
             var key = e.Key == Key.System ? e.SystemKey : e.Key;
             if (key is Key.LeftCtrl or Key.RightCtrl or Key.LeftAlt or Key.RightAlt or Key.LeftShift or Key.RightShift or Key.LWin or Key.RWin or Key.Escape) return;

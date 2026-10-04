@@ -27,7 +27,7 @@ public sealed class AppRuntime : IDisposable
     public AppRuntime(Dispatcher dispatcher)
     {
         this.dispatcher = dispatcher;
-        Settings = Store.Load(); FoodSkills = SettingsStore.ReadResource<FoodSkill>("food-skills.json"); ReloadQuests();
+        Settings = Frostbound.App.IsRendering ? new() : Store.Load(); FoodSkills = SettingsStore.ReadResource<FoodSkill>("food-skills.json"); ReloadQuests();
         Engine.Logged += (level, message) => dispatcher.BeginInvoke(() => AddLog(level, message));
         Engine.SnapshotChanged += state => dispatcher.BeginInvoke(() => StateChanged?.Invoke(state));
         Hotkeys = new(Engine, () => Settings.Hotkeys);

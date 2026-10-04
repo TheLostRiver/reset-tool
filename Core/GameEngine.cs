@@ -386,18 +386,36 @@ public sealed class GameEngine : IDisposable
     private IDisposable ChangeFade()
     {
         var changes = new List<(long Address, byte[] Original, byte[] Replacement)>();
-        foreach (var offset in new[] { 0x2FC6A1C, 0x33F4F58 }) {
-            var address = G(offset); var original = M.Read(address, 4); float value = BitConverter.ToSingle(original);
-            if (value <= 0 || value > 5 || float.IsNaN(value)) continue;
-            var replacement = BitConverter.GetBytes(.1f); M.Write(address, replacement);
-            changes.Add((address, original, replacement)); temporaryChanges.Add((address, original, replacement));
+        RestoreFadeChanges(temporaryChanges.ToArray());
+        if (temporaryChanges.Count > 0) {
+            Log("淡入淡出参数仍在等待恢复，本次使用原流程速度。 / Fade restoration is pending; using the normal flow.", "WARN");
+            return new RestoreScope(() => RestoreFadeChanges(temporaryChanges.ToArray()));
         }
-        return new RestoreScope(() => {
-            foreach (var change in changes) {
-                if (memory?.IsAlive == true && M.Read(change.Address, 4).SequenceEqual(change.Replacement)) M.Write(change.Address, change.Original);
-                temporaryChanges.Remove(change);
+        try {
+            foreach (var offset in new[] { 0x2FC6A1C, 0x33F4F58 }) {
+                var address = G(offset); var original = M.Read(address, 4); float value = BitConverter.ToSingle(original);
+                if (value <= 0 || value > 5 || float.IsNaN(value)) continue;
+                var replacement = BitConverter.GetBytes(.1f);
+                changes.Add((address, original, replacement)); temporaryChanges.Add((address, original, replacement));
+                M.WriteProtectedData(address, replacement);
             }
-        });
+        } catch (Exception e) when (e is IOException or Win32Exception) {
+            RestoreFadeChanges(changes);
+            Log($"缩短淡入淡出未能应用，将按原速度继续任务操作：{e.Message}", "WARN");
+        }
+        return new RestoreScope(() => RestoreFadeChanges(changes));
+    }
+    private void RestoreFadeChanges(IEnumerable<(long Address, byte[] Original, byte[] Replacement)> changes)
+    {
+        foreach (var change in changes.Reverse().ToArray()) {
+            try {
+                if (memory?.IsAlive == true && M.Read(change.Address, 4).SequenceEqual(change.Replacement))
+                    M.WriteProtectedData(change.Address, change.Original);
+                temporaryChanges.Remove(change);
+            } catch (Exception e) when (e is IOException or Win32Exception) {
+                Log($"淡入淡出参数恢复失败，将在后续操作或退出时重试：{e.Message}", "WARN");
+            }
+        }
     }
     private void EnsureReady()
     {
@@ -444,10 +462,7 @@ public sealed class GameEngine : IDisposable
     {
         lifetime.Cancel(); await operation.WaitAsync();
         try {
-            foreach (var change in temporaryChanges) {
-                try { if (memory?.IsAlive == true && M.Read(change.Address, 4).SequenceEqual(change.Replacement)) M.Write(change.Address, change.Original); }
-                catch (IOException e) { Log(e.Message, "WARN"); }
-            }
+            RestoreFadeChanges(temporaryChanges.ToArray());
             temporaryChanges.Clear(); memory?.Dispose(); memory = null;
         } finally { operation.Release(); }
     }

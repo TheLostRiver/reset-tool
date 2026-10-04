@@ -35,7 +35,7 @@ public partial class App : Application
         if (IsRendering) {
             var window = (MainWindow)MainWindow;
             string view = e.Args.Length > 2 ? e.Args[2] : "full";
-            window.PreparePreview(view == "compact" ? InterfaceStyle.Compact : InterfaceStyle.Full, e.Args.Length > 3 ? e.Args[3] : null, view == "food");
+            window.PreparePreview(view == "compact" ? InterfaceStyle.Compact : InterfaceStyle.Full, e.Args.Length > 3 ? e.Args[3] : null, view == "food", view == "shortcuts");
             if (e.Args.Length > 4) {
                 var dimensions = e.Args[4].Split('x');
                 if (dimensions.Length == 2 && int.TryParse(dimensions[0], out int width) && int.TryParse(dimensions[1], out int height) && width <= 4096 && height <= 4096) {

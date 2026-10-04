@@ -16,7 +16,7 @@ public partial class MainWindow
     private FrameworkElement? compactPage;
     private TextBlock? compactStatus, compactDetail;
     private Ellipse? compactDot;
-    private Button? compactApply;
+    private Button? compactApply, compactEdit;
     private SearchChoicePicker<Loadout?>? compactLoadout;
     private InterfaceStyle? displayedStyle;
     private Rect? fullBounds, compactBounds;
@@ -26,9 +26,7 @@ public partial class MainWindow
 
     public void SetInterfaceStyle(InterfaceStyle style)
     {
-        if (Runtime.Settings.InterfaceStyle == style && displayedStyle == style) return;
-        Runtime.Settings.InterfaceStyle = style;
-        Runtime.Save(); Rebuild();
+        SwitchInterfaceStyle(style);
     }
 
     private void ApplyInterfaceLayout()
@@ -37,6 +35,8 @@ public partial class MainWindow
         InterfaceSwitch.Content = compact ? T("完整界面", "Full UI", "通常表示") : T("精简界面", "Compact UI", "コンパクト");
         InterfaceSwitch.ToolTip = T("切换界面，任务与套装选择会保留。", "Switch layouts while keeping your selections.", "選択を保持して表示を切り替えます。");
         Sidebar.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;
+        PageScroll.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;
+        CompactViewport.Visibility = compact ? Visibility.Visible : Visibility.Collapsed;
         SidebarColumn.Width = new GridLength(compact ? 0 : 212);
         TitleSubtitle.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;
         FooterBrand.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;
@@ -55,16 +55,18 @@ public partial class MainWindow
         if (wasMaximized) WindowState = WindowState.Normal;
         Rect workArea = App.IsRendering ? new Rect(0, 0, 1920, 1080) : SystemParameters.WorkArea;
         Rect? saved = compact ? compactBounds : fullBounds;
-        MinWidth = Math.Min(compact ? 440 : 1000, workArea.Width - 32);
-        MinHeight = Math.Min(compact ? 540 : 740, workArea.Height - 32);
-        Width = Math.Clamp(saved?.Width ?? (compact ? 480 : 1210), MinWidth, Math.Max(MinWidth, workArea.Width - 32));
-        Height = Math.Clamp(saved?.Height ?? (compact ? 620 : 850), MinHeight, Math.Max(MinHeight, workArea.Height - 32));
+        double minWidth = Math.Min(compact ? 440 : 1000, workArea.Width - 32), minHeight = Math.Min(compact ? 620 : 740, workArea.Height - 32);
+        double width = Math.Clamp(saved?.Width ?? (compact ? 480 : 1210), minWidth, Math.Max(minWidth, workArea.Width - 32));
+        double height = Math.Clamp(saved?.Height ?? (compact ? 640 : 850), minHeight, Math.Max(minHeight, workArea.Height - 32));
+        double left = Left, top = Top;
         if (!App.IsRendering && displayedStyle != null) {
-            double x = saved?.X ?? Left + (ActualWidth - Width) / 2;
+            double x = saved?.X ?? Left + (Width - width) / 2;
             double y = saved?.Y ?? Top;
-            Left = Math.Clamp(double.IsFinite(x) ? x : workArea.Left + 16, workArea.Left, workArea.Right - Width);
-            Top = Math.Clamp(double.IsFinite(y) ? y : workArea.Top + 16, workArea.Top, workArea.Bottom - Height);
+            left = Math.Clamp(double.IsFinite(x) ? x : workArea.Left + 16, workArea.Left, workArea.Right - width);
+            top = Math.Clamp(double.IsFinite(y) ? y : workArea.Top + 16, workArea.Top, workArea.Bottom - height);
         }
+        SetWindowBounds(new Rect(double.IsFinite(left) ? left : workArea.Left + 16, double.IsFinite(top) ? top : workArea.Top + 16, width, height), minWidth, minHeight);
+        if (compact) CompactHost.Width = Math.Max(200, width - 38);
         displayedStyle = Runtime.Settings.InterfaceStyle;
     }
 
@@ -86,68 +88,75 @@ public partial class MainWindow
         return combo;
     }
 
-    internal void PreparePreview(InterfaceStyle style, string? language = null, bool foodPage = false)
+    internal void PreparePreview(InterfaceStyle style, string? language = null, bool foodPage = false, bool shortcutsPage = false)
     {
         if (!App.IsRendering) return;
         Runtime.Settings.InterfaceStyle = style;
         if (language is "zh" or "en" or "ja") Runtime.Settings.Language = language;
         Rebuild();
         if (foodPage) FoodNav.IsChecked = true;
+        if (shortcutsPage) HotkeysNav.IsChecked = true;
     }
 
     private FrameworkElement CompactView()
     {
         var panel = new StackPanel();
-        var header = new Grid { Margin = new Thickness(0, 0, 0, 16) };
-        var heading = Text(T("快捷狩猎", "Quick hunt", "狩猟クイック操作"), 21, "#DDECF5", FontWeights.SemiBold);
-        heading.VerticalAlignment = VerticalAlignment.Center; header.Children.Add(heading);
+        var header = new Grid(); header.ColumnDefinitions.Add(new ColumnDefinition()); header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(12) }); header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        var copy = new StackPanel();
+        var heading = Text(T("快捷狩猎", "Quick hunt", "狩猟クイック操作"), 18, "#DDECF5", FontWeights.SemiBold);
+        heading.TextWrapping = TextWrapping.NoWrap; copy.Children.Add(heading);
         var retry = Button(T("检测游戏", "Detect game", "ゲーム検出"), async () => await Runtime.Retry(), ghost: true);
-        retry.FontSize = 11; retry.Padding = new Thickness(12, 8, 12, 8); retry.HorizontalAlignment = HorizontalAlignment.Right;
-        header.Children.Add(retry); panel.Children.Add(header);
-
-        var status = new StackPanel(); var statusRow = new StackPanel { Orientation = Orientation.Horizontal };
-        compactDot = new Ellipse { Width = 7, Height = 7, Fill = Brush("#718FA4"), VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 9, 0) };
-        compactStatus = Text("", 12, "#B8D5E3", FontWeights.SemiBold);
+        retry.FontSize = 10; retry.Height = 32; retry.Padding = new Thickness(9, 6, 9, 6); retry.VerticalAlignment = VerticalAlignment.Center;
+        var status = new Grid { Margin = new Thickness(0, 5, 0, 0) }; status.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); status.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(8) }); status.ColumnDefinitions.Add(new ColumnDefinition());
+        var statusRow = new StackPanel { Orientation = Orientation.Horizontal };
+        compactDot = new Ellipse { Width = 6, Height = 6, Fill = Brush("#718FA4"), VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 7, 0) };
+        compactStatus = Text("", 11, "#B8D5E3", FontWeights.SemiBold); compactStatus.TextWrapping = TextWrapping.NoWrap;
         statusRow.Children.Add(compactDot); statusRow.Children.Add(compactStatus); status.Children.Add(statusRow);
-        compactDetail = Text("", 10, "#7D9BB0"); compactDetail.Margin = new Thickness(16, 7, 0, 0); status.Children.Add(compactDetail);
-        var statusCard = Card(status, 14); statusCard.Background = Brush("#192B36"); statusCard.BorderBrush = Brush("#304A5C");
-        statusCard.Margin = new Thickness(0, 0, 0, 18); panel.Children.Add(statusCard);
+        compactDetail = Text("", 9, "#7D9BB0"); compactDetail.TextWrapping = TextWrapping.NoWrap; compactDetail.TextTrimming = TextTrimming.CharacterEllipsis; compactDetail.VerticalAlignment = VerticalAlignment.Center; Grid.SetColumn(compactDetail, 2); status.Children.Add(compactDetail); copy.Children.Add(status);
+        header.Children.Add(copy); Grid.SetColumn(retry, 2); header.Children.Add(retry);
+        var statusCard = Card(header, 12); statusCard.Background = Brush("#192B36"); statusCard.BorderBrush = Brush("#304A5C"); statusCard.Margin = new Thickness(0, 0, 0, 12); panel.Children.Add(statusCard);
+
+        Border CompactField(string label, UIElement input) {
+            var field = new StackPanel(); var caption = Text(label, 10, "#91A7B9"); caption.Margin = new Thickness(0, 0, 0, 6); field.Children.Add(caption); field.Children.Add(input);
+            return new Border { Child = field, Margin = new Thickness(0, 0, 0, 12) };
+        }
 
         taskTarget = Text(TargetName(), 13, "#D5E8F1"); taskTarget.TextWrapping = TextWrapping.NoWrap; taskTarget.TextTrimming = TextTrimming.CharacterEllipsis;
         var target = new Button { Content = taskTarget, HorizontalContentAlignment = HorizontalAlignment.Left,
-            Background = Brush("#15232F"), BorderBrush = Brush("#3B5364"), Padding = new Thickness(12, 12, 12, 12) };
-        target.Click += (_, _) => PickQuest(); panel.Children.Add(Field(T("重启任务", "Quest to restart", "再開するクエスト"), target));
+            Background = Brush("#15232F"), BorderBrush = Brush("#3B5364"), Height = 38, Padding = new Thickness(10, 6, 10, 6) };
+        target.Click += (_, _) => PickQuest(); panel.Children.Add(CompactField(T("重启任务", "Quest to restart", "再開するクエスト"), target));
 
         var mode = Choices(new[] {
             new Choice<RestartMode>(RestartMode.Stable, T("稳定重启", "Stable restart", "安定リスタート")),
             new(RestartMode.Quick, T("快速重启", "Quick restart", "高速リスタート")),
             new(RestartMode.AcceptOnly, T("仅受理", "Accept only", "受注のみ"))
         }, Runtime.Settings.Mode);
+        mode.Height = 34; mode.FontSize = 12;
         mode.ToolTip = T("稳定重启会先返回据点；仅受理需要手动出发。", "Stable returns to base first. Accept-only leaves departure to you.", "安定モードは先に帰還。受注のみは手動で出発。");
         mode.SelectionChanged += (_, _) => { if (mode.SelectedValue is RestartMode value) { Runtime.Settings.Mode = value; Runtime.Save(); } };
         var wing = new CheckBox { Content = T("翼龙出发", "Wingdrake", "翼竜開始"), IsChecked = Runtime.Settings.Wingdrake,
             FontSize = 11, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right };
         wing.Click += (_, _) => { Runtime.Settings.Wingdrake = wing.IsChecked == true; Runtime.Save(); };
-        panel.Children.Add(Field(T("重启方式", "Restart mode", "再開方式"), Columns(mode, wing, 2.5, 12)));
+        panel.Children.Add(new Border { Child = Columns(mode, wing, 2.5, 12), Margin = new Thickness(0, 0, 0, 12) });
 
         var restart = Button(T("重新开始", "Restart quest", "クエスト再開"), async () => await Runtime.Restart(), primary: true);
         var reset = Button(T("仅重置", "Reset quest", "リセット"), async () => await Runtime.Reset(), ghost: true);
-        restart.Height = reset.Height = 45; restart.FontSize = reset.FontSize = 13;
-        gameButtons.Add(restart); gameButtons.Add(reset); panel.Children.Add(Columns(restart, reset, 1.3, 11));
-        string keys = Runtime.Settings.Hotkeys.Enabled ? T("重启：", "Restart: ", "再開：") +
-            string.Join(" / ", new[] { Runtime.Settings.Hotkeys.RestartKeyboard, Runtime.Settings.Hotkeys.RestartController }.Where(x => !string.IsNullOrWhiteSpace(x))) +
-            "    ·    " + T("重置：", "Reset: ", "リセット：") +
-            string.Join(" / ", new[] { Runtime.Settings.Hotkeys.ResetKeyboard, Runtime.Settings.Hotkeys.ResetController }.Where(x => !string.IsNullOrWhiteSpace(x))) : T("快捷键已关闭", "Shortcuts disabled", "ショートカット無効");
-        var shortcut = Text(keys, 9, "#6F8FA4"); shortcut.Margin = new Thickness(0, 10, 0, 19); shortcut.TextWrapping = TextWrapping.NoWrap; shortcut.TextTrimming = TextTrimming.CharacterEllipsis; shortcut.ToolTip = keys; panel.Children.Add(shortcut);
+        restart.Height = reset.Height = 40; restart.FontSize = reset.FontSize = 12; restart.Padding = reset.Padding = new Thickness(10, 6, 10, 6);
+        gameButtons.Add(restart); gameButtons.Add(reset); var questActions = Columns(restart, reset, 1.3, 10); questActions.Margin = new Thickness(0, 0, 0, 12); panel.Children.Add(questActions);
 
         compactLoadout = homeLoadout = LoadoutSelector();
+        compactLoadout.Height = 36;
         compactApply = Button(T("应用", "Apply", "適用"), async () => { if (compactLoadout.SelectedValue is Loadout preset) await Runtime.Apply(preset, false); });
-        compactApply.FontSize = 11; gameButtons.Add(compactApply);
-        panel.Children.Add(Field(T("综合配置 · 重启时自动应用", "Loadout · applied on restart", "総合設定 · 再開時に自動適用"), Columns(compactLoadout, compactApply, 3.2, 10)));
-        var utilities = new Grid(); utilities.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); utilities.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        var food = Button(T("猫饭编辑", "Food editor", "食事を編集"), OpenFoodEditor, ghost: true); food.Content = IconLabel("food", T("猫饭编辑", "Food editor", "食事を編集"), "#91BCCC"); food.HorizontalAlignment = HorizontalAlignment.Left; food.FontSize = 11; food.Padding = new Thickness(11, 8, 11, 8); utilities.Children.Add(food);
-        var studio = Button(T("编辑套装", "Edit loadout", "セットを編集"), () => EditLoadout(compactLoadout.SelectedValue as Loadout), ghost: true);
-        studio.HorizontalAlignment = HorizontalAlignment.Right; studio.FontSize = 11; studio.Padding = new Thickness(11, 8, 11, 8); Grid.SetColumn(studio, 1); utilities.Children.Add(studio); panel.Children.Add(utilities);
+        compactApply.FontSize = 11; compactApply.Height = 36; compactApply.Padding = new Thickness(10, 6, 10, 6); gameButtons.Add(compactApply);
+        var configuration = new StackPanel { Margin = new Thickness(0, 0, 0, 12) }; var toolbar = new Grid { Margin = new Thickness(0, 0, 0, 6) }; toolbar.ColumnDefinitions.Add(new ColumnDefinition()); toolbar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        var caption = Text(T("综合配置", "Loadout", "総合設定"), 11, "#91A7B9"); caption.VerticalAlignment = VerticalAlignment.Center; toolbar.Children.Add(caption);
+        var utilities = new StackPanel { Orientation = Orientation.Horizontal };
+        var add = Button(T("＋ 新增套装", "+ New", "＋ 新規"), () => EditLoadout(null), ghost: true); add.ToolTip = T("创建新的任务、配装与猫饭组合", "Create a quest, equipment and food configuration", "クエスト・装備・食事の新しい組み合わせを作成"); utilities.Children.Add(add);
+        compactEdit = Button(T("编辑", "Edit", "編集"), () => { if (compactLoadout.SelectedValue is Loadout selected) EditLoadout(selected); }, ghost: true); utilities.Children.Add(compactEdit);
+        var food = Button(T("猫饭编辑", "Food", "食事"), OpenFoodEditor, ghost: true); utilities.Children.Add(food);
+        foreach (Button utility in utilities.Children) { utility.Height = 26; utility.FontSize = 10; utility.Padding = new Thickness(7, 3, 7, 3); utility.Margin = new Thickness(4, 0, 0, 0); }
+        Grid.SetColumn(utilities, 1); toolbar.Children.Add(utilities); configuration.Children.Add(toolbar); configuration.Children.Add(Columns(compactLoadout, compactApply, 3.2, 10)); panel.Children.Add(configuration);
+        panel.Children.Add(Card(new HotkeyQuickEditor(this), 12));
         return panel;
     }
 
@@ -160,8 +169,10 @@ public partial class MainWindow
             compactDetail.Text = state.Detail.Length > 0 ? state.Detail : state.State == ConnectionState.Ready ?
                 PhaseName(state.QuestState) + (current != null ? " · " + current : "") :
                 T("启动游戏并载入存档后自动连接。", "Connects after you launch the game and load a save.", "ゲーム起動・セーブ読み込み後に自動接続。");
+            compactDetail.ToolTip = compactDetail.Text;
         }
         if (compactApply != null) compactApply.IsEnabled = state.CanAct && !busy && compactLoadout?.SelectedValue is Loadout;
+        if (compactEdit != null) compactEdit.IsEnabled = compactLoadout?.SelectedValue is Loadout;
         if (Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact) {
             FooterStatus.Text = busy ? T("正在处理，请稍候…", "Working, please wait…", "処理中…") : state.Detail.Length > 0 ? state.Detail :
                 state.State == ConnectionState.Ready ? T("游戏已连接", "Game connected", "ゲーム接続済み") : T("自动检测已开启", "Automatic detection is active", "自動検出中");

@@ -43,6 +43,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        CompactViewport.SizeChanged += (_, e) => { if (e.NewSize.Width > 0) CompactHost.Width = Math.Max(200, e.NewSize.Width); };
         Runtime = new(Dispatcher);
         Runtime.StateChanged += UpdateState;
         Runtime.Toast += ShowToast;
@@ -56,7 +57,7 @@ public partial class MainWindow : Window
         menu.Items.Add("打开 / Open", null, (_, _) => Dispatcher.BeginInvoke(RestoreWindow));
         menu.Items.Add("退出 / Exit", null, (_, _) => Dispatcher.BeginInvoke(async () => await ExitAsync())); tray.ContextMenuStrip = menu;
         initialized = true; ConfigureNavigation(); ApplyInterfaceLayout(); DashboardNav.IsChecked = true;
-        if (PageHost.Content == null) Navigate(0);
+        if ((Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact ? CompactHost.Content : PageHost.Content) == null) Navigate(0);
         UpdateState(Runtime.Engine.Snapshot);
         Loaded += (_, _) => { if (!App.IsRendering) Runtime.Start(); };
         Closing += OnClosing;
@@ -78,14 +79,14 @@ public partial class MainWindow : Window
     private void Navigate(int page)
     {
         if (Runtime.Settings.InterfaceStyle == InterfaceStyle.Compact) {
-            PageHost.Content = compactPage ??= CompactView();
-            PageScroll.ScrollToTop(); UpdateState(Runtime.Engine.Snapshot); return;
+            ShowPage(CompactHost, compactPage ??= CompactView());
+            UpdateState(Runtime.Engine.Snapshot); return;
         }
         currentPage = page;
         if (!pages.TryGetValue(page, out var content)) {
             content = page switch { 0 => Dashboard(), 1 => QuestLibrary(), 2 => LoadoutStudio(), 3 => Shortcuts(), 4 => Preferences(), 6 => FoodEditorPage(), _ => ActivityLog() }; pages[page] = content;
         }
-        PageHost.Content = content; PageScroll.ScrollToTop(); UpdateState(Runtime.Engine.Snapshot);
+        ShowPage(PageHost, content); PageScroll.ScrollToTop(); UpdateState(Runtime.Engine.Snapshot);
     }
     private void Rebuild()
     {
@@ -130,16 +131,15 @@ public partial class MainWindow : Window
         void RefreshModes() { for (int i = 0; i < buttons.Count; i++) { bool selected = (int)Runtime.Settings.Mode == i; buttons[i].BorderBrush = Brush(selected ? "#7EBCCF" : "#314452"); buttons[i].Background = Brush(selected ? "#28424F" : "#172630"); } }
         for (int i = 0; i < 3; i++) {
             int index = i; var content = new StackPanel(); content.Children.Add(Text(titles[i], 11, "#C6E3ED", FontWeights.SemiBold)); var hint = Text(hints[i], 8, "#7D9BAE"); hint.Margin = new Thickness(0, 6, 0, 0); content.Children.Add(hint);
-            var button = new Button { Content = content, Padding = new Thickness(9, 11, 7, 11), HorizontalContentAlignment = HorizontalAlignment.Left };
+            var button = new Button { Content = content, Padding = new Thickness(9, 9, 7, 9), HorizontalContentAlignment = HorizontalAlignment.Left };
             button.Click += (_, _) => { Runtime.Settings.Mode = (RestartMode)index; Runtime.Save(); RefreshModes(); }; buttons.Add(button); Grid.SetColumn(button, i * 2); modes.Children.Add(button);
         }
         RefreshModes(); questPanel.Children.Add(modes);
-        var wing = new CheckBox { Content = T("翼龙出发", "Wingdrake start", "翼竜で開始"), IsChecked = Runtime.Settings.Wingdrake, FontSize = 10, Margin = new Thickness(0, 16, 0, 16) };
+        var wing = new CheckBox { Content = T("翼龙出发", "Wingdrake start", "翼竜で開始"), IsChecked = Runtime.Settings.Wingdrake, FontSize = 10, Margin = new Thickness(0, 12, 0, 12) };
         wing.Click += (_, _) => { Runtime.Settings.Wingdrake = wing.IsChecked == true; Runtime.Save(); }; questPanel.Children.Add(wing);
         var restart = Button(T("重新开始任务", "Restart quest", "クエスト再開") + "   ↗", async () => await Runtime.Restart(), primary: true);
         var reset = Button(T("仅重置 / 跳过结算", "Reset / skip results", "リセット / 結果へ"), async () => await Runtime.Reset(), ghost: true); gameButtons.Add(restart); gameButtons.Add(reset);
         questPanel.Children.Add(Columns(restart, reset, 1.2, 10));
-        var keys = Text($"{Runtime.Settings.Hotkeys.RestartKeyboard}  /  {Runtime.Settings.Hotkeys.RestartController}      ·      {Runtime.Settings.Hotkeys.ResetKeyboard}", 9, "#607D93"); keys.Margin = new Thickness(0, 11, 0, 0); questPanel.Children.Add(keys);
 
         var details = new StackPanel(); details.Children.Add(IconLabel("link", T("连接详情", "Connection", "接続情報"), "#C6DDEB"));
         var divider = new Border { Height = 1, Background = Brush("#2A3E4D"), Margin = new Thickness(0, 19, 0, 8) }; details.Children.Add(divider);
@@ -151,8 +151,7 @@ public partial class MainWindow : Window
         var quick = new StackPanel(); var quickHeader = Text(T("综合配置 · 每次重启自动应用", "LOADOUT · APPLIED ON EVERY RESTART", "総合設定 · 再開時に自動適用"), 10, "#9EBACC"); quick.Children.Add(quickHeader);
         homeLoadout = LoadoutSelector(); homeLoadout.Margin = new Thickness(0, 11, 0, 0);
         var apply = Button(T("应用套装", "Apply", "適用"), async () => { if (homeLoadout.SelectedValue is Loadout loadout) await Runtime.Apply(loadout, false); else ShowToast(T("请先创建并选择综合套装。", "Create and select a loadout first.", "総合セットを作成・選択してください。")); }); apply.Margin = new Thickness(0, 11, 0, 0); gameButtons.Add(apply); quick.Children.Add(Columns(homeLoadout, apply, 2.5, 10));
-        var tip = new StackPanel(); tip.Children.Add(Text(T("让下一场，保持专注。", "Keep your next hunt in focus.", "次の狩猟に、集中を。"), 15, "#CBB990")); var tipText = Text(T("装备、道具、猫饭与任务可以组合保存。\n快捷键支持键盘与 XInput 手柄。", "Save equipment, items, food and quests together.\nKeyboard and XInput controller shortcuts.", "装備・アイテム・食事・クエストを一括保存。\nキーボードと XInput コントローラーに対応。"), 10, "#7F96A7"); tipText.Margin = new Thickness(0, 11, 0, 0); tip.Children.Add(tipText);
-        page.Children.Add(Columns(Card(quick, 18), Card(tip, 18), 1.5)); return page;
+        page.Children.Add(Columns(Card(quick, 18), Card(new HotkeyQuickEditor(this), 12), 1.5)); return page;
     }
     private Border Metric(string label, out TextBlock value)
     {
@@ -252,30 +251,18 @@ public partial class MainWindow : Window
         try { if (dialog.ShowDialog() == true && dialog.Result != null) {
             var index = Runtime.Settings.Loadouts.FindIndex(x => x.Id == dialog.Result.Id);
             if (index >= 0) Runtime.Settings.Loadouts[index] = dialog.Result; else Runtime.Settings.Loadouts.Add(dialog.Result);
-            Runtime.Settings.SelectedLoadoutId = dialog.Result.Id; Runtime.Save(); Rebuild();
+            Runtime.Settings.SelectedLoadoutId = dialog.Result.Id;
+            if (dialog.Result.QuestId > 0) Runtime.Settings.SelectedQuestId = dialog.Result.QuestId;
+            Runtime.Save(); Rebuild();
         } } finally { Runtime.Hotkeys.Suspended = false; }
     }
     private FrameworkElement Shortcuts()
     {
         var page = Page("STAY IN THE HUNT", T("快捷键", "Shortcuts", "ショートカット"), T("键盘与手柄都可以操作，按住按键只触发一次。", "Keyboard and controller support, with one trigger per press.", "キーボードとコントローラーに対応。長押しでも一度だけ実行。"));
-        var settings = Runtime.Settings.Hotkeys; var inputs = new List<TextBox>();
-        string[] names = [T("任务重启 · 键盘", "Restart · keyboard", "再開 · キーボード"), T("任务重启 · 手柄", "Restart · controller", "再開 · コントローラー"), T("任务重置 · 键盘", "Reset · keyboard", "リセット · キーボード"), T("任务重置 · 手柄", "Reset · controller", "リセット · コントローラー")];
-        string[] values = [settings.RestartKeyboard, settings.RestartController, settings.ResetKeyboard, settings.ResetController];
-        for (int i = 0; i < 4; i++) {
-            bool controller = i % 2 == 1; var input = new TextBox { Text = values[i], FontFamily = new FontFamily("Consolas"), FontSize = 13, MinHeight = 40 }; inputs.Add(input);
-            var row = new Grid { Margin = new Thickness(0, 0, 0, 14) }; row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(178) }); row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(108) }); row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(74) });
-            var label = IconLabel(controller ? "controller" : "hotkeys", names[i], "#AFCADB"); label.VerticalAlignment = VerticalAlignment.Center; row.Children.Add(label); Grid.SetColumn(input, 1); row.Children.Add(input);
-            var record = Button(T("录制", "Record", "記録"), () => { var dialog = new KeyCaptureDialog(this, controller); Runtime.Hotkeys.Suspended = true; try { if (dialog.ShowDialog() == true) input.Text = dialog.Binding; } finally { Runtime.Hotkeys.Suspended = false; } }); record.Margin = new Thickness(9, 0, 0, 0); Grid.SetColumn(record, 2); row.Children.Add(record);
-            var clear = Button(T("清除", "Clear", "解除"), () => input.Text = "", ghost: true); clear.Margin = new Thickness(8, 0, 0, 0); Grid.SetColumn(clear, 3); row.Children.Add(clear); page.Children.Add(row);
-        }
-        var options = new StackPanel { Margin = new Thickness(0, 14, 0, 0) }; var enabled = new CheckBox { Content = T("启用快捷键", "Enable shortcuts", "ショートカットを有効化"), IsChecked = settings.Enabled, Margin = new Thickness(0, 0, 0, 15) }; var foreground = new CheckBox { Content = T("只在游戏位于前台时触发", "Only trigger while the game is in the foreground", "ゲームが前面のときだけ実行"), IsChecked = settings.ForegroundOnly }; options.Children.Add(enabled); options.Children.Add(foreground); page.Children.Add(options);
+        var editor = new HotkeyEditorControl(this); page.Children.Add(editor);
         var save = Button(T("保存快捷键", "Save shortcuts", "ショートカットを保存"), () => {
-            try {
-                for (int i = 0; i < 4; i++) HotkeyBinding.Parse(inputs[i].Text, i % 2 == 1);
-                if (inputs[0].Text.Trim().Length > 0 && inputs[0].Text.Equals(inputs[2].Text, StringComparison.OrdinalIgnoreCase) || inputs[1].Text.Trim().Length > 0 && inputs[1].Text.Equals(inputs[3].Text, StringComparison.OrdinalIgnoreCase)) throw new FormatException(T("重启与重置不能使用相同的快捷键。", "Restart and reset need different bindings.", "再開とリセットは別のキーにしてください。"));
-                settings.RestartKeyboard = inputs[0].Text.Trim(); settings.RestartController = inputs[1].Text.Trim(); settings.ResetKeyboard = inputs[2].Text.Trim(); settings.ResetController = inputs[3].Text.Trim(); settings.Enabled = enabled.IsChecked == true; settings.ForegroundOnly = foreground.IsChecked == true;
-                Runtime.Hotkeys.Reload(); Runtime.Save(); pages.Remove(0); ShowToast(T("快捷键已保存。", "Shortcuts saved.", "保存しました。"));
-            } catch (FormatException e) { ShowToast(e.Message); }
+            try { SaveHotkeys(editor.Read()); }
+            catch (Exception e) { ShowToast(e.Message); }
         }, primary: true); save.HorizontalAlignment = HorizontalAlignment.Left; save.Margin = new Thickness(0, 25, 0, 25); page.Children.Add(save);
         var help = new StackPanel(); help.Children.Add(Text(T("常用按键写法", "Binding examples", "キー記述の例"), 13, "#B7CFDF")); var helpText = Text("Ctrl+R   ·   Alt+R   ·   Enter   ·   Num+   ·   F8\nLS+RS   ·   LB+RB   ·   LT+Y   ·   Start+Back", 12, "#83A7BE"); helpText.FontFamily = new FontFamily("Consolas"); helpText.Margin = new Thickness(0, 13, 0, 12); help.Children.Add(helpText);
         help.Children.Add(Text(T("LS / RS 为摇杆按下，LT / RT 为扳机。支持 4 个 XInput 手柄，PlayStation 手柄可通过 Steam Input 使用。", "LS / RS are stick clicks; LT / RT are triggers. Supports four XInput controllers, including PlayStation pads through Steam Input.", "LS / RS はスティック押し込み、LT / RT はトリガー。4 台の XInput に対応。PS パッドは Steam Input を使用。"), 10, "#6E8CA2")); page.Children.Add(Card(help)); return page;

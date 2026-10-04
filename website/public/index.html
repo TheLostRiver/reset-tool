@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8f7">
+  <meta name="description" content="霜序 Frostbound，完全免费的怪物猎人：世界 冰原 Windows 任务重启工具。下载最新版本，查看历史版本与更新说明。">
+  <meta property="og:title" content="霜序 Frostbound · 官方下载">
+  <meta property="og:description" content="任务、配装、猫饭，一键准备。完全免费，Windows x64。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://frostbound.helsincy.com/">
+  <link rel="canonical" href="https://frostbound.helsincy.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+  <title>霜序 Frostbound · 官方下载</title>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="snow" viewBox="0 0 32 32"><path d="M16 2v28M4 9l24 14M4 23L28 9M16 8l-5-3m5 3 5-3M16 24l-5 3m5-3 5 3M9 12l-5 2m5-2V7m14 13 5-2m-5 2v5M9 20l-5-2m5 2v5m14-13 5 2m-5-2V7"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6L9 15m1-11H4v16h16v-6"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-8 9-8 9s-8-4-8-9V6zM8 11l3 3 5-5"/></symbol>
+  </svg>
+
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="霜序官网首页"><span class="brand-icon"><svg><use href="#snow"/></svg></span><span class="brand-word">霜序<span>FROSTBOUND</span></span></a>
+      <nav aria-label="主导航"><a href="#versions">版本记录 <span class="nav-count" id="version-count">2</span></a><a class="source-link" href="https://github.com/TheLostRiver/reset-tool" target="_blank" rel="noopener">GitHub <svg><use href="#external"/></svg></a></nav>
+    </header>
+
+    <main>
+      <section class="hero" id="download" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> MONSTER HUNTER WORLD · ICEBORNE</div>
+          <h1 id="hero-title">下一场狩猎，<br><span>一键就绪。</span></h1>
+          <p class="hero-description">任务、配装、猫饭。<br>把准备交给霜序，把时间留给狩猎。</p>
+          <div class="platform-tags"><span>Windows x64</span><span>无需安装</span><span class="free-tag">完全免费</span></div>
+
+          <div class="download-box">
+            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.1">v0.3.1 · 最新</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
+            <div class="download-buttons"><a class="download-primary" id="download-exe" href="/download/latest?format=exe"><svg><use href="#download"/></svg><span>下载 Windows 版<small id="download-size">EXE · 74.4 MB</small></span><svg class="button-arrow"><use href="#arrow"/></svg></a><a class="download-zip" id="download-zip" href="/download/latest?format=zip" aria-label="下载 ZIP 压缩包">ZIP<svg><use href="#download"/></svg></a></div>
+            <div class="download-foot"><span id="release-date">2026.10.04 发布</span><a id="checksum-link" href="/download/latest?format=checksums">SHA-256 校验</a></div>
+          </div>
+        </div>
+
+        <div class="product-showcase">
+          <div class="orb orb-one" aria-hidden="true"></div><div class="orb orb-two" aria-hidden="true"></div>
+          <div class="showcase-top"><span><span class="mini-mark">✦</span> 霜序工作台</span><div class="preview-switch" aria-label="界面预览"><button type="button" class="is-active" data-preview="full" aria-pressed="true">完整</button><button type="button" data-preview="compact" aria-pressed="false">精简</button></div></div>
+          <div class="screenshot-stage" id="screenshot-stage"><img class="app-screenshot" id="app-screenshot" src="/images/dashboard.png" alt="霜序完整界面：任务控制、综合配置与快捷键设置" width="1210" height="850" fetchpriority="high"></div>
+          <div class="showcase-caption"><span>一份配置，准备到位。</span><span>任务 <i>·</i> 配装 <i>·</i> 猫饭</span></div>
+        </div>
+      </section>
+
+      <aside class="free-notice" aria-label="免费声明"><span class="notice-icon"><svg><use href="#shield"/></svg></span><div><strong>霜序永久免费。</strong><p>我们不会向用户索要任何费用。任何以本软件名义向你收费的，均为假冒。</p></div><span class="notice-stamp">100% FREE</span></aside>
+
+      <section class="versions-section" id="versions" aria-labelledby="versions-title">
+        <div class="section-heading"><div><span class="eyebrow">RELEASE NOTES</span><h2 id="versions-title">版本记录<span>每一次更新，都在这里。</span></h2></div><a class="all-releases" href="https://github.com/TheLostRiver/reset-tool/releases" target="_blank" rel="noopener">GitHub Releases <svg><use href="#external"/></svg></a></div>
+        <div class="release-list" id="release-list" aria-live="polite"><article class="release-card"><div class="release-heading"><div class="release-number">v0.3.1 <span class="latest-label">最新</span></div><time datetime="2026-10-04">2026.10.04</time></div><h3>更清爽的界面，更稳定的切换。</h3><ul><li>修正深色主题菜单的白色侧栏。</li><li>简化完整与精简界面的切换，保留短淡入效果。</li><li>移除截图叠加、窗口缩放与位置动画。</li></ul><div class="release-actions"><a href="/download/latest?format=exe">下载此版本 <svg><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.1" target="_blank" rel="noopener">完整说明 <svg><use href="#external"/></svg></a></div></article></div>
+        <noscript><p class="fallback-note">历史版本可从 <a href="https://github.com/TheLostRiver/reset-tool/releases">GitHub Releases</a> 下载。</p></noscript>
+      </section>
+    </main>
+
+    <footer class="site-footer"><a class="footer-brand" href="/">霜序 <span>FROSTBOUND</span></a><span>为下一场狩猎而来。</span><a href="#download">回到下载 <svg><use href="#arrow"/></svg></a></footer>
+  </div>
+</body>
+</html>

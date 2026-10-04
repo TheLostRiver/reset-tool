@@ -2,7 +2,9 @@
 
 使用 C#、WPF 和 Windows 进程 API 实现。界面、游戏连接检测、操作调度、任务控制、配置与日志均由本项目维护，专门面向 Windows x64。
 
-在 [GitHub Releases](https://github.com/TheLostRiver/reset-tool/releases/latest) 下载 Windows 自包含程序或压缩包。
+在 [官网](https://frostbound.helsincy.com/) 下载最新 Windows 版，或选择历史版本并查看更新说明。也可以通过 [GitHub Releases](https://github.com/TheLostRiver/reset-tool/releases/latest) 下载。
+
+霜序完全免费，不会向用户索要任何费用。任何以本软件名义收费的均为假冒。
 
 ![霜序控制台](Assets/preview.png)
 

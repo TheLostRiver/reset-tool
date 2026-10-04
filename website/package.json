@@ -1,0 +1,14 @@
+{
+  "name": "frostbound-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --ip 127.0.0.1 --port 4173 --inspector-port 4174",
+    "deploy": "wrangler deploy",
+    "refresh": "node scripts/refresh-releases.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.147.0"
+  }
+}

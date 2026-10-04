@@ -1,0 +1,63 @@
+{
+  "latest": "v0.3.1",
+  "versions": [
+    {
+      "tag": "v0.3.1",
+      "name": "霜序 Frostbound v0.3.1",
+      "date": "2026-10-04T10:12:13Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.1",
+      "changes": [
+        "修正深色主题菜单中的白色侧栏，菜单背景、勾选区域和文字统一跟随主题。",
+        "简化完整／精简界面的切换：尺寸一次调整，保持窗口左上角位置，内容仅作 120 毫秒的轻微淡入。",
+        "移除截图叠加、连续窗口缩放与位置动画，减少切换时的闪烁和跳动。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.1/Frostbound.exe",
+          "size": 74376959,
+          "digest": "sha256:91f7cb33cc510b77d02eabe5a3c13b394775c74032b8c3aa6408521420fd7104"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.1/Frostbound-v0.3.1-win-x64.zip",
+          "size": 69273593,
+          "digest": "sha256:bcc9982ee8dc34e517810950807ef8f0b0292766af01d8ca3602d20d70753b9d"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.1/Frostbound-v0.3.1-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:1f25d0fc45f9efe3691e9e4cefb967610526559261b4d423e9870b7ae7b24a74"
+        }
+      }
+    },
+    {
+      "tag": "v0.3.0",
+      "name": "霜序 Frostbound v0.3.0",
+      "date": "2026-10-04T09:42:23Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.0",
+      "changes": [
+        "深色、浅色、跟随 Windows 应用颜色；完整与精简界面都能在顶部切换。",
+        "选中综合配置后，重启按钮、重启快捷键和“应用”使用同一流程，遵循配置保存的任务绑定。",
+        "新配置默认推荐快速重启，直接准备并载入任务；旧配置保留原来的模式，可手动切到快速重启。力尽和特殊战斗阶段采用稳定处理。",
+        "修正道具套装编号换算多读下一条记录的问题，并同步修正道具转盘的来源。",
+        "修正完整／精简切换时内容隐藏导致的空白闪烁，改为保留当前画面后交叉淡化。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.0/Frostbound.exe",
+          "size": 74378403,
+          "digest": "sha256:ee7adb8b170cbefee695507744cce3b545b49ba8aa01ad3ee8d0ab7388c30bee"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.0/Frostbound-v0.3.0-win-x64.zip",
+          "size": 69275491,
+          "digest": "sha256:d525aafa8dbb5c4733db92111bce30577f5a1347bc4d3622c02947e9e09d7155"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.0/Frostbound-v0.3.0-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:50847bca453b79facdc8603424541bf91e8e03e0462c900992cfd63682e71af6"
+        }
+      }
+    }
+  ]
+}

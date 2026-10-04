@@ -1,0 +1,10 @@
+import { execFileSync } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { releaseCatalog } from '../src/releases.js';
+const releases = JSON.parse(execFileSync('gh', ['api', 'repos/TheLostRiver/reset-tool/releases?per_page=100'], { encoding: 'utf8' }));
+const latest = JSON.parse(execFileSync('gh', ['api', 'repos/TheLostRiver/reset-tool/releases/latest'], { encoding: 'utf8' }));
+const directory = fileURLToPath(new URL('../public/', import.meta.url));
+await mkdir(directory, { recursive: true });
+await writeFile(new URL('../public/releases.json', import.meta.url), JSON.stringify(releaseCatalog(releases, latest.tag_name), null, 2) + '\n');
+console.log('Release catalog refreshed: ' + latest.tag_name);

@@ -23,7 +23,7 @@ public sealed class GameEngine : IDisposable
     private readonly SemaphoreSlim operation = new(1, 1);
     private readonly CancellationTokenSource lifetime = new();
     private readonly List<(long Address, byte[] Original, byte[] Replacement)> temporaryChanges = [];
-    private FoodPreset? pendingFood;
+    private byte[]? pendingFood;
     private int operationSaveSlot = -1;
     private long chatObject;
     private string previousChat = "";
@@ -253,8 +253,13 @@ public sealed class GameEngine : IDisposable
         M.Int32(board + 0x28F0, 8);
         long currentQuest = M.Pointer(G(QuestRoot));
         M.Int32(currentQuest + 0x17374, 0); M.Int32(currentQuest + 0x17378, 0);
-        await WaitAsync(() => { ReadState(); ApplyPendingFoodWhileLoading(); return Snapshot.QuestState == 2 && !Snapshot.Loading; },
-            token, 90, "任务出发超时。 / Quest departure timed out.");
+        // A quick restart begins in phase 2. That old state is not evidence of a completed departure.
+        // Keep the food configuration pending until a new loading cycle has actually started and ended.
+        await WaitAsync(() => M.Int32(M.Follow(G(UiRoot), 0x278, 0x20) + 0x1D04) != 0,
+            token, 30, "任务没有开始载入，请关闭游戏菜单后重试。 / Quest loading did not start.", 25);
+        Log("任务载入已开始，等待猎人就绪。");
+        await WaitAsync(() => { ReadState(); return Snapshot.QuestState == 2 && !Snapshot.Loading && Snapshot.IsActionable; },
+            token, 90, "任务出发超时。 / Quest departure timed out.", 25);
         Log($"任务 {questId:D5} 已出发。");
     }
 
@@ -305,10 +310,10 @@ public sealed class GameEngine : IDisposable
                 batch.Add(save + 0xEDF38, M.Read(record + 0x278, 0x140));
         }
         long food = M.Pointer(G(FoodRoot));
-        int[] foodValues = loadout.Food.ToArray();
-        for (int i = 0; i < foodValues.Length; i++) batch.Int32(food + 0x19A8 + i * 4, foodValues[i]);
+        byte[] foodValues = FoodBytes(loadout.Food);
+        batch.Add(food + 0x19A8, foodValues);
         batch.Commit();
-        pendingFood = loadout.Food;
+        pendingFood = foodValues;
         Log($"综合套装「{loadout.Name}」已写入当前运行中的猎人配置。装备显示会在下一次场景载入时刷新。");
         if (departRequested) await AcceptCoreAsync(targetQuest, loadout.Wingdrake || wingdrake, mode == RestartMode.AcceptOnly, token);
     });
@@ -316,8 +321,7 @@ public sealed class GameEngine : IDisposable
     public Task ApplyFoodAsync(FoodPreset food) => ExecuteAsync("应用猫饭", token => {
         token.ThrowIfCancellationRequested(); food.Validate(); EnsureReady();
         long target = M.Pointer(G(FoodRoot)); var batch = new MemoryBatch(M);
-        int[] values = food.ToArray();
-        for (int i = 0; i < values.Length; i++) batch.Int32(target + 0x19A8 + i * 4, values[i]);
+        batch.Add(target + 0x19A8, FoodBytes(food));
         batch.Commit();
         Log("猫饭配置已写入游戏；生命与耐力上限会随场景载入刷新。");
         return Task.CompletedTask;
@@ -381,6 +385,14 @@ public sealed class GameEngine : IDisposable
         } catch (IOException) { return null; } finally { operation.Release(); }
     }
 
+    private static byte[] FoodBytes(FoodPreset food)
+    {
+        int[] values = food.ToArray();
+        var bytes = new byte[values.Length * sizeof(int)];
+        Buffer.BlockCopy(values, 0, bytes, 0, bytes.Length);
+        return bytes;
+    }
+
     private void ApplyPendingFoodWhileLoading()
     {
         if (pendingFood == null) return;
@@ -388,8 +400,8 @@ public sealed class GameEngine : IDisposable
             if (operationSaveSlot >= 0 && M.Int32(M.Pointer(G(SaveRoot)) + 0xA0) != operationSaveSlot) return;
             long loading = M.Follow(G(UiRoot), 0x278, 0x20);
             if (M.Int32(loading + 0x1D04) == 0) return;
-            long food = M.Pointer(G(FoodRoot)); int[] values = pendingFood.ToArray();
-            for (int i = 0; i < values.Length; i++) M.Int32(food + 0x19A8 + i * 4, values[i]);
+            long food = M.Pointer(G(FoodRoot));
+            M.Write(food + 0x19A8, pendingFood);
         } catch (IOException) { /* Objects can be replaced while a scene loads. */ }
     }
     private IDisposable ChangeFade()
@@ -452,7 +464,7 @@ public sealed class GameEngine : IDisposable
         catch (Exception e) { Log($"{title}失败：{e.Message}", "ERROR"); throw; }
         finally { pendingFood = null; operationSaveSlot = -1; Busy = false; BusyChanged?.Invoke(false); operation.Release(); }
     }
-    private async Task WaitAsync(Func<bool> condition, CancellationToken token, int seconds, string error)
+    private async Task WaitAsync(Func<bool> condition, CancellationToken token, int seconds, string error, int pollMilliseconds = 100)
     {
         var watch = Stopwatch.StartNew();
         while (watch.Elapsed.TotalSeconds < seconds) {
@@ -461,9 +473,10 @@ public sealed class GameEngine : IDisposable
             try {
                 if (operationSaveSlot >= 0 && M.Int32(M.Pointer(G(SaveRoot)) + 0xA0) != operationSaveSlot)
                     throw new InvalidOperationException("猎人存档已切换，操作已停止。 / Hunter save changed; operation stopped.");
+                ApplyPendingFoodWhileLoading();
                 if (condition()) return;
             } catch (IOException) { }
-            ApplyPendingFoodWhileLoading(); await Task.Delay(100, token);
+            await Task.Delay(pollMilliseconds, token);
         }
         throw new TimeoutException(error);
     }

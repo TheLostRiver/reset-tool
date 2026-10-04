@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
@@ -109,20 +110,50 @@ internal sealed class LoadoutEditorDialog : StudioDialog
     public LoadoutEditorDialog(MainWindow owner, Loadout? original) : base(owner, owner.T(original == null ? "新建综合套装" : "编辑综合套装", original == null ? "New loadout" : "Edit loadout", original == null ? "総合セットを作成" : "総合セットを編集"), 760, 790)
     {
         var preset = original == null ? new Loadout() : JsonSerializer.Deserialize<Loadout>(JsonSerializer.Serialize(original, SettingsStore.Json), SettingsStore.Json)!;
+        var hunter = owner.Runtime.Engine.Snapshot;
+        bool sameHunter = (preset.SaveSlot < 0 || preset.SaveSlot == hunter.SaveSlot) && (preset.UserId == 0 || preset.UserId == hunter.UserId);
+        if (preset.ItemSlotOrder == ItemSlotOrder.Record && preset.ItemSlot > 0 && sameHunter && hunter.CanAct && !owner.Runtime.Engine.Busy) {
+            try {
+                var existingItem = owner.Runtime.Engine.ResolveItemSlot(preset.ItemSlot, preset.ItemName, preset.ItemSlotOrder, owner.Runtime.Engine.ReadLoadoutSlots().Items);
+                if (existingItem != null) { preset.ItemSlot = existingItem.Number; preset.ItemName = existingItem.Name; preset.ItemSlotOrder = ItemSlotOrder.Game; }
+            } catch (Exception e) when (e is IOException or InvalidOperationException) { /* Preserve the saved binding until the game is ready. */ }
+        }
         var form = new StackPanel();
         var name = new TextBox { Text = preset.Name, MaxLength = 64 }; form.Children.Add(Field(T("套装名称 · 也用于聊天指令", "Name · also used by chat commands", "セット名 · チャットコマンドにも使用"), name));
         var equipNumber = new TextBox { Text = preset.EquipmentSlot.ToString() }; var itemNumber = new TextBox { Text = preset.ItemSlot.ToString() };
         var equipmentName = new TextBox { Text = preset.EquipmentName }; var itemName = new TextBox { Text = preset.ItemName };
-        form.Children.Add(Columns(Field(T("装备预设编号", "Equipment slot", "装備マイセット番号"), equipNumber, T("0 表示按名称查找或不更改；范围 0–224", "0: resolve by name or skip. Range: 0–224", "0 は名前検索・変更なし。範囲：0–224")), Field(T("道具预设编号", "Item slot", "アイテムマイセット番号"), itemNumber, T("0 表示按名称查找或不更改；范围 0–80", "0: resolve by name or skip. Range: 0–80", "0 は名前検索・変更なし。範囲：0–80"))));
+        bool updatingItemFields = false;
+        itemNumber.TextChanged += (_, _) => { if (!updatingItemFields) { preset.ItemSlotOrder = ItemSlotOrder.Game; itemName.Clear(); } };
+        string itemHint = preset.ItemSlotOrder == ItemSlotOrder.Record ? T("原有绑定已保留；读取游戏预设可更新显示编号", "The saved preset is kept. Read game presets to update its number.", "既存の指定は維持。ゲームの一覧を読むと番号を更新。") :
+            T("使用游戏中显示的编号；0 表示按名称查找或不更改", "Use the in-game number. 0: resolve by name or skip.", "ゲーム内の番号を使用。0 は名前検索・変更なし。");
+        form.Children.Add(Columns(Field(T("装备预设编号", "Equipment slot", "装備マイセット番号"), equipNumber, T("0 表示按名称查找或不更改；范围 0–224", "0: resolve by name or skip. Range: 0–224", "0 は名前検索・変更なし。範囲：0–224")), Field(T("道具预设编号", "Item slot", "アイテムマイセット番号"), itemNumber, itemHint)));
         form.Children.Add(Columns(Field(T("装备预设名称（可选）", "Equipment name (optional)", "装備マイセット名（任意）"), equipmentName), Field(T("道具预设名称（可选）", "Item name (optional)", "アイテムマイセット名（任意）"), itemName)));
         var liveSlots = new StackPanel();
         var read = Button(T("从当前猎人读取预设套装", "Read this hunter's loadout slots", "現在のマイセットを読み込む"), () => {
             try {
                 var slots = owner.Runtime.Engine.ReadLoadoutSlots(); liveSlots.Children.Clear();
+                int.TryParse(itemNumber.Text, out int currentItem);
+                if (preset.ItemSlotOrder == ItemSlotOrder.Record && currentItem > 0) {
+                    var existingItem = owner.Runtime.Engine.ResolveItemSlot(currentItem, itemName.Text, preset.ItemSlotOrder, slots.Items);
+                    if (existingItem != null) {
+                        updatingItemFields = true;
+                        try { itemNumber.Text = existingItem.Number.ToString(); itemName.Text = existingItem.Name; }
+                        finally { updatingItemFields = false; }
+                        preset.ItemSlotOrder = ItemSlotOrder.Game; currentItem = existingItem.Number;
+                    }
+                }
                 var equipments = new SearchChoicePicker<int>(owner, T("搜索装备预设", "Search equipment loadouts", "装備マイセット検索"), slots.Equipment.Select(p => new Choice<int>(p.Number, p.ToString())).ToArray(), preset.EquipmentSlot);
-                var items = new SearchChoicePicker<int>(owner, T("搜索道具预设", "Search item loadouts", "アイテムマイセット検索"), slots.Items.Select(p => new Choice<int>(p.Number, p.ToString())).ToArray(), preset.ItemSlot);
+                var items = new SearchChoicePicker<int>(owner, T("搜索道具预设", "Search item loadouts", "アイテムマイセット検索"), slots.Items.Select(p => new Choice<int>(p.Number, p.ToString())).ToArray(), currentItem);
                 equipments.SelectionChanged += (_, _) => { var slot = slots.Equipment.FirstOrDefault(p => p.Number == equipments.SelectedValue); if (slot != null) { equipNumber.Text = slot.Number.ToString(); equipmentName.Text = slot.Name; } };
-                items.SelectionChanged += (_, _) => { var slot = slots.Items.FirstOrDefault(p => p.Number == items.SelectedValue); if (slot != null) { itemNumber.Text = slot.Number.ToString(); itemName.Text = slot.Name; } };
+                items.SelectionChanged += (_, _) => {
+                    var slot = slots.Items.FirstOrDefault(p => p.Number == items.SelectedValue);
+                    if (slot != null) {
+                        updatingItemFields = true;
+                        try { itemNumber.Text = slot.Number.ToString(); itemName.Text = slot.Name; }
+                        finally { updatingItemFields = false; }
+                        preset.ItemSlotOrder = ItemSlotOrder.Game;
+                    }
+                };
                 liveSlots.Children.Add(Columns(Field(T("游戏内装备套装", "In-game equipment", "装備マイセット"), equipments), Field(T("游戏内道具套装", "In-game items", "アイテムマイセット"), items)));
                 Error.Text = T("预设列表已读取。", "Slots loaded.", "読み込みました。");
             } catch (Exception e) { Error.Text = e.Message; }

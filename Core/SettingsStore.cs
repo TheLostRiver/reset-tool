@@ -38,7 +38,8 @@ public sealed class SettingsStore
     }
     private static Settings Normalize(Settings value)
     {
-        if (value.SchemaVersion > 1) throw new InvalidOperationException("配置来自较新版本，请先更新软件。 / This settings format needs a newer app.");
+        if (value.SchemaVersion > 2) throw new InvalidOperationException("配置来自较新版本，请先更新软件。 / This settings format needs a newer app.");
+        bool oldItemNumbering = value.SchemaVersion < 2;
         value.Hotkeys ??= new(); value.Loadouts ??= []; value.CustomQuests ??= []; value.Favorites ??= [];
         if (value.Language is not ("zh" or "en" or "ja")) value.Language = "zh";
         if (!Enum.IsDefined(value.Mode)) value.Mode = RestartMode.Quick;
@@ -52,12 +53,14 @@ public sealed class SettingsStore
             HotkeyBinding.Parse(value.Hotkeys.ResetController, true);
         } catch (FormatException e) { throw new InvalidOperationException("配置中的快捷键无效。 / Invalid shortcut settings.", e); }
         foreach (var loadout in value.Loadouts) {
+            if (oldItemNumbering && loadout.ItemSlot > 0) loadout.ItemSlotOrder = ItemSlotOrder.Record;
             loadout.Food ??= new(); loadout.EquipmentName ??= ""; loadout.ItemName ??= ""; loadout.Validate();
         }
         foreach (var quest in value.CustomQuests) {
             quest.Chinese ??= ""; quest.English ??= ""; quest.Japanese ??= ""; quest.Category ??= "自定义";
             if (quest.Id is < 101 or > 67809) throw new InvalidOperationException("配置中的任务 ID 无效。");
         }
+        value.SchemaVersion = 2;
         return value;
     }
     public void Save(Settings settings)

@@ -8,6 +8,7 @@ namespace Frostbound.Core;
 public enum RestartMode { Stable, Quick, AcceptOnly }
 public enum InterfaceStyle { Full, Compact }
 public enum AppearanceTheme { Dark, Light, System }
+public enum ItemSlotOrder { Game, Record }
 public enum ConnectionState { Waiting, Reading, Ready, Unsupported, AccessDenied, Faulted }
 
 public sealed class Quest
@@ -64,6 +65,7 @@ public sealed class Loadout
     public string ItemName { get; set; } = "";
     public int EquipmentSlot { get; set; }
     public int ItemSlot { get; set; }
+    public ItemSlotOrder ItemSlotOrder { get; set; } = ItemSlotOrder.Game;
     public int QuestId { get; set; }
     public bool Wingdrake { get; set; }
     public bool? LinkRadialMenu { get; set; }
@@ -76,6 +78,7 @@ public sealed class Loadout
         if (Name.Length > 64) throw new InvalidOperationException("套装名称最多 64 个字符。 / Name is too long.");
         if (EquipmentSlot is < 0 or > 224 || ItemSlot is < 0 or > 80)
             throw new InvalidOperationException("装备编号应为 0–224，道具编号应为 0–80。 / Invalid loadout slot.");
+        if (!Enum.IsDefined(ItemSlotOrder)) throw new InvalidOperationException("道具预设编号格式无效。 / Invalid item slot format.");
         if (QuestId != 0 && QuestId is < 101 or > 67809)
             throw new InvalidOperationException("任务 ID 超出支持范围。 / Invalid quest ID.");
         if (SaveSlot is < -1 or > 2) throw new InvalidOperationException("存档编号应为 0、1、2，或不绑定。 / Invalid save slot.");
@@ -96,7 +99,7 @@ public sealed class HotkeySettings
 
 public sealed class Settings
 {
-    public int SchemaVersion { get; set; } = 1;
+    public int SchemaVersion { get; set; } = 2;
     public string Language { get; set; } = "zh";
     public InterfaceStyle InterfaceStyle { get; set; } = InterfaceStyle.Full;
     public AppearanceTheme Theme { get; set; } = AppearanceTheme.Dark;
@@ -122,7 +125,7 @@ public sealed record GameSnapshot(ConnectionState State, int ProcessId = 0, long
 {
     public bool CanAct => State == ConnectionState.Ready && !Loading && SaveSlot >= 0 && IsActionable && QuestState is 1 or 2 or 4 or 5 or 13;
 }
-public sealed record GameLoadoutSlot(int Number, string Name)
+public sealed record GameLoadoutSlot(int Number, string Name, int RecordNumber = 0)
 {
     public override string ToString() => $"{Number:D3}  ·  {Name}";
 }

@@ -18,6 +18,7 @@ public sealed class GameEngine : IDisposable
     private const int QuestRoot = 0x500ED30, UiRoot = 0x51C4640, SaveRoot = 0x5013950;
     private const int PlayerRoot = 0x50EC7E8, LocalRoot = 0x50EC750, FoodRoot = 0x500ECA0;
     private const int ItemStride = 0x768, ItemInventorySize = 0x270, ItemRadialOffset = 0x278;
+    private const int ItemOrderOffset = 0x37FF8;
     private const int ActiveInventoryOffset = 0x38088, ActiveRadialOffset = 0xEDF38, RadialSize = 0x140;
     private ProcessMemory? memory;
     private long steamBase;
@@ -275,9 +276,9 @@ public sealed class GameEngine : IDisposable
             throw new InvalidOperationException("这个套装属于其他猎人存档，请切换存档或解除绑定。 / This preset belongs to another save.");
         long save = SaveAddress();
         int equipment = ResolveSlot(loadout.EquipmentSlot, loadout.EquipmentName, EquipmentSlots());
-        int items = ResolveSlot(loadout.ItemSlot, loadout.ItemName, ItemSlots());
+        var items = ResolveItemSlot(loadout.ItemSlot, loadout.ItemName, loadout.ItemSlotOrder, ReadItemSlots(save));
         // Read once before the game starts returning or reloading. Keep this operation's selection intact.
-        var itemPreset = items > 0 ? ReadItemPreset(save, items, loadout.LinkRadialMenu) : null;
+        var itemPreset = items != null ? ReadItemPreset(save, items, loadout.LinkRadialMenu) : null;
         bool departRequested = restartQuest || loadout.QuestId > 0;
         int targetQuest = departRequested ? (loadout.QuestId > 0 ? loadout.QuestId : M.Int32(M.Follow(G(UiRoot), 0x278, 0x3C8) + 0x2938)) : 0;
         if (departRequested && targetQuest is < 101 or > 67809)
@@ -345,15 +346,35 @@ public sealed class GameEngine : IDisposable
         return matches[0].Number;
     }
 
-    private ItemPresetSnapshot ReadItemPreset(long save, int slot, bool? linkRadial)
+    internal GameLoadoutSlot? ResolveItemSlot(int number, string savedName, ItemSlotOrder numbering, IReadOnlyList<GameLoadoutSlot> slots)
     {
-        // Preset numbers are one-based; each payload follows its name at slot * stride.
-        long record = save + slot * (long)ItemStride;
+        string name = savedName.Trim();
+        if (number == 0 && name.Length == 0) return null;
+        var numbered = number > 0 ? slots.FirstOrDefault(slot =>
+            (numbering == ItemSlotOrder.Record ? slot.RecordNumber : slot.Number) == number) : null;
+        bool oldPlaceholderName = numbering == ItemSlotOrder.Record && name == $"预设套装{number}";
+        bool defaultOldName = numbered != null && oldPlaceholderName && numbered.Name == $"预设套装{numbered.Number}";
+        if (numbered != null && (name.Length == 0 || numbered.Name == name || defaultOldName)) return numbered;
+        if (name.Length > 0 && !oldPlaceholderName) {
+            var matches = slots.Where(slot => slot.Name == name).ToArray();
+            if (matches.Length == 1) {
+                if (number > 0) Log($"道具预设「{name}」的编号已变化，按名称对应到游戏编号 {matches[0].Number}。");
+                return matches[0];
+            }
+        }
+        throw new InvalidOperationException("道具预设编号与名称无法确认，请重新读取游戏预设并选择。 / Reselect a matching item preset.");
+    }
+
+    private ItemPresetSnapshot ReadItemPreset(long save, GameLoadoutSlot slot, bool? linkRadial)
+    {
+        // The game's displayed order maps to record positions. Both numbers are one-based here.
+        long record = save + slot.RecordNumber * (long)ItemStride;
         if (M.Int32(record + ItemRadialOffset) == 0) throw new InvalidOperationException("所选道具套装为空。 / Item loadout is empty.");
         string name = M.Utf8(record - 0x28, 48);
-        if (name.Length == 0) name = $"预设套装{slot}";
+        if (name.Length == 0) name = $"预设套装{slot.Number}";
+        if (name != slot.Name) throw new IOException("道具预设在读取期间发生变化，请重试。 / Item preset changed while reading.");
         bool linked = linkRadial ?? M.Int32(save + 0x140415) == 1;
-        return new(slot, name, M.Read(record, ItemInventorySize),
+        return new(slot.Number, name, M.Read(record, ItemInventorySize),
             M.Read(linked ? record + ItemRadialOffset : save + ActiveRadialOffset, RadialSize), linked);
     }
 
@@ -402,12 +423,21 @@ public sealed class GameEngine : IDisposable
     }
     public IReadOnlyList<GameLoadoutSlot> ItemSlots()
     {
-        long save = SaveAddress(); var result = new List<GameLoadoutSlot>();
-        for (int slot = 1; slot <= 80; slot++) {
-            if (M.Int32(save + slot * (long)ItemStride + ItemRadialOffset) == 0) continue;
-            string name = M.Utf8(save + slot * (long)ItemStride - 0x28, 48);
-            if (name.Length == 0) name = $"预设套装{slot}";
-            result.Add(new(slot, name));
+        return ReadItemSlots(SaveAddress());
+    }
+    private IReadOnlyList<GameLoadoutSlot> ReadItemSlots(long save)
+    {
+        byte[] order = M.Read(save + ItemOrderOffset, 80);
+        if (order.Any(index => index >= 80) || order.Distinct().Count() != 80)
+            throw new IOException("游戏道具预设顺序尚未稳定，请关闭菜单后重试。 / Item preset order is not ready.");
+        var result = new List<GameLoadoutSlot>();
+        for (int index = 0; index < order.Length; index++) {
+            int number = index + 1, recordNumber = order[index] + 1;
+            long record = save + recordNumber * (long)ItemStride;
+            if (M.Int32(record + ItemRadialOffset) == 0) continue;
+            string name = M.Utf8(record - 0x28, 48);
+            if (name.Length == 0) name = $"预设套装{number}";
+            result.Add(new(number, name, recordNumber));
         }
         return result;
     }

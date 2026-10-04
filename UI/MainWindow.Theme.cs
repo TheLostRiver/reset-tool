@@ -29,13 +29,18 @@ public partial class MainWindow
         Runtime.Settings.Theme = mode; Runtime.Save(); ThemeManager.SetMode(mode);
     }
 
-    private void ThemeSwitchClick(object sender, RoutedEventArgs e)
+    internal ContextMenu CreateThemeMenu()
     {
         var menu = new ContextMenu { PlacementTarget = ThemeSwitch, Background = Brush("#18222D"), Foreground = Brush("#E3ECF3"), BorderBrush = Brush("#2B3947"), BorderThickness = new Thickness(1), Padding = new Thickness(5) };
         foreach (var choice in ThemeChoices()) {
             var item = new MenuItem { Header = choice.Label, IsCheckable = true, IsChecked = Runtime.Settings.Theme == choice.Value };
             item.Click += (_, _) => SetTheme(choice.Value); menu.Items.Add(item);
         }
-        ThemeSwitch.ContextMenu = menu; menu.IsOpen = true;
+        return menu;
+    }
+
+    private void ThemeSwitchClick(object sender, RoutedEventArgs e)
+    {
+        var menu = CreateThemeMenu(); ThemeSwitch.ContextMenu = menu; menu.IsOpen = true;
     }
 }

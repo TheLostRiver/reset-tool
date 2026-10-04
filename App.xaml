@@ -19,6 +19,17 @@
       <Setter Property="Background" Value="{DynamicResource Color.263544}" /><Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource Color.3D5163}" /><Setter Property="Padding" Value="10,7" />
     </Style>
+    <Style TargetType="ContextMenu">
+      <Setter Property="OverridesDefaultStyle" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource PanelBrush}" /><Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" /><Setter Property="BorderThickness" Value="1" /><Setter Property="Padding" Value="5" />
+      <Setter Property="MinWidth" Value="154" />
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ContextMenu">
+        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" CornerRadius="8">
+          <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" />
+        </Border>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
     <Style TargetType="MenuItem">
       <Setter Property="Foreground" Value="{DynamicResource TextBrush}" /><Setter Property="Cursor" Value="Hand" />
       <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="MenuItem">

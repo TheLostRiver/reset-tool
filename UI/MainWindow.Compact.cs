@@ -60,8 +60,8 @@ public partial class MainWindow
         double height = Math.Clamp(saved?.Height ?? (compact ? 640 : 850), minHeight, Math.Max(minHeight, workArea.Height - 32));
         double left = Left, top = Top;
         if (!App.IsRendering && displayedStyle != null) {
-            double x = saved?.X ?? Left + (Width - width) / 2;
-            double y = saved?.Y ?? Top;
+            double x = Left;
+            double y = Top;
             left = Math.Clamp(double.IsFinite(x) ? x : workArea.Left + 16, workArea.Left, workArea.Right - width);
             top = Math.Clamp(double.IsFinite(y) ? y : workArea.Top + 16, workArea.Top, workArea.Bottom - height);
         }

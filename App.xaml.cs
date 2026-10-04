@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -45,7 +46,7 @@ public partial class App : Application
                     window.Width = Math.Max(window.MinWidth, width); window.Height = Math.Max(window.MinHeight, height);
                 }
             }
-            Dispatcher.BeginInvoke(async () => await RenderPreview(window, e.Args[1]));
+            Dispatcher.BeginInvoke(async () => await RenderPreview(window, e.Args[1], view == "theme-menu"));
         }
         else MainWindow.Show();
     }
@@ -56,10 +57,12 @@ public partial class App : Application
         File.WriteAllText(destination, JsonSerializer.Serialize(engine.Snapshot, SettingsStore.Json));
         await engine.StopAsync(); Shutdown();
     }
-    private async Task RenderPreview(MainWindow window, string path)
+    private async Task RenderPreview(MainWindow window, string path, bool themeMenu = false)
     {
-        var root = (FrameworkElement)window.Content;
-        int width = (int)window.Width, height = (int)window.Height;
+        FrameworkElement root = themeMenu ? window.CreateThemeMenu() : (FrameworkElement)window.Content;
+        int width = themeMenu ? 180 : (int)window.Width;
+        if (themeMenu) { ((ContextMenu)root).ApplyTemplate(); root.Measure(new Size(width, double.PositiveInfinity)); }
+        int height = themeMenu ? (int)Math.Ceiling(root.DesiredSize.Height) : (int)window.Height;
         root.Measure(new Size(width, height)); root.Arrange(new Rect(0, 0, width, height)); root.UpdateLayout();
         await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
         root.Measure(new Size(width, height)); root.Arrange(new Rect(0, 0, width, height)); root.UpdateLayout();

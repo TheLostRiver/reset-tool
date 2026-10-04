@@ -23,6 +23,7 @@ export function normalizeRelease(release) {
   return {
     tag: release.tag_name,
     name: release.name ?? release.tag_name,
+    summary: (release.body ?? '').split('\n').map(line => line.trim()).find(line => line && !/^[-*#]/.test(line)) ?? release.name ?? release.tag_name,
     date: release.published_at ?? release.created_at,
     url: 'https://github.com/' + REPOSITORY + '/releases/tag/' + encodeURIComponent(release.tag_name),
     changes,

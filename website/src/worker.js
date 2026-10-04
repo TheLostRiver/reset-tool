@@ -3,7 +3,7 @@ import { GITHUB_API, releaseCatalog } from './releases.js';
 const jsonHeaders = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'X-Content-Type-Options': 'nosniff' };
 
 async function catalog(request, env, ctx) {
-  const key = new Request(new URL('/api/releases', request.url), { method: 'GET' });
+  const key = new Request(new URL('/api/releases?schema=2', request.url), { method: 'GET' });
   const cache = caches.default;
   const cached = await cache.match(key);
   if (cached) return cached;

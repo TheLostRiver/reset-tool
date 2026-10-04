@@ -3,6 +3,7 @@ const releaseList = document.querySelector('#release-list');
 const downloadExe = document.querySelector('#download-exe');
 const downloadZip = document.querySelector('#download-zip');
 const checksum = document.querySelector('#checksum-link');
+const pageReleaseDate = Date.parse(document.querySelector('#release-list time')?.dateTime ?? '');
 let catalog;
 let userSelectedVersion = false;
 
@@ -27,6 +28,8 @@ function updateSelection() {
 
 function render(data) {
   if (!Array.isArray(data.versions) || !data.versions.length) throw new Error('No releases');
+  const latest = data.versions.find(release => release.tag === data.latest);
+  if (!latest || Date.parse(latest.date) < pageReleaseDate) throw new Error('Stale release catalog');
   catalog = data;
   const previous = select.value;
   select.replaceChildren(...data.versions.map(release => {
@@ -40,8 +43,7 @@ function render(data) {
     if (release.tag === data.latest) number.append(element('span', 'latest-label', '最新'));
     const time = element('time', '', date(release.date)); time.dateTime = release.date;
     heading.append(number, time); card.append(heading);
-    const headings = { 'v0.3.2': '修正猫饭应用时机。', 'v0.3.1': '更清爽的界面，更稳定的切换。', 'v0.3.0': '深浅主题，自由切换。' };
-    card.append(element('h3', '', headings[release.tag] ?? release.name.replace(/霜序\s*Frostbound\s*/i, '')));
+    card.append(element('h3', '', release.summary ?? release.name.replace(/霜序\s*Frostbound\s*/i, '')));
     const changes = element('ul');
     for (const change of release.changes ?? []) changes.append(element('li', '', change));
     card.append(changes);
@@ -64,7 +66,7 @@ document.querySelectorAll('[data-preview]').forEach(button => button.addEventLis
 
 async function loadReleases() {
   for (const path of ['/api/releases', '/releases.json']) {
-    try { const response = await fetch(path, { signal: AbortSignal.timeout(10000) }); if (!response.ok) continue; render(await response.json()); return; } catch { /* Keep the working latest download links available. */ }
+    try { const response = await fetch(path, { cache: 'no-store', signal: AbortSignal.timeout(10000) }); if (!response.ok) continue; render(await response.json()); return; } catch { /* Keep the working latest download links available. */ }
   }
 }
 loadReleases();

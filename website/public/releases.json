@@ -4,6 +4,7 @@
     {
       "tag": "v0.3.2",
       "name": "霜序 Frostbound v0.3.2",
+      "summary": "修正快速重启时猫饭应用提前结束的问题。",
       "date": "2026-10-04T11:21:11Z",
       "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.2",
       "changes": [
@@ -33,6 +34,7 @@
     {
       "tag": "v0.3.1",
       "name": "霜序 Frostbound v0.3.1",
+      "summary": "霜序 v0.3.1，Windows x64 自包含修复版。",
       "date": "2026-10-04T10:12:13Z",
       "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.1",
       "changes": [
@@ -61,6 +63,7 @@
     {
       "tag": "v0.3.0",
       "name": "霜序 Frostbound v0.3.0",
+      "summary": "霜序 v0.3.0，Windows x64 自包含版。",
       "date": "2026-10-04T09:42:23Z",
       "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.0",
       "changes": [

@@ -17,7 +17,9 @@ npm run refresh
 npm run deploy
 ```
 
-`refresh` 使用已登录的 GitHub CLI 更新本地版本目录。线上 `/api/releases` 自动获取正式版，缓存五分钟，无法刷新时使用随网站发布的版本目录。新 Release 通常无需重新部署网站。
+`refresh` 使用已登录的 GitHub CLI 更新版本目录，并同步生成首页的版本选择、文件大小与完整历史更新说明。`deploy` 会先自动执行 `refresh`，避免首页和版本目录不一致。首页加载时即可显示更新说明，JavaScript 加载失败也能查看、下载各版本。
+
+线上 `/api/releases` 自动获取正式版，缓存五分钟，无法刷新时使用随网站发布的版本目录。新 Release 可以自动显示；发布后执行 `npm run deploy` 可同步首页的默认内容。页面与版本数据要求重新验证缓存，脚本和样式采用内容指纹地址。
 
 `/download/latest?format=exe` 直接下载最新程序；`/download/v0.3.0?format=exe` 等地址下载指定版本。支持 `exe`、`zip` 和 `checksums`，文件来源是本项目正式 Release 附件。
 

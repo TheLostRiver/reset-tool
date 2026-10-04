@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://frostbound.helsincy.com/">
   <link rel="canonical" href="https://frostbound.helsincy.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/app.js" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=0716e6e60cf2">
+  <script src="/app.js?v=303a88b33289" defer></script>
   <title>霜序 Frostbound · 官方下载</title>
 </head>
 <body>
@@ -40,7 +40,7 @@
           <div class="platform-tags"><span>Windows x64</span><span>无需安装</span><span class="free-tag">完全免费</span></div>
 
           <div class="download-box">
-            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.2">v0.3.2 · 最新</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
+            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.2" selected>v0.3.2 · 最新</option><option value="v0.3.1">v0.3.1</option><option value="v0.3.0">v0.3.0</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
             <div class="download-buttons"><a class="download-primary" id="download-exe" href="/download/latest?format=exe"><svg><use href="#download"/></svg><span>下载 Windows 版<small id="download-size">EXE · 74.4 MB</small></span><svg class="button-arrow"><use href="#arrow"/></svg></a><a class="download-zip" id="download-zip" href="/download/latest?format=zip" aria-label="下载 ZIP 压缩包">ZIP<svg><use href="#download"/></svg></a></div>
             <div class="download-foot"><span id="release-date">2026.10.04 发布</span><a id="checksum-link" href="/download/latest?format=checksums">SHA-256 校验</a></div>
           </div>
@@ -58,7 +58,28 @@
 
       <section class="versions-section" id="versions" aria-labelledby="versions-title">
         <div class="section-heading"><div><span class="eyebrow">RELEASE NOTES</span><h2 id="versions-title">版本记录<span>每一次更新，都在这里。</span></h2></div><a class="all-releases" href="https://github.com/TheLostRiver/reset-tool/releases" target="_blank" rel="noopener">GitHub Releases <svg><use href="#external"/></svg></a></div>
-        <div class="release-list" id="release-list" aria-live="polite"><article class="release-card"><div class="release-heading"><div class="release-number">v0.3.1 <span class="latest-label">最新</span></div><time datetime="2026-10-04">2026.10.04</time></div><h3>更清爽的界面，更稳定的切换。</h3><ul><li>修正深色主题菜单的白色侧栏。</li><li>简化完整与精简界面的切换，保留短淡入效果。</li><li>移除截图叠加、窗口缩放与位置动画。</li></ul><div class="release-actions"><a href="/download/latest?format=exe">下载此版本 <svg><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.1" target="_blank" rel="noopener">完整说明 <svg><use href="#external"/></svg></a></div></article></div>
+        <!-- releases:start -->
+        <div class="release-list" id="release-list" aria-live="polite">
+          <article class="release-card">
+            <div class="release-heading"><div class="release-number">v0.3.2 <span class="latest-label">最新</span></div><time datetime="2026-10-04T11:21:11Z">2026.10.04</time></div>
+            <h3>修正快速重启时猫饭应用提前结束的问题。</h3>
+            <ul><li>发出出发请求后，先确认新一轮加载已经开始，再等待任务载入结束且猎人可操作；避免把仍在运行的旧任务误判为重启完成。</li><li>套装猫饭在整个加载期间持续应用，覆盖游戏场景初始化时的配置刷新。</li><li>生命、耐力、其他猫饭能力和三个技能使用同一份配置快照，一次写入完整数据，减少读取到部分配置的机会。</li><li>加载开始单独记录到日志；出发请求未生效时显示明确的超时提示。</li></ul>
+            <div class="release-actions"><a href="/download/v0.3.2?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.2" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>
+          </article>
+          <article class="release-card">
+            <div class="release-heading"><div class="release-number">v0.3.1</div><time datetime="2026-10-04T10:12:13Z">2026.10.04</time></div>
+            <h3>霜序 v0.3.1，Windows x64 自包含修复版。</h3>
+            <ul><li>修正深色主题菜单中的白色侧栏，菜单背景、勾选区域和文字统一跟随主题。</li><li>简化完整／精简界面的切换：尺寸一次调整，保持窗口左上角位置，内容仅作 120 毫秒的轻微淡入。</li><li>移除截图叠加、连续窗口缩放与位置动画，减少切换时的闪烁和跳动。</li></ul>
+            <div class="release-actions"><a href="/download/v0.3.1?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.1" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>
+          </article>
+          <article class="release-card">
+            <div class="release-heading"><div class="release-number">v0.3.0</div><time datetime="2026-10-04T09:42:23Z">2026.10.04</time></div>
+            <h3>霜序 v0.3.0，Windows x64 自包含版。</h3>
+            <ul><li>深色、浅色、跟随 Windows 应用颜色；完整与精简界面都能在顶部切换。</li><li>选中综合配置后，重启按钮、重启快捷键和“应用”使用同一流程，遵循配置保存的任务绑定。</li><li>新配置默认推荐快速重启，直接准备并载入任务；旧配置保留原来的模式，可手动切到快速重启。力尽和特殊战斗阶段采用稳定处理。</li><li>修正道具套装编号换算多读下一条记录的问题，并同步修正道具转盘的来源。</li><li>修正完整／精简切换时内容隐藏导致的空白闪烁，改为保留当前画面后交叉淡化。</li></ul>
+            <div class="release-actions"><a href="/download/v0.3.0?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.0" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>
+          </article>
+        </div>
+        <!-- releases:end -->
         <noscript><p class="fallback-note">历史版本可从 <a href="https://github.com/TheLostRiver/reset-tool/releases">GitHub Releases</a> 下载。</p></noscript>
       </section>
     </main>

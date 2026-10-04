@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 
 namespace Frostbound.Core;
 
-public sealed class GameEngine : IDisposable
+public sealed partial class GameEngine : IDisposable
 {
     // This profile is bound to the exact Windows x64 executable, including ASLR.
     public const string SupportedHash = "C2EBBBD2C49F216D484E31A5219BED419EB1E5E7D206D02CBA040A3AB79D90EA";
     public const string ProfileName = "Steam x64 · C2EBBBD2";
     private const int QuestRoot = 0x500ED30, UiRoot = 0x51C4640, SaveRoot = 0x5013950;
     private const int PlayerRoot = 0x50EC7E8, LocalRoot = 0x50EC750, FoodRoot = 0x500ECA0;
-    private const int ItemStride = 0x768, ItemInventorySize = 0x270, ItemRadialOffset = 0x278;
+    private const int ItemStride = 0x768;
     private const int ItemOrderOffset = 0x37FF8;
-    private const int ActiveInventoryOffset = 0x38088, ActiveRadialOffset = 0xEDF38, RadialSize = 0x140;
     private ProcessMemory? memory;
     private long steamBase;
     private int rejectedPid;
@@ -244,7 +243,7 @@ public sealed class GameEngine : IDisposable
             long currentUi = M.Follow(G(UiRoot), 0x278, 0x3B8);
             return M.Int32(currentUi + 0x28F0) != 0;
         }, token, 20, "任务受理超时，请确认该任务在当前存档中可用。 / Quest acceptance timed out.");
-        if (acceptOnly) { Log("任务已受理，等待手动出发。"); return; }
+        if (acceptOnly) { await VerifyPendingItemsAsync(token); Log("任务已受理，等待手动出发。"); return; }
         depart = M.Follow(G(UiRoot), 0x278, 0x3D0);
         var readyFlags = M.Read(depart + 0x2298, 4);
         readyFlags[0] = (byte)((readyFlags[0] & 0xFA) | 0x0A); readyFlags[3] &= 0x0F;
@@ -310,10 +309,7 @@ public sealed class GameEngine : IDisposable
                 batch.Add(save + (part < 6 ? 0x41098 : 0xE92E8) + itemId * 0x98L, jewels);
             }
         }
-        if (itemPreset != null) {
-            batch.Add(save + ActiveInventoryOffset, itemPreset.Inventory);
-            batch.Add(save + ActiveRadialOffset, itemPreset.RadialMenu);
-        }
+        if (itemPreset != null) AddItemPresetWrites(batch, save, itemPreset);
         long food = M.Pointer(G(FoodRoot));
         byte[] foodValues = FoodBytes(loadout.Food);
         batch.Add(food + 0x19A8, foodValues);
@@ -323,6 +319,7 @@ public sealed class GameEngine : IDisposable
         if (itemPreset != null) Log($"道具预设 {itemPreset.Slot}「{itemPreset.Name}」已准备；转盘{(itemPreset.LinkRadial ? "同步预设" : "保留当前配置")}。");
         Log($"综合套装「{loadout.Name}」已写入当前运行中的猎人配置。装备显示会在下一次场景载入时刷新。");
         if (departRequested) await AcceptCoreAsync(targetQuest, loadout.Wingdrake || wingdrake, mode == RestartMode.AcceptOnly, token);
+        else await VerifyPendingItemsAsync(token);
     });
 
     public Task ApplyFoodAsync(FoodPreset food) => ExecuteAsync("应用猫饭", token => {
@@ -367,42 +364,43 @@ public sealed class GameEngine : IDisposable
 
     private ItemPresetSnapshot ReadItemPreset(long save, GameLoadoutSlot slot, bool? linkRadial)
     {
-        // The game's displayed order maps to record positions. Both numbers are one-based here.
         long record = save + slot.RecordNumber * (long)ItemStride;
-        if (M.Int32(record + ItemRadialOffset) == 0) throw new InvalidOperationException("所选道具套装为空。 / Item loadout is empty.");
+        if (!ItemRecordExists(save, slot.RecordNumber)) throw new InvalidOperationException("所选道具套装为空。 / Item loadout is empty.");
         string name = M.Utf8(record - 0x28, 48);
         if (name.Length == 0) name = $"预设套装{slot.Number}";
         if (name != slot.Name) throw new IOException("道具预设在读取期间发生变化，请重试。 / Item preset changed while reading.");
-        bool linked = linkRadial ?? M.Int32(save + 0x140415) == 1;
-        return new(slot.Number, name, M.Read(record, ItemInventorySize),
-            M.Read(linked ? record + ItemRadialOffset : save + ActiveRadialOffset, RadialSize), linked);
+        bool linked = linkRadial ?? M.Byte(save + 0x140415) == 1;
+        var controller = linked ? ReadPresetPalette(record) : ReadActivePalette(save, false);
+        var keyboard = linked ? controller : ReadActivePalette(save, true);
+        return new(slot.Number, name, ItemValues(M.Read(record - 8, ItemCount * ItemSize)),
+            M.Read(record + PresetItemBarOffset, ItemBarSize), controller, keyboard, linked);
     }
 
     private bool ApplyItemPresetIfChanged(long save, ItemPresetSnapshot preset)
     {
         var batch = new MemoryBatch(M);
-        bool inventoryChanged = !M.Read(save + ActiveInventoryOffset, ItemInventorySize).SequenceEqual(preset.Inventory);
-        bool radialChanged = !M.Read(save + ActiveRadialOffset, RadialSize).SequenceEqual(preset.RadialMenu);
-        if (inventoryChanged) batch.Add(save + ActiveInventoryOffset, preset.Inventory);
-        if (radialChanged) batch.Add(save + ActiveRadialOffset, preset.RadialMenu);
-        batch.Commit();
-        return inventoryChanged || radialChanged;
+        bool changed = AddItemPresetWrites(batch, save, preset);
+        batch.Commit(); return changed;
     }
 
     private async Task VerifyPendingItemsAsync(CancellationToken token)
     {
         if (pendingItems is not { } preset) return;
+        await WaitAsync(() => { ReadState(); return Snapshot.CanAct; }, token, 10, "猎人尚未就绪，无法确认道具应用。 / Hunter is not ready for item verification.");
+        ApplyItemPresetIfChanged(SaveAddress(), preset);
+        await RefreshItemBarAsync(token);
+        preset.BarRefreshed = true;
         var consistent = Stopwatch.StartNew();
         await WaitAsync(() => {
             try {
                 ReadState();
-                if (Snapshot.QuestState != 2 || Snapshot.Loading || !Snapshot.IsActionable) { consistent.Restart(); return false; }
+                if (!Snapshot.CanAct) { consistent.Restart(); return false; }
                 if (ApplyItemPresetIfChanged(SaveAddress(), preset)) { consistent.Restart(); return false; }
                 // Allow several game frames to confirm that late initialization has stopped restoring old data.
                 return consistent.ElapsedMilliseconds >= 150;
             } catch (IOException) { consistent.Restart(); throw; }
-        }, token, 5, "道具套装被游戏反复覆盖，应用未完成。请关闭菜单后重试。 / Item preset could not be verified.", 25);
-        Log($"道具预设 {preset.Slot}「{preset.Name}」已在载入后核对，背包与预设一致；转盘{(preset.LinkRadial ? "同步预设" : "保持原配置")}。");
+        }, token, 5, "道具套装应用未能通过核对，请关闭菜单后重试。 / Item preset could not be verified.", 25);
+        Log($"道具预设 {preset.Slot}「{preset.Name}」已核对 24 个道具槽、16 个弹药槽及键鼠/手柄快捷转盘；游戏道具栏已刷新，转盘{(preset.LinkRadial ? "同步预设" : "保持原配置")}。");
     }
     private long SaveAddress()
     {
@@ -434,7 +432,7 @@ public sealed class GameEngine : IDisposable
         for (int index = 0; index < order.Length; index++) {
             int number = index + 1, recordNumber = order[index] + 1;
             long record = save + recordNumber * (long)ItemStride;
-            if (M.Int32(record + ItemRadialOffset) == 0) continue;
+            if (!ItemRecordExists(save, recordNumber)) continue;
             string name = M.Utf8(record - 0x28, 48);
             if (name.Length == 0) name = $"预设套装{number}";
             result.Add(new(number, name, recordNumber));
@@ -574,7 +572,6 @@ public sealed class GameEngine : IDisposable
     }
     public void Dispose() { memory?.Dispose(); lifetime.Dispose(); operation.Dispose(); }
     private sealed class RestoreScope(Action restore) : IDisposable { public void Dispose() => restore(); }
-    private sealed record ItemPresetSnapshot(int Slot, string Name, byte[] Inventory, byte[] RadialMenu, bool LinkRadial);
 }
 
 internal sealed class MemoryBatch(ProcessMemory memory)

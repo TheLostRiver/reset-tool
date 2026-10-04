@@ -1,6 +1,38 @@
 {
-  "latest": "v0.3.4",
+  "latest": "v0.3.5",
   "versions": [
+    {
+      "tag": "v0.3.5",
+      "name": "霜序 Frostbound v0.3.5",
+      "summary": "修正道具套装写入不完整、快捷转盘没有实际应用的问题。",
+      "date": "2026-10-04T15:06:21Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.5",
+      "changes": [
+        "将道具栏排序与真正的快捷转盘分开处理，应用键鼠和手柄的四页快捷转盘及全部快捷动作。",
+        "写入完整的 24 个道具槽与 16 个弹药槽，修正最后一个弹药槽未写入的问题。",
+        "应用后让游戏在自身更新线程刷新道具栏、查询索引和 HUD，等待刷新完成后核对背包及真正的转盘数据。",
+        "“保留当前转盘”分别保留键鼠与手柄原有配置；道具栏排序仍与所选道具预设同步。",
+        "无任务绑定的“应用”和仅受理模式也执行道具栏刷新与数据核对。",
+        "更新核对日志，刷新未完成或数据不一致时明确报错。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.5/Frostbound.exe",
+          "size": 74384501,
+          "digest": "sha256:f4fbc8d5d4d58697f1f3a64575b8c5ca282ae179ed046e0e13fe08fa986a1e56"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.5/Frostbound-v0.3.5-win-x64.zip",
+          "size": 69282147,
+          "digest": "sha256:1880f47d47ea9f2b7b88d842b7a09d208134b66bebfcf0e938b6fd3c16025efa"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.5/Frostbound-v0.3.5-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:5ac2d704ee4d0fa74c6c35786087e102308d290bd6a54abb8c0b586ce4f9b488"
+        }
+      }
+    },
     {
       "tag": "v0.3.4",
       "name": "霜序 Frostbound v0.3.4",

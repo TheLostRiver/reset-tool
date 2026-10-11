@@ -1,6 +1,37 @@
 {
-  "latest": "v0.3.5",
+  "latest": "v0.3.6",
   "versions": [
+    {
+      "tag": "v0.3.6",
+      "name": "霜序 Frostbound v0.3.6",
+      "summary": "加入「雪花沉睡」快速重启招式异常的排查措施，原因仍待确认。",
+      "date": "2026-10-11T15:52:34Z",
+      "url": "https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.6",
+      "changes": [
+        "正在任务中进出「雪花沉睡」时，快速模式暂走完整返回据点再出发。该任务的重启会慢一些，其他任务保留快速模式。",
+        "特殊怪物阶段读取失败时采用稳定流程，避免把无法读取的状态当成普通阶段。",
+        "缩短淡入淡出前核对支持版本的原值；参数已被其他工具改动时跳过该参数。",
+        "日志增加应用版本、当前/目标任务、请求/实际模式、游戏阶段和淡入淡出加速选项，便于对照。",
+        "完整与精简界面更新快速模式说明；保留原有配置和快捷键。"
+      ],
+      "downloads": {
+        "exe": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.6/Frostbound.exe",
+          "size": 74385040,
+          "digest": "sha256:3e78da1d5e4781f3e9190fc33c73c1ea50baa3f7685f180f75aaec2e80eddd56"
+        },
+        "zip": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.6/Frostbound-v0.3.6-win-x64.zip",
+          "size": 69284279,
+          "digest": "sha256:ed140df2bccbf7f5e9db8f63239a4a4444012918bf3ccfba8fcd32000d2cc043"
+        },
+        "checksums": {
+          "url": "https://github.com/TheLostRiver/reset-tool/releases/download/v0.3.6/Frostbound-v0.3.6-SHA256.txt",
+          "size": 179,
+          "digest": "sha256:b08b6f9092de25fc6a181660830d05684f54f217215e5db0de6b98c1a01bcd2e"
+        }
+      }
+    },
     {
       "tag": "v0.3.5",
       "name": "霜序 Frostbound v0.3.5",

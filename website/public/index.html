@@ -28,7 +28,7 @@
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="/" aria-label="霜序官网首页"><span class="brand-icon"><svg><use href="#snow"/></svg></span><span class="brand-word">霜序<span>FROSTBOUND</span></span></a>
-      <nav aria-label="主导航"><a href="#versions">版本记录 <span class="nav-count" id="version-count">6</span></a><a class="source-link" href="https://github.com/TheLostRiver/reset-tool" target="_blank" rel="noopener">GitHub <svg><use href="#external"/></svg></a></nav>
+      <nav aria-label="主导航"><a href="#versions">版本记录 <span class="nav-count" id="version-count">7</span></a><a class="source-link" href="https://github.com/TheLostRiver/reset-tool" target="_blank" rel="noopener">GitHub <svg><use href="#external"/></svg></a></nav>
     </header>
 
     <main>
@@ -40,9 +40,9 @@
           <div class="platform-tags"><span>Windows x64</span><span>无需安装</span><span class="free-tag">完全免费</span></div>
 
           <div class="download-box">
-            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.5" selected>v0.3.5 · 最新</option><option value="v0.3.4">v0.3.4</option><option value="v0.3.3">v0.3.3</option><option value="v0.3.2">v0.3.2</option><option value="v0.3.1">v0.3.1</option><option value="v0.3.0">v0.3.0</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
+            <div class="download-meta"><span class="section-kicker">下载霜序</span><label class="version-select-label" for="release-select"><select id="release-select" aria-label="选择下载版本"><option value="v0.3.6" selected>v0.3.6 · 最新</option><option value="v0.3.5">v0.3.5</option><option value="v0.3.4">v0.3.4</option><option value="v0.3.3">v0.3.3</option><option value="v0.3.2">v0.3.2</option><option value="v0.3.1">v0.3.1</option><option value="v0.3.0">v0.3.0</option></select><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></label></div>
             <div class="download-buttons"><a class="download-primary" id="download-exe" href="/download/latest?format=exe"><svg><use href="#download"/></svg><span>下载 Windows 版<small id="download-size">EXE · 74.4 MB</small></span><svg class="button-arrow"><use href="#arrow"/></svg></a><a class="download-zip" id="download-zip" href="/download/latest?format=zip" aria-label="下载 ZIP 压缩包">ZIP<svg><use href="#download"/></svg></a></div>
-            <div class="download-foot"><span id="release-date">2026.10.04 发布</span><a id="checksum-link" href="/download/latest?format=checksums">SHA-256 校验</a></div>
+            <div class="download-foot"><span id="release-date">2026.10.11 发布</span><a id="checksum-link" href="/download/latest?format=checksums">SHA-256 校验</a></div>
           </div>
         </div>
 
@@ -61,7 +61,13 @@
         <!-- releases:start -->
         <div class="release-list" id="release-list" aria-live="polite">
           <article class="release-card">
-            <div class="release-heading"><div class="release-number">v0.3.5 <span class="latest-label">最新</span></div><time datetime="2026-10-04T15:06:21Z">2026.10.04</time></div>
+            <div class="release-heading"><div class="release-number">v0.3.6 <span class="latest-label">最新</span></div><time datetime="2026-10-11T15:52:34Z">2026.10.11</time></div>
+            <h3>加入「雪花沉睡」快速重启招式异常的排查措施，原因仍待确认。</h3>
+            <ul><li>正在任务中进出「雪花沉睡」时，快速模式暂走完整返回据点再出发。该任务的重启会慢一些，其他任务保留快速模式。</li><li>特殊怪物阶段读取失败时采用稳定流程，避免把无法读取的状态当成普通阶段。</li><li>缩短淡入淡出前核对支持版本的原值；参数已被其他工具改动时跳过该参数。</li><li>日志增加应用版本、当前/目标任务、请求/实际模式、游戏阶段和淡入淡出加速选项，便于对照。</li><li>完整与精简界面更新快速模式说明；保留原有配置和快捷键。</li></ul>
+            <div class="release-actions"><a href="/download/v0.3.6?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.6" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>
+          </article>
+          <article class="release-card">
+            <div class="release-heading"><div class="release-number">v0.3.5</div><time datetime="2026-10-04T15:06:21Z">2026.10.04</time></div>
             <h3>修正道具套装写入不完整、快捷转盘没有实际应用的问题。</h3>
             <ul><li>将道具栏排序与真正的快捷转盘分开处理，应用键鼠和手柄的四页快捷转盘及全部快捷动作。</li><li>写入完整的 24 个道具槽与 16 个弹药槽，修正最后一个弹药槽未写入的问题。</li><li>应用后让游戏在自身更新线程刷新道具栏、查询索引和 HUD，等待刷新完成后核对背包及真正的转盘数据。</li><li>“保留当前转盘”分别保留键鼠与手柄原有配置；道具栏排序仍与所选道具预设同步。</li><li>无任务绑定的“应用”和仅受理模式也执行道具栏刷新与数据核对。</li><li>更新核对日志，刷新未完成或数据不一致时明确报错。</li></ul>
             <div class="release-actions"><a href="/download/v0.3.5?format=exe">下载此版本 <svg aria-hidden="true"><use href="#download"/></svg></a><a href="https://github.com/TheLostRiver/reset-tool/releases/tag/v0.3.5" target="_blank" rel="noopener">完整说明 <svg aria-hidden="true"><use href="#external"/></svg></a></div>

@@ -15,7 +15,8 @@ try {
     $executablePath = Join-Path $publishDirectory 'Frostbound.exe'
     $readmePath = Join-Path $PSScriptRoot 'README.md'
     $assetsPath = Join-Path $PSScriptRoot 'Assets'
-    Compress-Archive -LiteralPath @($executablePath, $readmePath, $assetsPath) -DestinationPath $packagePath -Force
+    $documentationPath = Join-Path $PSScriptRoot 'docs'
+    Compress-Archive -LiteralPath @($executablePath, $readmePath, $assetsPath, $documentationPath) -DestinationPath $packagePath -Force
     $checksums = foreach ($artifactPath in @($executablePath, $packagePath)) {
         $artifactHash = Get-FileHash -LiteralPath $artifactPath -Algorithm SHA256
         "$($artifactHash.Hash)  $([System.IO.Path]::GetFileName($artifactPath))"

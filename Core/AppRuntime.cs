@@ -33,7 +33,7 @@ public sealed class AppRuntime : IDisposable
         Hotkeys = new(Engine, () => Settings.Hotkeys);
         Hotkeys.Triggered += async restart => { if (restart) await Restart(); else await Reset(); };
         if (Store.RecoveryMessage != null) AddLog("WARN", Store.RecoveryMessage);
-        AddLog("INFO", "霜序已启动，等待游戏进程。 / Frostbound is ready.");
+        AddLog("INFO", $"霜序 {typeof(AppRuntime).Assembly.GetName().Version?.ToString(3)} 已启动，等待游戏进程。 / Frostbound is ready.");
     }
     public void Start() => polling = Task.Run(async () => {
         using var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));

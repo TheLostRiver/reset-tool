@@ -129,8 +129,8 @@ public partial class MainWindow : Window
         var modeLabel = Text(T("重启方式", "RESTART MODE", "リスタート方式"), 9, "#7D98AC"); modeLabel.Margin = new Thickness(0, 14, 0, 9); questPanel.Children.Add(modeLabel);
         var modes = new Grid(); for (int i = 0; i < 5; i++) modes.ColumnDefinitions.Add(new ColumnDefinition { Width = i % 2 == 0 ? new GridLength(1, GridUnitType.Star) : new GridLength(8) });
         var buttons = new List<Button>();
-        string[] titles = [T("稳定重启", "Stable", "安定"), T("快速重启 · 推荐", "Quick · default", "高速・推奨"), T("仅受理", "Accept only", "受注のみ")];
-        string[] hints = [T("返回后再出发", "Return & depart", "帰還して再出発"), T("直接载入任务", "One scene load", "直接ロード"), T("手动选择出发", "Depart manually", "手動で出発")];
+        string[] titles = [T("稳定重启", "Stable", "安定"), T("快速重启", "Quick", "高速"), T("仅受理", "Accept only", "受注のみ")];
+        string[] hints = [T("返回后再出发", "Return & depart", "帰還して再出発"), T("特殊任务自动返回", "Quest safeguards apply", "対象クエストは帰還"), T("手动选择出发", "Depart manually", "手動で出発")];
         void RefreshModes() { for (int i = 0; i < buttons.Count; i++) { bool selected = (int)Runtime.Settings.Mode == i; buttons[i].BorderBrush = Brush(selected ? "#7EBCCF" : "#314452"); buttons[i].Background = Brush(selected ? "#28424F" : "#172630"); } }
         for (int i = 0; i < 3; i++) {
             int index = i; var content = new StackPanel(); content.Children.Add(Text(titles[i], 11, "#C6E3ED", FontWeights.SemiBold)); var hint = Text(hints[i], 8, "#7D9BAE"); hint.Margin = new Thickness(0, 6, 0, 0); content.Children.Add(hint);

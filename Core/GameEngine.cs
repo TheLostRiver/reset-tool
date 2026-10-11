@@ -15,6 +15,7 @@ public sealed partial class GameEngine : IDisposable
     // This profile is bound to the exact Windows x64 executable, including ASLR.
     public const string SupportedHash = "C2EBBBD2C49F216D484E31A5219BED419EB1E5E7D206D02CBA040A3AB79D90EA";
     public const string ProfileName = "Steam x64 · C2EBBBD2";
+    private const int VelkhanaAuditQuest = 66850;
     private const int QuestRoot = 0x500ED30, UiRoot = 0x51C4640, SaveRoot = 0x5013950;
     private const int PlayerRoot = 0x50EC7E8, LocalRoot = 0x50EC750, FoodRoot = 0x500ECA0;
     private const int ItemStride = 0x768;
@@ -119,9 +120,10 @@ public sealed partial class GameEngine : IDisposable
             int phase = M.Int32(M.Pointer(G(QuestRoot)) + 0x38);
             if (phase is not (1 or 2 or 4 or 5 or 13)) throw new InvalidOperationException("当前阶段无法重启任务。 / Cannot restart in the current state.");
             if (mode == RestartMode.AcceptOnly && phase is not (1 or 13)) throw new InvalidOperationException("仅受理模式需要先回到据点或探索。 / Accept-only requires a base or expedition.");
+            mode = RestartModeForQuest(questId, mode, fastFade);
             using var fade = fastFade ? ChangeFade() : null;
-            bool quick = mode == RestartMode.Quick && phase == 2 && CanQuickRestart();
-            if (mode == RestartMode.Stable || mode == RestartMode.Quick && phase == 2 && !quick) {
+            bool quick = mode == RestartMode.Quick && phase == 2;
+            if (mode == RestartMode.Stable) {
                 if (phase is 2 or 4 or 5) {
                     await ResetCoreAsync(token);
                     Log("等待返回据点…");
@@ -134,9 +136,6 @@ public sealed partial class GameEngine : IDisposable
                 }
             } else if (quick) {
                 ResetPlayerForQuickRestart();
-            } else if (phase is 4 or 5) {
-                await ResetCoreAsync(token);
-                await WaitAsync(() => { ReadState(); return !Snapshot.Loading && Snapshot.QuestState is 1 or 13; }, token, 60, "等待结算完成超时。");
             }
             await AcceptCoreAsync(questId, wingdrake, mode == RestartMode.AcceptOnly, token);
         });
@@ -210,17 +209,36 @@ public sealed partial class GameEngine : IDisposable
 
     private bool IsJudgment()
     {
-        try {
-            long monster = M.Follow(G(0x50EC7F0), 0x108);
-            return M.Int32(monster + 0x122C0) == 0x57 && M.Int32(monster + 0x62B8) == 0xB5;
-        } catch (IOException) { return false; }
+        long monster = M.Follow(G(0x50EC7F0), 0x108);
+        return M.Int32(monster + 0x122C0) == 0x57 && M.Int32(monster + 0x62B8) == 0xB5;
     }
     private bool CanQuickRestart()
     {
-        if (IsJudgment()) { Log("当前为特殊战斗阶段，使用稳定重启。 / Special battle phase; using stable restart."); return false; }
+        try {
+            if (IsJudgment()) { Log("当前为特殊战斗阶段，使用稳定重启。 / Special battle phase; using stable restart."); return false; }
+        } catch (IOException) {
+            Log("无法确认怪物当前阶段，使用稳定重启。 / Monster phase unavailable; using stable restart.", "WARN");
+            return false;
+        }
         long player = M.Follow(G(PlayerRoot), 0x110);
         if (M.Float(M.Pointer(player + 0x7670) + 0x64) <= 0) { Log("当前处于力尽状态，使用稳定重启。 / Hunter fainted; using stable restart."); return false; }
         return true;
+    }
+
+    private RestartMode RestartModeForQuest(int targetQuest, RestartMode requested, bool fastFade)
+    {
+        var effective = requested;
+        // A reported conditional attack needs an isolated comparison with a full return/reload.
+        // This is a scoped workaround, not evidence that a monster AI field was corrupted.
+        if (requested == RestartMode.Quick && Snapshot.QuestState == 2 &&
+            (targetQuest == VelkhanaAuditQuest || Snapshot.QuestId == VelkhanaAuditQuest)) {
+            effective = RestartMode.Stable;
+            Log("「雪花沉睡」处于快速重启异常排查中，本次返回据点后再出发。 / Velkhana quest audit: using a full return and departure.", "WARN");
+        }
+        if (effective == RestartMode.Quick && (Snapshot.QuestState is 4 or 5 || Snapshot.QuestState == 2 && !CanQuickRestart()))
+            effective = RestartMode.Stable;
+        Log($"重启上下文：当前任务 {Snapshot.QuestId:D5} → {targetQuest:D5}，请求 {requested}，采用 {effective}，阶段 {Snapshot.QuestState}，淡入淡出加速 {(fastFade ? "开" : "关")}。");
+        return effective;
     }
 
     private async Task AcceptCoreAsync(int questId, bool wingdrake, bool acceptOnly, CancellationToken token)
@@ -282,9 +300,10 @@ public sealed partial class GameEngine : IDisposable
         int targetQuest = departRequested ? (loadout.QuestId > 0 ? loadout.QuestId : M.Int32(M.Follow(G(UiRoot), 0x278, 0x3C8) + 0x2938)) : 0;
         if (departRequested && targetQuest is < 101 or > 67809)
             throw new InvalidOperationException("请先选择任务，或在游戏中正常受理一次任务。 / Select or accept a quest first.");
+        if (departRequested) mode = RestartModeForQuest(targetQuest, mode, fastFade);
         using var fade = departRequested && fastFade ? ChangeFade() : null;
         if (departRequested && Snapshot.QuestState is 2 or 4 or 5) {
-            if (mode == RestartMode.Quick && Snapshot.QuestState == 2 && CanQuickRestart()) ResetPlayerForQuickRestart();
+            if (mode == RestartMode.Quick && Snapshot.QuestState == 2) ResetPlayerForQuickRestart();
             else {
                 await ResetCoreAsync(token);
                 await WaitAsync(() => { ReadState(); return !Snapshot.Loading && Snapshot.QuestState is 1 or 13; }, token, 60, "返回据点超时。");
@@ -495,9 +514,12 @@ public sealed partial class GameEngine : IDisposable
             return new RestoreScope(() => RestoreFadeChanges(temporaryChanges.ToArray()));
         }
         try {
-            foreach (var offset in new[] { 0x2FC6A1C, 0x33F4F58 }) {
-                var address = G(offset); var original = M.Read(address, 4); float value = BitConverter.ToSingle(original);
-                if (value <= 0 || value > 5 || float.IsNaN(value)) continue;
+            foreach (var (offset, expected) in new[] { (0x2FC6A1C, 1.4f), (0x33F4F58, .5f) }) {
+                var address = G(offset); var original = M.Read(address, 4);
+                if (!original.SequenceEqual(BitConverter.GetBytes(expected))) {
+                    Log($"淡入淡出参数 0x{offset:X} 与已适配的原值不同，跳过本参数加速。 / Fade parameter differs from the supported baseline; leaving it unchanged.", "WARN");
+                    continue;
+                }
                 var replacement = BitConverter.GetBytes(.1f);
                 changes.Add((address, original, replacement)); temporaryChanges.Add((address, original, replacement));
                 M.WriteProtectedData(address, replacement);

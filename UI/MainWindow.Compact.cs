@@ -133,7 +133,7 @@ public partial class MainWindow
             new(RestartMode.AcceptOnly, T("仅受理", "Accept only", "受注のみ"))
         }, Runtime.Settings.Mode);
         mode.Height = 34; mode.FontSize = 12;
-        mode.ToolTip = T("稳定重启会先返回据点；雪花沉睡暂按稳定流程；仅受理需要手动出发。", "Stable returns to base first. The Velkhana audit quest uses stable flow. Accept-only leaves departure to you.", "安定モードは先に帰還。調査対象のクエストは安定方式。受注のみは手動で出発。");
+        mode.ToolTip = T("稳定重启会先返回据点；仅受理需要手动出发。", "Stable returns to base first. Accept-only leaves departure to you.", "安定モードは先に帰還。受注のみは手動で出発。");
         mode.SelectionChanged += (_, _) => { if (mode.SelectedValue is RestartMode value) { Runtime.Settings.Mode = value; Runtime.Save(); } };
         var wing = new CheckBox { Content = T("翼龙出发", "Wingdrake", "翼竜開始"), IsChecked = Runtime.Settings.Wingdrake,
             FontSize = 11, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right };

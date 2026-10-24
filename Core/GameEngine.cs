@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -15,9 +16,8 @@ public sealed partial class GameEngine : IDisposable
     // This profile is bound to the exact Windows x64 executable, including ASLR.
     public const string SupportedHash = "C2EBBBD2C49F216D484E31A5219BED419EB1E5E7D206D02CBA040A3AB79D90EA";
     public const string ProfileName = "Steam x64 · C2EBBBD2";
-    private const int VelkhanaAuditQuest = 66850;
     private const int QuestRoot = 0x500ED30, UiRoot = 0x51C4640, SaveRoot = 0x5013950;
-    private const int PlayerRoot = 0x50EC7E8, LocalRoot = 0x50EC750, FoodRoot = 0x500ECA0;
+    private const int PlayerRoot = 0x50EC7E8, LocalRoot = 0x50EC750, FoodRoot = 0x500ECA0, ManagerRoot = 0x5011F58;
     private const int ItemStride = 0x768;
     private const int ItemOrderOffset = 0x37FF8;
     private ProcessMemory? memory;
@@ -80,7 +80,12 @@ public sealed partial class GameEngine : IDisposable
                     Log(e.Message, "ERROR"); return;
                 } catch { candidate?.Dispose(); process.Dispose(); throw; }
             }
+            var previous = Snapshot;
             ReadState();
+            // Operations log their own quest start; this records quests started through the game's own flow.
+            if (previous.State == ConnectionState.Ready && (previous.QuestState != 2 || previous.Loading) &&
+                Snapshot is { QuestState: 2, Loading: false, IsActionable: true })
+                Log($"状态指纹（任务开始·未经工具出发）：{RestartFingerprint()}");
         } catch (IOException e) {
             if (memory?.IsAlive == true) Publish(new(ConnectionState.Reading, memory.Process.Id, memory.BaseAddress,
                 "等待游戏载入猎人存档。 / Waiting for a hunter save.", Build: ProfileName));
@@ -197,7 +202,8 @@ public sealed partial class GameEngine : IDisposable
         long health = M.Pointer(player + 0x7670);
         if (M.Float(health + 0x64) <= 0) throw new InvalidOperationException("力尽时请使用稳定重启。 / Use stable restart while fainted.");
         long motion = M.Pointer(player + 0x7698), mantle = M.Pointer(player + 0x7D60);
-        long manager = M.Pointer(G(0x5011F58));
+        long manager = M.Pointer(G(ManagerRoot));
+        Log($"状态指纹（快速重启写入前）：{RestartFingerprint()}");
         var batch = new MemoryBatch(M);
         batch.Int32(manager + 0x291C, 0);
         batch.Int32(player + 0x62B0, 1); batch.Int32(player + 0x62C8, 0); batch.Int32(player + 0x62C4, 1);
@@ -205,6 +211,25 @@ public sealed partial class GameEngine : IDisposable
         batch.Float(mantle + 0x5EC, 5f);
         batch.Commit();
         Log("快速重启已准备；特殊战斗阶段会自动使用稳定流程。");
+    }
+
+    // Read-only values of restart-flow writes whose game meaning is not verified. Comparing tool-started
+    // and normally started quests in the same session shows whether any of these writes persists.
+    private string RestartFingerprint()
+    {
+        string Value(Func<string> read) { try { return read(); } catch (IOException) { return "-"; } }
+        string Int(Func<long> address) => Value(() => M.Int32(address()).ToString(CultureInfo.InvariantCulture));
+        string Real(Func<long> address) => Value(() => M.Float(address()).ToString("0.###", CultureInfo.InvariantCulture));
+        long Quest() => M.Pointer(G(QuestRoot));
+        long Player() => M.Follow(G(PlayerRoot), 0x110);
+        return string.Join("，",
+            $"任务 {Int(() => M.Pointer(M.Follow(G(UiRoot), 0x278) + 0x3C8) + 0x2938)}",
+            $"阶段 {Int(() => Quest() + 0x38)}/{Int(() => Quest() + 0x58)}",
+            $"M291C={Real(() => M.Pointer(G(ManagerRoot)) + 0x291C)}",
+            $"Q17374={Int(() => Quest() + 0x17374)}", $"Q17378={Int(() => Quest() + 0x17378)}", $"Q68={Int(() => Quest() + 0x68)}",
+            $"P62B0={Int(() => Player() + 0x62B0)}", $"P62C4={Int(() => Player() + 0x62C4)}", $"P62C8={Int(() => Player() + 0x62C8)}",
+            $"动作B4={Int(() => M.Pointer(Player() + 0x7698) + 0xB4)}", $"动作E4={Int(() => M.Pointer(Player() + 0x7698) + 0xE4)}",
+            $"衣装5EC={Real(() => M.Pointer(Player() + 0x7D60) + 0x5EC)}");
     }
 
     private bool IsJudgment()
@@ -228,13 +253,6 @@ public sealed partial class GameEngine : IDisposable
     private RestartMode RestartModeForQuest(int targetQuest, RestartMode requested, bool fastFade)
     {
         var effective = requested;
-        // A reported conditional attack needs an isolated comparison with a full return/reload.
-        // This is a scoped workaround, not evidence that a monster AI field was corrupted.
-        if (requested == RestartMode.Quick && Snapshot.QuestState == 2 &&
-            (targetQuest == VelkhanaAuditQuest || Snapshot.QuestId == VelkhanaAuditQuest)) {
-            effective = RestartMode.Stable;
-            Log("「雪花沉睡」处于快速重启异常排查中，本次返回据点后再出发。 / Velkhana quest audit: using a full return and departure.", "WARN");
-        }
         if (effective == RestartMode.Quick && (Snapshot.QuestState is 4 or 5 || Snapshot.QuestState == 2 && !CanQuickRestart()))
             effective = RestartMode.Stable;
         Log($"重启上下文：当前任务 {Snapshot.QuestId:D5} → {targetQuest:D5}，请求 {requested}，采用 {effective}，阶段 {Snapshot.QuestState}，淡入淡出加速 {(fastFade ? "开" : "关")}。");
@@ -263,10 +281,11 @@ public sealed partial class GameEngine : IDisposable
         }, token, 20, "任务受理超时，请确认该任务在当前存档中可用。 / Quest acceptance timed out.");
         if (acceptOnly) { await VerifyPendingItemsAsync(token); Log("任务已受理，等待手动出发。"); return; }
         depart = M.Follow(G(UiRoot), 0x278, 0x3D0);
+        Log($"状态指纹（工具出发前）：{RestartFingerprint()}");
         var readyFlags = M.Read(depart + 0x2298, 4);
         readyFlags[0] = (byte)((readyFlags[0] & 0xFA) | 0x0A); readyFlags[3] &= 0x0F;
         M.Write(depart + 0x2298, readyFlags);
-        M.Float(M.Pointer(G(0x5011F58)) + 0x291C, 1f);
+        M.Float(M.Pointer(G(ManagerRoot)) + 0x291C, 1f);
         long board = M.Follow(G(UiRoot), 0x278, 0x3B8);
         int mapId = M.Int32(M.Pointer(G(QuestRoot)) + 0x291B0);
         if (mapId is >= 101 and <= 109 && mapId is not (106 or 107)) M.Int32(board + 0x28F8, wingdrake ? 0 : 1);
@@ -281,6 +300,7 @@ public sealed partial class GameEngine : IDisposable
         Log("任务载入已开始，等待猎人就绪。");
         await WaitAsync(() => { ReadState(); return Snapshot.QuestState == 2 && !Snapshot.Loading && Snapshot.IsActionable; },
             token, 90, "任务出发超时。 / Quest departure timed out.", 25);
+        Log($"状态指纹（任务开始·工具出发）：{RestartFingerprint()}");
         await VerifyPendingItemsAsync(token);
         Log($"任务 {questId:D5} 已出发。");
     }
